@@ -76,13 +76,14 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				wrapper.setValue("CubItemP",CubagemItem);
 				wrapper.setValue("QtdVolIP",BigDecimal.ZERO);
 				wrapper.setValue("QtdPesItemP",BigInteger.ZERO);
-				
+				wrapper.setValue("ValorAjustado", valorAdesivo);
 				
 				
 				
 				totalItem = valorAdesivo.multiply(new BigDecimal(qtdAdesivo));
 				totalProjeto = totalItem.add(totalProjeto);
 				wrapper.setValue("PreTotalP", totalItem);
+				wrapper.setValue("PrecoTotalExp", totalItem);
 				PersistEngine.persist(wrapper.getObject());
 
 				itens.add(itemObject);
@@ -393,10 +394,11 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		
 		
 	}
-   // Incluido por Gecinei BigDecimal Cubagem, volume,peso
+   // Incluido por Gecinei BigDecimal Cubagem, volume,peso,total item EXP
 	private BigDecimal addItenToList(List<NeoObject> lista, String descricao, Long quantidade, String unidade,
 			String codigo, BigDecimal preco, String ferramenta, BigDecimal tamanho,BigDecimal cubagem, Long volume,BigDecimal peso) {
 		BigDecimal totalItem = BigDecimal.ZERO;
+		BigDecimal totalItemEXP = BigDecimal.ZERO;
 		
 
 		if (quantidade != null && quantidade > 0) {
@@ -412,6 +414,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			wrapper.setValue("unidade", unidade);
 			wrapper.setValue("CodItemP", codigo);
 			wrapper.setValue("PreUniP", preco);
+			wrapper.setValue("ValorAjustado", preco);
 			wrapper.setValue("FeritemPr", ferramenta);
 			wrapper.setValue("TamanPr", tamanho);
 			wrapper.setValue("CubItemP", cubagem);
@@ -421,6 +424,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			if (preco != null) {
 				totalItem = preco.multiply(new BigDecimal(quantidade));
 				wrapper.setValue("PreTotalP", totalItem);
+				totalItemEXP = preco.multiply(new BigDecimal(quantidade));
+				wrapper.setValue("PrecoTotalExp", totalItemEXP);
 			}
 			
 			

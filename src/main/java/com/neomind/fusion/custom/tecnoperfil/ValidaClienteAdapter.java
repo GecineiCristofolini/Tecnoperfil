@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import javax.mail.internet.InternetAddress;
+import javax.mail.internet.InternetAddress;
+
+
 
 import org.json.simple.JSONArray;
 
@@ -19,6 +21,8 @@ import com.neomind.fusion.workflow.Activity;
 import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.exception.WorkflowException;
+
+
 
 public class ValidaClienteAdapter implements AdapterInterface {
 
@@ -71,14 +75,14 @@ public class ValidaClienteAdapter implements AdapterInterface {
 				EntityWrapper mailWrapper = new EntityWrapper(emailObject);
 				String email = mailWrapper.findGenericValue("Email");
 
-				//try {
-					//InternetAddress emailAddr = new InternetAddress(email);
-					//emailAddr.validate();
+			    try {
+					InternetAddress emailAddr = new InternetAddress(email);
+					emailAddr.validate();
 
 					company.getEmails().add(email);
-				//} catch (Exception e) {
-				//	email = null;
-				//}
+				} catch (Exception e) {
+					email = null;
+				}
 			}
 		}
 

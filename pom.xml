@@ -8,12 +8,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>fusion-Tecnoperfil</name>
+    <name>fusionTecnoperfil</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <fusion.version>3.15.14</fusion.version>
+        <fusion.version>3.17.4</fusion.version>
     </properties>
     <dependencies>
         <dependency>
@@ -119,7 +119,7 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <finalName>fusion-Tecnoperfil</finalName>
+        <finalName>fusionTecnoperfil</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

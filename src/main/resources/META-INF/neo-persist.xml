@@ -52,7 +52,7 @@
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="neo@123" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/fusion_homologacao" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://192.168.1.27:3306/fusion_desenvolvimento" />
             <property name="hibernate.connection.isolation" value="1" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.ejb.naming_strategy" value="com.neomind.fusion.persist.schema.MySQLSafeNamingStrategy" />
