@@ -144,6 +144,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		Long qtdSuporteColetor = projeto.findGenericValue("QtdToSuCo");
 		Long qtdInjetor = projeto.findGenericValue("QtdToInj");
 		Long qtdPresilhas = projeto.findGenericValue("QtdToPres");
+		Long qtdSuporteflauta = projeto.findGenericValue("QtdToSupFla");
 
 		// Barra1A
 		// Incluido POr Gecinei CubLAB1,QtdVLAB1,QtdPLAB1
@@ -381,6 +382,18 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescPres"), qtdPresilhas,
 					unidade, "", getPrecofromObject(projeto.findGenericValue("PreUPres")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubPre"),projeto.findGenericValue("QtdVPre"),projeto.findGenericValue("QtdPPre")));
+			
+			
+		}
+		
+		// Suporte Coletor Flauta
+		// Incluido por gecinei 29/0/2023
+		
+		if (validateLong(qtdSuporteflauta)) {
+			String ferramenta = projeto.findGenericValue("FerSupFla");
+			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescrSupFla"), qtdSuporteflauta,
+					unidade, "", getPrecofromObject(projeto.findGenericValue("PreSupFla")), ferramenta, BigDecimal.ZERO,
+					projeto.findGenericValue("CubSupFla"),projeto.findGenericValue("QtdVolSupFla"),projeto.findGenericValue("QtdPesoSufla")));
 			
 			
 		}
