@@ -20,7 +20,9 @@ public class TecnoperfilExportaRelatorioPedido extends StringConverter {
 		EntityWrapper ew = new EntityWrapper((NeoBaseEntity<Long>)field.getForm().getObject());
 		String pedido = ew.findGenericValue("NumPed");
 		String url = PortalUtil.getBaseURL();
-		String botao = "<script>function opnreport(){"
+		String botao = "<script>" 
+				
+				+ "function opnreport(){"
 				+ "var url = '"
 				+ url
 				+ "servlet/TecnoperfilServletUtils?action=geraRelatorioPedido&pedido="
