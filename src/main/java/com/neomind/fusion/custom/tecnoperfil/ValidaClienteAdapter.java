@@ -50,6 +50,9 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		String logradouro = wrapper.findGenericValue("Lograd.Abrevi");
 		String endereco = wrapper.findGenericValue("Endere");
 		Long numero = wrapper.findGenericValue("Numero");
+		if (numero == null) {
+			numero = 0L;
+		}
 
 		String categoria = wrapper.findGenericValue("Catego.descr_gr_empresa");
 		StringBuilder rua = new StringBuilder();
@@ -94,10 +97,14 @@ public class ValidaClienteAdapter implements AdapterInterface {
 				Integer indNacional = telWrapper.findGenericValue("TipTelefone");
 
 				if (indNacional == 2) {
-					number = telWrapper.findGenericValue("NumInter");
+					String numerointernacional;
+					numerointernacional = telWrapper.findGenericValue("NumeroInternacional");
+					String ddi;
+					ddi = telWrapper.findGenericValue("DDI");
+					company.getTelefones().add(ddi + numerointernacional);
 				} else {
 					number = telWrapper.findGenericValue("Numero");
-					company.getTelefones().add(number.toString());
+					company.getTelefones().add("0" + number.toString());
 
 					if (isWhatsApp) {
 						company.getTelefones().add("55" + number.toString());
