@@ -40,8 +40,8 @@ public class ApiViaCep extends StringConverter
 				+ "                     const cnpj = $(\"#var_CNPJ__\").val();"
 				+ "                     const cpf = $(\"#var_CPF__\").val();"
 				+ "                     const tipopessoa = $(\"#var_Pessoa__\").val();"
-				+ "                     const razaosocial = $(\"#var_RazSoc__\").val();"
-				+ "                     const nomfan = $(\"#var_NomFan__\").val();"
+				+ "                     const razaosocial = $(\"#var_RazSoc__\").val().replaceAll('&','?');"
+				+ "                     const nomfan = $(\"#var_NomFan__\").val().replaceAll('&','?');"
 				+ "                     const numero = $(\"#var_Numero__\").val();"
 				+ "                     const complemento = $(\"#var_Comple__\").val();"
 				+ "						const cadId = $(\"#hid_root\").val();"
@@ -71,6 +71,8 @@ public class ApiViaCep extends StringConverter
 	
 	public static String buscarCep(String cep) {
 		String json = null;
+		
+		
 
 		try {
 			URL url = new URL("http://viacep.com.br/ws/" + cep + "/json");
