@@ -28,6 +28,7 @@ public class DescontoAvistaAdapter implements AdapterInterface {
 
 			List<NeoBaseEntity> projetos = arg1.findGenericValue("ItensProH");
 			List<NeoBaseEntity> itensAvulsos = arg1.findGenericValue("IteAvProH");
+		
 
 			for (NeoBaseEntity projeto : projetos) {
 				BigDecimal totalProjeto = BigDecimal.ZERO;

@@ -79,6 +79,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				wrapper.setValue("ValorAjustado", valorAdesivo);
 				
 				
+			
 				
 				totalItem = valorAdesivo.multiply(new BigDecimal(qtdAdesivo));
 				totalProjeto = totalItem.add(totalProjeto);
