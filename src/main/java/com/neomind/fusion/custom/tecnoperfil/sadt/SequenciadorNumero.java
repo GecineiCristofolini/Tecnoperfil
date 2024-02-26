@@ -10,7 +10,7 @@ import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.adapter.AdapterUtils;
 
-// Esta Classe serve Para Sequenciar o numero 
+// Esta Classe serve Para Sequenciar o numero do SADT SOLCITAÇÃO PARA ANALISE DE DESENHO TECNICO
 
 public class SequenciadorNumero implements AdapterInterface
 {
@@ -25,11 +25,11 @@ public class SequenciadorNumero implements AdapterInterface
 			
 			    String seq = arg1.findGenericValue("Numero");
 			
-				// Primeiror acha a tabela que esta o sequenciador
+				// Primeiror acha a tabela que esta o sequenciador formulario SADTSequenciadorNumero
 				List<NeoObject> sequenciador = PersistEngine
 						.getObjects(AdapterUtils.getEntityClass("SADTSequenciadorNumero"));
 				
-				
+			  	
 
 				for (NeoObject neosec : sequenciador)
 				{
@@ -45,6 +45,7 @@ public class SequenciadorNumero implements AdapterInterface
 					PersistEngine.persist(sequenciador);
 				}
 				
+				// Seta o numero para o formulario Solicitação Para Analise de Desenho Técnico - SADT
 				arg1.setValue("Numero", seq);
 				
 				
