@@ -14,101 +14,168 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.neomind.fusion.eform.converter.BigDecimalConverter;
 
-public class LeitorXLSX {
+public class LeitorXLSX 
+{
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
+	
+	/**
+	 * @param <E>
+	 * @param args the command line arguments
+	 */
+	public static <E> void main(String[] args)
+	{
 
-        FileInputStream fisPlanilha = null;
-        
-        List<String> Lista = new ArrayList<String>();
-        
+		FileInputStream fisPlanilha = null;
 
-        try {
-            File file = new File("C:\\Java11\\TesteTI.xlsx");
-            fisPlanilha = new FileInputStream(file);
+		
 
-            //cria um workbook = planilha toda com todas as abas
-            XSSFWorkbook workbook = new XSSFWorkbook(fisPlanilha);
-            
+		try
+		{
+			File file = new File("C:\\Java11\\Leroy.xlsx");
+			fisPlanilha = new FileInputStream(file);
 
-            //recuperamos apenas a primeira aba ou primeira planilha
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            
+			//cria um workbook = planilha toda com todas as abas
+			XSSFWorkbook workbook = new XSSFWorkbook(fisPlanilha);
 
-            //retorna todas as linhas da planilha 0 (aba 1)
-            Iterator<Row> rowIterator = sheet.iterator();
+			//recuperamos apenas a primeira aba ou primeira planilha
+			XSSFSheet sheet = workbook.getSheetAt(0);
 
-            //varre todas as linhas da planilha 0
-            while (rowIterator.hasNext()) {
+			//retorna todas as linhas da planilha 0 (aba 1)
+			Iterator<Row> rowIterator = sheet.iterator();
+						//varre todas as linhas da planilha 0
+			while (rowIterator.hasNext())
+			{
+             
+				
 
-                //recebe cada linha da planilha
-                Row row = rowIterator.next();
+				
+				
+				//recebe cada linha da planilha
+				Row row = rowIterator.next();
 
-                //pegamos todas as celulas desta linha
-                Iterator<Cell> cellIterator = row.iterator();
+				//pegamos todas as celulas desta linha
+				Iterator<Cell> cellIterator = row.iterator();
 
-                //varremos todas as celulas da linha atual
-                
-                while (cellIterator.hasNext()) {
+				//varremos todas as celulas da linha atual
+				
+				List<String> listar = new ArrayList<String>();
+				
 
-                    //criamos uma celula
-                    Cell cell = cellIterator.next();
-                    
-                    System.out.println(cell.toString());
-                   
-                 
-                   
-                    
-                   if(cell.getRowIndex() >3){
-                   
-                	   
-                    
-                    switch (cell.getColumnIndex()) {
-                    	
-                        case 0: 
-                        	
-                            System.out.print(cell.getStringCellValue());
-                            
-                            break;
-                            
+				while (cellIterator.hasNext())
+				{
+					
+					//criamos uma celula
+					Cell cell = cellIterator.next();
 
-                        case 1: 
-                        	
-                            System.out.print(cell.getStringCellValue());
-                            
-                            break;
-                        
-                            
-                        } 
-                       
-                   }
+					if (cell.getRowIndex() > 3)
+					{
+						
+						switch (cell.getColumnIndex())
+						{
 
-                        //case 1:
-                          //  System.out.println(cell.getStringCellValue());
-                          //  break;
-                            
-                       
-                  
+							case 0:
 
-                }
-            }
+								listar.add(cell.getStringCellValue());
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                fisPlanilha.close();
-            } catch (IOException ex) {
-                Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+								break;
 
-    }
+							case 1:
+
+								listar.add(cell.getStringCellValue());
+
+								break;
+
+							case 2:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;
+							case 4:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;
+								
+							case 5:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;	
+							case 6:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;	
+							case 7:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;
+							case 8:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;	
+							case 9:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;	
+							case 10:
+
+								listar.add(cell.getStringCellValue());
+								
+								break;	
+							case 11:
+                                double valortotalpedido = cell.getNumericCellValue();
+                                
+                               String textvalortotalpedido = (Double.toString(valortotalpedido));
+								listar.add(textvalortotalpedido);
+								System.out.println(listar.toString());
+								break;	
+							
+								
+									
+						}
+					
+						
+						
+					}
+
+					
+				}
+				
+				
+			}
+			
+			
+
+		}
+		catch (FileNotFoundException ex)
+		{
+			Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		finally
+		{
+			try
+			{
+				fisPlanilha.close();
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(LeitorXLSX.class.getName()).log(Level.SEVERE, null, ex);
+			}
+				
+		}
+		
+	
+    
+	}
 
 }
