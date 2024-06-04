@@ -29,7 +29,7 @@ public class TesteBitrix {
 			CommentRequest cr = new CommentRequest();
 			cr.setComment("TESTE - PEDIDO - PDF");
 			cr.setEntityType("DEAL");
-			cr.setEnityId("21782");
+			cr.setEnityId("97455");
 			cr.setFile(new File("C:/amz/Relatorio.pdf"));
 			
 			c.createComment(cr);

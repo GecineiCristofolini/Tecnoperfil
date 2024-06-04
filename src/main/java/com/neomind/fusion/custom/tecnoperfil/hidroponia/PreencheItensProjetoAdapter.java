@@ -311,7 +311,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		// Incluido POr Gecinei CubTRN,QtdVTRN,QtdPTRN
 		if (validateLong(qtdTravessaNova)) {
 			String ferramenta = projeto.findGenericValue("FerTravno");
-			BigDecimal tamanho = projeto.findGenericValue("LargHi");
+			BigDecimal tamanho = projeto.findGenericValue("CalculoLargura");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescTrCN"), qtdTravessaNova,
 					unidade, "", projeto.findGenericValue("PreuTraN"), ferramenta, tamanho,
 					projeto.findGenericValue("CubTRN"),projeto.findGenericValue("QtdVTRN"),projeto.findGenericValue("QtdPTRN")));
@@ -322,7 +322,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		// Incluido POr Gecinei CubTRA,QtdVTRA,QtdPTRA
 		if (validateLong(qtdTravessaAntiga)) {
 			String ferramenta = projeto.findGenericValue("FerTravve");
-			BigDecimal tamanho = projeto.findGenericValue("LargHi");
+			BigDecimal tamanho = projeto.findGenericValue("CalculoLargura");
 			totalProjeto = totalProjeto
 					.add(addItenToList(lista, projeto.findGenericValue("DescTrCoA"), qtdTravessaAntiga, unidade, "",
 							projeto.findGenericValue("PrUTraA"), ferramenta, tamanho,
