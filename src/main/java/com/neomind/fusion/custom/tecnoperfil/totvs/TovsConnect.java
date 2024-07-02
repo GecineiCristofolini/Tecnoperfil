@@ -22,42 +22,31 @@ public class TovsConnect
 	public static void main(String[] args) throws Exception
 	{
 		CadCliente cadcli = new CadCliente();
+        
+		
+		
 
-		cadcli.setRazaosocial("Gecinei Cristofolini");
-		cadcli.setNomefantasia("Cinei");
-		cadcli.setIdade("34 Anos");
-		Item it = new Item();
-		it.setCodigo("12334");
-		it.setVersao("");
-		Item it2 = new Item();
-		it2.setCodigo("598");
-		it2.setVersao("");
+		
 
-		List<Item> listitem = new ArrayList<Item>();
-		listitem.add(it);
-		listitem.add(it2);
-
-		cadcli.setItem(listitem);
-
-		String jsoncli = new Gson().toJson(cadcli);
+		String  jsoncli = new Gson().toJson(cadcli);
 
 		System.out.println(jsoncli.toString());
 		
-		HttpClient httpclient = HttpClients.createDefault();
-		
-		String url = "http://viacep.com.br/ws/89224005/json";
-				
-		HttpPost httppost = new HttpPost(url.toString());
-		
-		HttpResponse response = httpclient.execute(httppost);
-		
-		HttpEntity entity = response.getEntity();
-		String result = Conversor.convertStreamToString(entity.getContent());
-		JSONObject json = Conversor.stringToJson(result);
-		
+//		HttpClient httpclient = HttpClients.createDefault();
+//		
+//		String url = "http://viacep.com.br/ws/89224005/json";
+//				
+//		HttpPost httppost = new HttpPost(url.toString());
+//		
+//		HttpResponse response = httpclient.execute(httppost);
+//		
+//		HttpEntity entity = response.getEntity();
+//		String result = Conversor.convertStreamToString(entity.getContent());
+//		JSONObject json = Conversor.stringToJson(result);
+//		
 
 		
-		System.out.println(json.toJSONString());
+		//System.out.println(json.toJSONString());
 
 	}
 }

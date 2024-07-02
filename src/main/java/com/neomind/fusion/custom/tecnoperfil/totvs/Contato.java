@@ -1,0 +1,50 @@
+package com.neomind.fusion.custom.tecnoperfil.totvs;
+
+public class Contato
+{
+	private String nome;
+	private String dd;
+	private String telefone;
+	private String email;
+
+	public String getNome()
+	{
+		return nome;
+	}
+
+	public String getDd()
+	{
+		return dd;
+	}
+
+	public String getTelefone()
+	{
+		return telefone;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setNome(String nome)
+	{
+		this.nome = nome;
+	}
+
+	public void setDd(String dd)
+	{
+		this.dd = dd;
+	}
+
+	public void setTelefone(String telefone)
+	{
+		this.telefone = telefone;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+}

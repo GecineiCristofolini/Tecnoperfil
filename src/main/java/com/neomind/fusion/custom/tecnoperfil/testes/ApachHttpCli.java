@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.neomind.fusion.custom.tecnoperfil.totvs.CadCliente;
-import com.neomind.fusion.custom.tecnoperfil.totvs.Item;
+import com.neomind.fusion.custom.tecnoperfil.totvs.Contato;
 
 import java.io.IOException;
 import java.net.URL;
@@ -105,14 +105,14 @@ public class ApachHttpCli
 		cadcli.setRazaosocial("Gecinei Cristofolini");
 		cadcli.setNomefantasia("Cinei");
 		cadcli.setIdade("34 Anos");
-		Item it = new Item();
+		Contato it = new Contato();
 		it.setCodigo("12334");
 		it.setVersao("");
-		Item it2 = new Item();
+		Contato it2 = new Contato();
 		it2.setCodigo("598");
 		it2.setVersao("");
 
-		List<Item> listitem = new ArrayList<Item>();
+		List<Contato> listitem = new ArrayList<Contato>();
 		listitem.add(it);
 		listitem.add(it2);
 
