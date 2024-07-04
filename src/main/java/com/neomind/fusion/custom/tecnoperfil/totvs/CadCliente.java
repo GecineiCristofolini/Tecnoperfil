@@ -37,6 +37,7 @@ public class CadCliente
 	private String tipoFrete;
 	private String contribuinte;
 	private String documentoEstrageiro;
+	
 	private List<Contato> contatos =  new ArrayList<Contato>();
 
 	public String getCgc()
@@ -348,5 +349,17 @@ public class CadCliente
 	{
 		this.documentoEstrageiro = documentoEstrageiro;
 	}
+
+	public void setContatos(List<Contato> contatos)
+	{
+		this.contatos = contatos;
+	}
+
+	public List<Contato> getContatos()
+	{
+		return contatos;
+	}
+	
+	
 
 }

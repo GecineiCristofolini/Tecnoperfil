@@ -102,22 +102,22 @@ public class ApachHttpCli
 		
 		CadCliente cadcli = new CadCliente();
 
-		cadcli.setRazaosocial("Gecinei Cristofolini");
-		cadcli.setNomefantasia("Cinei");
-		cadcli.setIdade("34 Anos");
-		Contato it = new Contato();
-		it.setCodigo("12334");
-		it.setVersao("");
-		Contato it2 = new Contato();
-		it2.setCodigo("598");
-		it2.setVersao("");
-
-		List<Contato> listitem = new ArrayList<Contato>();
-		listitem.add(it);
-		listitem.add(it2);
-
-		cadcli.setItem(listitem);
-		
+//		cadcli.setRazaosocial("Gecinei Cristofolini");
+//		cadcli.setNomefantasia("Cinei");
+//		cadcli.setIdade("34 Anos");
+//		Contato it = new Contato();
+//		it.setCodigo("12334");
+//		it.setVersao("");
+//		Contato it2 = new Contato();
+//		it2.setCodigo("598");
+//		it2.setVersao("");
+//
+//		List<Contato> listitem = new ArrayList<Contato>();
+//		listitem.add(it);
+//		listitem.add(it2);
+//
+//		cadcli.setItem(listitem);
+//		
 
 		String jsoncli = new Gson().toJson(cadcli);
 		
