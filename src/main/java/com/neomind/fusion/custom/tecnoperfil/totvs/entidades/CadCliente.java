@@ -1,4 +1,4 @@
-package com.neomind.fusion.custom.tecnoperfil.totvs;
+package com.neomind.fusion.custom.tecnoperfil.totvs.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +37,23 @@ public class CadCliente
 	private String tipoFrete;
 	private String contribuinte;
 	private String documentoEstrageiro;
+	private String optanteSimplesNacional;
+	private String grupoclientes;
+	private String descontosuframa;
+	private String codpaisbacen;
+	private String ddi;
+	private String telefoneinternacional;
+	private String segmento1;
+	private String segmento2;
+	private String segmento3;
+	private String segmento4;
+	private String segmento5;
+	private String status;
+	private String codvendedor;
+	private String contacontabil;
+	private String naturezafinanceira;
+	private String cepentrega;
+	private String codigomunicipiosuframa;
 	
 	private List<Contato> contatos =  new ArrayList<Contato>();
 
@@ -195,6 +212,76 @@ public class CadCliente
 		return documentoEstrageiro;
 	}
 
+	public String getOptanteSimplesNacional()
+	{
+		return optanteSimplesNacional;
+	}
+
+	public String getGrupoclientes()
+	{
+		return grupoclientes;
+	}
+
+	public String getDescontosuframa()
+	{
+		return descontosuframa;
+	}
+
+	public String getCodpaisbacen()
+	{
+		return codpaisbacen;
+	}
+
+	public String getDdi()
+	{
+		return ddi;
+	}
+
+	public String getTelefoneinternacional()
+	{
+		return telefoneinternacional;
+	}
+
+	public String getSegmento1()
+	{
+		return segmento1;
+	}
+
+	public String getSegmento2()
+	{
+		return segmento2;
+	}
+
+	public String getSegmento3()
+	{
+		return segmento3;
+	}
+
+	public String getSegmento4()
+	{
+		return segmento4;
+	}
+
+	public String getSegmento5()
+	{
+		return segmento5;
+	}
+
+	public String getStatus()
+	{
+		return status;
+	}
+
+	public String getCodvendedor()
+	{
+		return codvendedor;
+	}
+
+	public List<Contato> getContatos()
+	{
+		return contatos;
+	}
+
 	public void setCgc(String cgc)
 	{
 		this.cgc = cgc;
@@ -350,14 +437,114 @@ public class CadCliente
 		this.documentoEstrageiro = documentoEstrageiro;
 	}
 
+	public void setOptanteSimplesNacional(String optanteSimplesNacional)
+	{
+		this.optanteSimplesNacional = optanteSimplesNacional;
+	}
+
+	public void setGrupoclientes(String grupoclientes)
+	{
+		this.grupoclientes = grupoclientes;
+	}
+
+	public void setDescontosuframa(String descontosuframa)
+	{
+		this.descontosuframa = descontosuframa;
+	}
+
+	public void setCodpaisbacen(String codpaisbacen)
+	{
+		this.codpaisbacen = codpaisbacen;
+	}
+
+	public void setDdi(String ddi)
+	{
+		this.ddi = ddi;
+	}
+
+	public void setTelefoneinternacional(String telefoneinternacional)
+	{
+		this.telefoneinternacional = telefoneinternacional;
+	}
+
+	public void setSegmento1(String segmento1)
+	{
+		this.segmento1 = segmento1;
+	}
+
+	public void setSegmento2(String segmento2)
+	{
+		this.segmento2 = segmento2;
+	}
+
+	public void setSegmento3(String segmento3)
+	{
+		this.segmento3 = segmento3;
+	}
+
+	public void setSegmento4(String segmento4)
+	{
+		this.segmento4 = segmento4;
+	}
+
+	public void setSegmento5(String segmento5)
+	{
+		this.segmento5 = segmento5;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+
+	public void setCodvendedor(String codvendedor)
+	{
+		this.codvendedor = codvendedor;
+	}
+
 	public void setContatos(List<Contato> contatos)
 	{
 		this.contatos = contatos;
 	}
 
-	public List<Contato> getContatos()
+	public String getContacontabil()
 	{
-		return contatos;
+		return contacontabil;
+	}
+
+	public String getNaturezafinanceira()
+	{
+		return naturezafinanceira;
+	}
+
+	public void setContacontabil(String contacontabil)
+	{
+		this.contacontabil = contacontabil;
+	}
+
+	public void setNaturezafinanceira(String naturezafinanceira)
+	{
+		this.naturezafinanceira = naturezafinanceira;
+	}
+
+	public String getCepentrega()
+	{
+		return cepentrega;
+	}
+
+	public void setCepentrega(String cepentrega)
+	{
+		this.cepentrega = cepentrega;
+	}
+
+	public String getCodigomunicipiosuframa()
+	{
+		return codigomunicipiosuframa;
+	}
+
+	public void setCodigomunicipiosuframa(String codigomunicipiosuframa)
+	{
+		this.codigomunicipiosuframa = codigomunicipiosuframa;
 	}
 	
 	

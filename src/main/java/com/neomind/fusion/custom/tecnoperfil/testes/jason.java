@@ -6,8 +6,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 
-import com.neomind.fusion.custom.tecnoperfil.totvs.CadCliente;
-import com.neomind.fusion.custom.tecnoperfil.totvs.Contato;
+import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.CadCliente;
+import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.Contato;
 
 public class jason
 {

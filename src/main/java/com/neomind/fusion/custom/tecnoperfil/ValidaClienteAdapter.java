@@ -36,8 +36,9 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		razaoSocial = codigoKugel.concat(" - ").concat(razaoSocial);
 		String nomeFantasia = wrapper.findGenericValue("NomFan");
 
-		String cidade = wrapper.findGenericValue("Munici.nome_municipio");
-		String estado = wrapper.findGenericValue("Estado.sigla_uf");
+		String cidade = wrapper.findGenericValue("MunicipioTovs.cc2_mun");
+		
+		String estado = wrapper.findGenericValue("EstadoTotvs.x5_chave");
 		String bairro = wrapper.findGenericValue("Bairro");
 		String complemento = wrapper.findGenericValue("Comple");
 		String cep = wrapper.findGenericValue("CEP");
@@ -48,13 +49,13 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		 * = wrapper.findGenericValue("novocliente.TelefoneWhats");
 		 */
 		String logradouro = wrapper.findGenericValue("Lograd.Abrevi");
-		String endereco = wrapper.findGenericValue("Endere");
+		String endereco = wrapper.findGenericValue("EnderecoCompleto");
 		Long numero = wrapper.findGenericValue("Numero");
 		if (numero == null) {
 			numero = 0L;
 		}
 
-		String categoria = wrapper.findGenericValue("Catego.descr_gr_empresa");
+		String categoria = wrapper.findGenericValue("CategoriaTotvs.x5_descri");
 		StringBuilder rua = new StringBuilder();
 		
 		rua.append(logradouro);
@@ -66,28 +67,28 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		rua.append(bairro);
 		
 		Long inscricaoEstadual = wrapper.findGenericValue("InsEst");
-		String classificacao = wrapper.findGenericValue("Catego.cod_gr_empresa_sup");
+		String classificacao = wrapper.findGenericValue("SegmentoTotvs.Segmento");
 		Integer pessoa = wrapper.findGenericValue("Pessoa");
 		Boolean pessoaJuridica = pessoa != null ? pessoa == 1 : false;
 
 		List<NeoBaseEntity> emails = wrapper.findGenericValue("Email");
 		List<NeoBaseEntity> telefones = wrapper.findGenericValue("Telefo");
 
-		if (emails != null && !emails.isEmpty()) {
-			for (NeoBaseEntity emailObject : emails) {
-				EntityWrapper mailWrapper = new EntityWrapper(emailObject);
-				String email = mailWrapper.findGenericValue("Email");
-
-			    try {
-					InternetAddress emailAddr = new InternetAddress(email);
-					emailAddr.validate();
-
-					company.getEmails().add(email);
-				} catch (Exception e) {
-					email = null;
-				}
-			}
-		}
+//		if (emails != null && !emails.isEmpty()) {
+//			for (NeoBaseEntity emailObject : emails) {
+//				EntityWrapper mailWrapper = new EntityWrapper(emailObject);
+//				String email = mailWrapper.findGenericValue("Email");
+//
+//			    try {
+//					InternetAddress emailAddr = new InternetAddress(email);
+//					emailAddr.validate();
+//
+//					company.getEmails().add(email);
+//				} catch (Exception e) {
+//					email = null;
+//				}
+//			}
+//		}
 
 		if (telefones != null && !telefones.isEmpty()) {
 			for (NeoBaseEntity telefone : telefones) {
@@ -98,14 +99,17 @@ public class ValidaClienteAdapter implements AdapterInterface {
 
 				if (indNacional == 2) {
 					String numerointernacional;
+					String email = telWrapper.findGenericValue("Email");
 					numerointernacional = telWrapper.findGenericValue("NumeroInternacional");
 					String ddi;
 					ddi = telWrapper.findGenericValue("DDI");
 					company.getTelefones().add(ddi + numerointernacional);
+					company.getEmails().add(email);
 				} else {
 					number = telWrapper.findGenericValue("Numero");
 					company.getTelefones().add("0" + number.toString());
-
+					String email = telWrapper.findGenericValue("Email");
+					company.getEmails().add(email);
 					if (isWhatsApp) {
 						company.getTelefones().add("55" + number.toString());
 					}
@@ -133,7 +137,7 @@ public class ValidaClienteAdapter implements AdapterInterface {
 				System.out.println("BITRIX CONNECTION - ID KUGEL " + codigoKugel);
 			}
 
-			String codigoResponsavel = "127"; // Recpetivo CCV
+			String codigoResponsavel = "22"; // Recpetivo CCV
 			try {
 				JSONObject responsavelJson = findUser((wrapper.findGenericValue("ReBitrix")));
 				codigoResponsavel = (String) responsavelJson.get("ID");
@@ -285,59 +289,59 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		System.out.println(">>>>> BUSCA COD CATEGORIA:" + categoria);
 		Map<String, String> categorias = new HashMap<>();
 
-		categorias.put("ATACADISTA", "1193");
-		categorias.put("CONSTRUTORA", "1195");
-		categorias.put("CONSUMIDOR - CNPJ", "1197");
-		categorias.put("CONSUMIDOR - CPF", "1199");
-		categorias.put("DISTRIBUIDOR", "1201");
-		categorias.put("ESCOLA", "1203");
-		categorias.put("HOME CENTER", "1205");
-		categorias.put("ARQUITETOS", "3387");
-		categorias.put("HOSPITAL", "1207");
-		categorias.put("HOTEL", "1209");
-		categorias.put("INSTALADOR DE FORRO", "1211");
-		categorias.put("POSTO DE COMBUSTIVEL", "3389");
-		categorias.put("LOJA DE DECORACAO", "1213");
-		categorias.put("MADEIREIRA", "1215");
-		categorias.put("MONTADOR STANDS", "1217");
-		categorias.put("REVENDEDOR DE MAT. CONST.", "1219");
-		categorias.put("REVENDEDOR E INSTALADOR", "1221");
-		categorias.put("REVENDEDOR PERFIS DE ALUMINIO", "1223");
-		categorias.put("HDP: HIDROPONIA", "1229");		
-		categorias.put("HDP: HIDROPONIA - FRANQUEADO", "1231");
-		categorias.put("HDP: AGENTE PIC", "1225");
-		categorias.put("HDP: DISTRIBUIDOR", "1227");
-		categorias.put("HDP: REVENDA GERAL PEFIL-ACESS", "5157");
-		categorias.put("HDP: PRODUTOR RURAL", "1235");
-		categorias.put("HDP: LINHA HOBBY-PESSOA FISICA", "1233");
-		categorias.put("HDP: FAZENDAS URBANAS", "5159");
-		categorias.put("HDP: REVENDA LINHA HOBBY", "1237");
-		categorias.put("IND: AVICULTURA E SUINOCULTURA", "1239");
-		categorias.put("IND: COMUNICACAO VISUAL", "1241");
-		categorias.put("IND: CONSUMIDOR CNPJ", "1243");
-		categorias.put("IND: DIVERSOS", "1245");
-		categorias.put("IND: FAB.APAR.REC.AUDIO E VID", "1247");
-		categorias.put("IND: FABR. EQUIP. GINASTICA", "1249");
-		categorias.put("IND: FABR. GELAD. E FREEZERS", "1251");
-		categorias.put("IND: FABR. GOND. E CHECK-OUTS", "1253");
-		categorias.put("IND: FABR. PISOS ELEVADOS", "1255");
-		categorias.put("IND: FABR. REFRIG. INDUSTRIAL.", "1257");
-		categorias.put("IND: FABRICANTE ESQUADRIAS", "1259");
-		categorias.put("IND: FARMACIAS", "1261");
-		categorias.put("IND: INDUSTRIA DE MOVEIS", "1263");
-		categorias.put("IND: MONTADORES DE VEICULOS", "1265");
-		categorias.put("IND: PRODUTOS ODONTOLOGICOS", "1267");
-		categorias.put("IND: REVENDA", "1269");
-		categorias.put("IND: SUPERMERCADOS", "1271");
-		categorias.put("EXP: ARQUITETOS", "1273");
-		categorias.put("EXP: CONSTRUTORAS", "1275");
-		categorias.put("EXP: DISTRIBUIDOR", "1277");
-		categorias.put("EXP: IMPORTADORES", "1279");
-		categorias.put("EXP: REVENDA", "1281");
-		categorias.put("EXPORTACAO", "1283");
+		categorias.put("VRJ-ATACADISTA", "1193");
+		categorias.put("EPC-CONSTRUTORA", "1195");
+		categorias.put("EPC-CONSUMIDOR - CNPJ", "1197");
+		categorias.put("FIS-CONSUMIDOR - CPF", "1199");
+		categorias.put("VRJ-DISTRIBUIDOR", "1201");
+		categorias.put("EPC-ESCOLA", "1203");
+		categorias.put("VRJ-HOME CENTER", "1205");
+		categorias.put("EPC-ARQUITETOS", "3387");
+		categorias.put("EPC-HOSPITAL", "1207");
+		categorias.put("EPC-HOTEL", "1209");
+		categorias.put("VRJ-INSTALADOR VAREJO", "1211");
+		categorias.put("EPC-POSTO DE COMBUSTIVEL", "3389");
+		categorias.put("VRJ-LOJA DE DECORACAO", "1213");
+		categorias.put("VRJ-MADEIREIRA", "1215");
+		categorias.put("EPC-MONTADOR STANDS", "1217");
+		categorias.put("VRJ-REVENDEDOR DE MAT. CONST.", "1219");
+		categorias.put("VRJ-REVENDEDOR E INSTALADOR", "1221");
+		categorias.put("VRJ-REVENDEDOR PERFIS DE ALUMINIO", "1223");
+		categorias.put("HDP-HIDROPONIA", "1229");		
+		categorias.put("HDP-HIDROPONIA - FRANQUEADO", "1231");
+		categorias.put("HDP-AGENTE PIC", "1225");
+		categorias.put("HDP-DISTRIBUIDOR", "1227");
+		categorias.put("HDP-REVENDA GERAL PEFIL-ACESS", "5157");
+		categorias.put("HDP-PRODUTOR RURAL", "1235");
+		categorias.put("HDP-LINHA HOBBY-PESSOA FISICA", "1233");
+		categorias.put("HDP-FAZENDAS URBANAS", "5159");
+		categorias.put("HDP-REVENDA LINHA HOBBY", "1237");
+		categorias.put("IND-AVICULTURA E SUINOCULTURA", "1239");
+		categorias.put("IND-COMUNICACAO VISUAL", "1241");
+		categorias.put("IND-CONSUMIDOR CNPJ", "1243");
+		categorias.put("IND-DIVERSOS", "1245");
+		categorias.put("IND-FAB.APAR.REC.AUDIO E VID", "1247");
+		categorias.put("IND-FABR. EQUIP. GINASTICA", "1249");
+		categorias.put("IND-FABR. GELAD. E FREEZERS", "1251");
+		categorias.put("IND-FABR. GOND. E CHECK-OUTS", "1253");
+		categorias.put("IND-FABR. PISOS ELEVADOS", "1255");
+		categorias.put("IND-FABR. REFRIG. INDUSTRIAL.", "1257");
+		categorias.put("IND-FABRICANTE ESQUADRIAS", "1259");
+		categorias.put("IND-FARMACIAS", "1261");
+		categorias.put("IND-INDUSTRIA DE MOVEIS", "1263");
+		categorias.put("IND-MONTADORES DE VEICULOS", "1265");
+		categorias.put("IND-PRODUTOS ODONTOLOGICOS", "1267");
+		categorias.put("IND-REVENDA", "1269");
+		categorias.put("IND-SUPERMERCADOS", "1271");
+		categorias.put("EXP-ARQUITETOS", "1273");
+		categorias.put("EXP-CONSTRUTORAS", "1275");
+		categorias.put("EXP-DISTRIBUIDOR", "1277");
+		categorias.put("EXP-IMPORTADORES", "1279");
+		categorias.put("EXP-REVENDA", "1281");
+		categorias.put("EXP-EXPORTACAO", "1283");
 		categorias.put("REPRESENTANTE", "1404");
 		categorias.put("TI", "1410");
-		categorias.put("REVENDEDOR DE ESPECIFICACAO", "7375");
+		categorias.put("EPC-REVENDEDOR DE ESPECIFICACAO", "7375");
 
 		return categorias.get(categoria.trim());
 	}

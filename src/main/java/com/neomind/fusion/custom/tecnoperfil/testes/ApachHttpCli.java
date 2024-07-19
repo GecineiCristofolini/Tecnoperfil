@@ -16,8 +16,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
-import com.neomind.fusion.custom.tecnoperfil.totvs.CadCliente;
-import com.neomind.fusion.custom.tecnoperfil.totvs.Contato;
+import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.CadCliente;
+import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.Contato;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,10 +1,12 @@
-package com.neomind.fusion.custom.tecnoperfil.totvs;
+package com.neomind.fusion.custom.tecnoperfil.totvs.entidades;
 
 public class Contato
 {
 	private String nome;
 	private String dd;
 	private String telefone;
+	private String ddi;
+	private String telefoneinternacional;
 	private String email;
 
 	public String getNome()
@@ -20,6 +22,16 @@ public class Contato
 	public String getTelefone()
 	{
 		return telefone;
+	}
+
+	public String getDdi()
+	{
+		return ddi;
+	}
+
+	public String getTelefoneinternacional()
+	{
+		return telefoneinternacional;
 	}
 
 	public String getEmail()
@@ -40,6 +52,16 @@ public class Contato
 	public void setTelefone(String telefone)
 	{
 		this.telefone = telefone;
+	}
+
+	public void setDdi(String ddi)
+	{
+		this.ddi = ddi;
+	}
+
+	public void setTelefoneinternacional(String telefoneinternacional)
+	{
+		this.telefoneinternacional = telefoneinternacional;
 	}
 
 	public void setEmail(String email)
