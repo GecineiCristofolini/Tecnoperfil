@@ -15,10 +15,10 @@ public class CadCliente
 	private String bairro;
 	private String municipio;
 	private String codigoMunicipio;
-	private String complementoEndereco;
 	private String endereco;
 	private String cep;
 	private String ddd;
+	private String ddi;
 	private String telefone;
 	private String email;
 	private String emailFinanceiro;
@@ -32,6 +32,7 @@ public class CadCliente
 	private String codigoMunicipioEntrega;
 	private String bairroEntrega;
 	private String enderecoEntrega;
+	private String cepentrega;
 	private String codicaoPagamento;
 	private String ufEntrega;
 	private String tipoFrete;
@@ -41,8 +42,6 @@ public class CadCliente
 	private String grupoclientes;
 	private String descontosuframa;
 	private String codpaisbacen;
-	private String ddi;
-	private String telefoneinternacional;
 	private String segmento1;
 	private String segmento2;
 	private String segmento3;
@@ -52,10 +51,8 @@ public class CadCliente
 	private String codvendedor;
 	private String contacontabil;
 	private String naturezafinanceira;
-	private String cepentrega;
 	private String codigomunicipiosuframa;
-	
-	private List<Contato> contatos =  new ArrayList<Contato>();
+	private List<Contato> contatos = new ArrayList<Contato>();
 
 	public String getCgc()
 	{
@@ -102,11 +99,6 @@ public class CadCliente
 		return codigoMunicipio;
 	}
 
-	public String getComplementoEndereco()
-	{
-		return complementoEndereco;
-	}
-
 	public String getEndereco()
 	{
 		return endereco;
@@ -120,6 +112,11 @@ public class CadCliente
 	public String getDdd()
 	{
 		return ddd;
+	}
+
+	public String getDdi()
+	{
+		return ddi;
 	}
 
 	public String getTelefone()
@@ -187,6 +184,11 @@ public class CadCliente
 		return enderecoEntrega;
 	}
 
+	public String getCepentrega()
+	{
+		return cepentrega;
+	}
+
 	public String getCodicaoPagamento()
 	{
 		return codicaoPagamento;
@@ -232,16 +234,6 @@ public class CadCliente
 		return codpaisbacen;
 	}
 
-	public String getDdi()
-	{
-		return ddi;
-	}
-
-	public String getTelefoneinternacional()
-	{
-		return telefoneinternacional;
-	}
-
 	public String getSegmento1()
 	{
 		return segmento1;
@@ -275,6 +267,21 @@ public class CadCliente
 	public String getCodvendedor()
 	{
 		return codvendedor;
+	}
+
+	public String getContacontabil()
+	{
+		return contacontabil;
+	}
+
+	public String getNaturezafinanceira()
+	{
+		return naturezafinanceira;
+	}
+
+	public String getCodigomunicipiosuframa()
+	{
+		return codigomunicipiosuframa;
 	}
 
 	public List<Contato> getContatos()
@@ -327,11 +334,6 @@ public class CadCliente
 		this.codigoMunicipio = codigoMunicipio;
 	}
 
-	public void setComplementoEndereco(String complementoEndereco)
-	{
-		this.complementoEndereco = complementoEndereco;
-	}
-
 	public void setEndereco(String endereco)
 	{
 		this.endereco = endereco;
@@ -345,6 +347,11 @@ public class CadCliente
 	public void setDdd(String ddd)
 	{
 		this.ddd = ddd;
+	}
+
+	public void setDdi(String ddi)
+	{
+		this.ddi = ddi;
 	}
 
 	public void setTelefone(String telefone)
@@ -412,6 +419,11 @@ public class CadCliente
 		this.enderecoEntrega = enderecoEntrega;
 	}
 
+	public void setCepentrega(String cepentrega)
+	{
+		this.cepentrega = cepentrega;
+	}
+
 	public void setCodicaoPagamento(String codicaoPagamento)
 	{
 		this.codicaoPagamento = codicaoPagamento;
@@ -457,16 +469,6 @@ public class CadCliente
 		this.codpaisbacen = codpaisbacen;
 	}
 
-	public void setDdi(String ddi)
-	{
-		this.ddi = ddi;
-	}
-
-	public void setTelefoneinternacional(String telefoneinternacional)
-	{
-		this.telefoneinternacional = telefoneinternacional;
-	}
-
 	public void setSegmento1(String segmento1)
 	{
 		this.segmento1 = segmento1;
@@ -502,21 +504,6 @@ public class CadCliente
 		this.codvendedor = codvendedor;
 	}
 
-	public void setContatos(List<Contato> contatos)
-	{
-		this.contatos = contatos;
-	}
-
-	public String getContacontabil()
-	{
-		return contacontabil;
-	}
-
-	public String getNaturezafinanceira()
-	{
-		return naturezafinanceira;
-	}
-
 	public void setContacontabil(String contacontabil)
 	{
 		this.contacontabil = contacontabil;
@@ -527,26 +514,40 @@ public class CadCliente
 		this.naturezafinanceira = naturezafinanceira;
 	}
 
-	public String getCepentrega()
-	{
-		return cepentrega;
-	}
-
-	public void setCepentrega(String cepentrega)
-	{
-		this.cepentrega = cepentrega;
-	}
-
-	public String getCodigomunicipiosuframa()
-	{
-		return codigomunicipiosuframa;
-	}
-
 	public void setCodigomunicipiosuframa(String codigomunicipiosuframa)
 	{
 		this.codigomunicipiosuframa = codigomunicipiosuframa;
 	}
-	
-	
 
+	public void setContatos(List<Contato> contatos)
+	{
+		this.contatos = contatos;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "CadCliente [cgc=" + cgc + ", nomeReduzido=" + nomeReduzido + ", nome=" + nome
+				+ ", inscricaoEstadual=" + inscricaoEstadual + ", inscricaoMunicipal="
+				+ inscricaoMunicipal + ", estado=" + estado + ", bairro=" + bairro + ", municipio="
+				+ municipio + ", codigoMunicipio=" + codigoMunicipio + ", endereco=" + endereco
+				+ ", cep=" + cep + ", ddd=" + ddd + ", ddi=" + ddi + ", telefone=" + telefone
+				+ ", email=" + email + ", emailFinanceiro=" + emailFinanceiro + ", tipo=" + tipo
+				+ ", idFusion=" + idFusion + ", pais=" + pais + ", tipoCliente=" + tipoCliente
+				+ ", codigoSuframa=" + codigoSuframa + ", tabeladePreco=" + tabeladePreco
+				+ ", transportadora=" + transportadora + ", codigoMunicipioEntrega="
+				+ codigoMunicipioEntrega + ", bairroEntrega=" + bairroEntrega + ", enderecoEntrega="
+				+ enderecoEntrega + ", cepentrega=" + cepentrega + ", codicaoPagamento="
+				+ codicaoPagamento + ", ufEntrega=" + ufEntrega + ", tipoFrete=" + tipoFrete
+				+ ", contribuinte=" + contribuinte + ", documentoEstrageiro=" + documentoEstrageiro
+				+ ", optanteSimplesNacional=" + optanteSimplesNacional + ", grupoclientes="
+				+ grupoclientes + ", descontosuframa=" + descontosuframa + ", codpaisbacen="
+				+ codpaisbacen + ", segmento1=" + segmento1 + ", segmento2=" + segmento2 + ", segmento3="
+				+ segmento3 + ", segmento4=" + segmento4 + ", segmento5=" + segmento5 + ", status="
+				+ status + ", codvendedor=" + codvendedor + ", contacontabil=" + contacontabil
+				+ ", naturezafinanceira=" + naturezafinanceira + ", codigomunicipiosuframa="
+				+ codigomunicipiosuframa + ", contatos=" + contatos + "]";
+	}
+
+	
 }

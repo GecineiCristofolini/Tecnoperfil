@@ -4,39 +4,70 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.List;
 
-import com.neomind.fusion.common.NeoObject;
-import com.neomind.fusion.entity.EntityWrapper;
-import com.neomind.fusion.persist.PersistEngine;
-import com.neomind.fusion.workflow.adapter.AdapterUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.neomind.fusion.workflow.exception.WorkflowException;
 
 public class AlterarCadastroCliente
 {
-
-	public void alterarCadastroCliente()
+	private static final Log log = LogFactory.getLog(AlterarCadastroCliente.class);
+	public void alterarCadastroCliente(String json,String acao,String idcliente)
 	{
 		try
 		{
-			ObterToken obterToken = new ObterToken();
-			String token = obterToken.obterToken();
-			
-			//EntityWrapper ew = new EntityWrapper();
-			
-			String id = "teste";//ew.findGenericValue("id");
-			
-			String url = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/fusion/v1/cliente/" + id;
+			ObterToken token = new ObterToken();
+			String accessToken = token.obterToken(acao);
+			log.debug("Token Obtido : " + accessToken);			
+						
+			String url = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/fusion/v1/cliente/" + idcliente;
 			
 			
 			
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-					.header("Authorization", "Bearer " + token)
+					.header("Authorization", "Bearer " + accessToken)
 					.header("Content-Type", "application/json")
-					.PUT(HttpRequest.BodyPublishers.noBody()).build();
+					.PUT(HttpRequest.BodyPublishers.ofString(json)).build();
 
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			
+			log.debug("Status code :" + response.statusCode());
 
+			if (response.statusCode() != 200)
+			{
+
+				throw new WorkflowException("Erro na integração" + response.body());
+			}
+
+			String responseBody = response.body();
+			log.debug("responde body request: " + responseBody);
+
+			if (response.statusCode() == 401)
+			{
+
+				log.debug("Token expirado! atualizando token");
+				String refreshToken = token.RefreshToken(acao);
+				HttpRequest requestRefreshed = HttpRequest.newBuilder().uri(URI.create(url))
+						.header("Authorization", "Bearer " + refreshToken)
+						.header("Content-Type", "application/json")
+						.POST(HttpRequest.BodyPublishers.ofString(json)).build();
+
+				HttpResponse<String> responseRefresh = client.send(requestRefreshed,
+						HttpResponse.BodyHandlers.ofString());
+
+				log.debug("status code token refresh: " + response.statusCode());
+
+				String responseBodyRefresh = responseRefresh.body();
+
+				if (responseRefresh.statusCode() != 200)
+				{
+
+					throw new WorkflowException("Erro na integração" + responseBodyRefresh);
+				}
+
+			}
 		}
 		catch (Exception e)
 		{

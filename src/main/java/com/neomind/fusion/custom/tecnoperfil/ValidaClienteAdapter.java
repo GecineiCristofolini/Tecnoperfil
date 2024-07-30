@@ -37,8 +37,10 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		String nomeFantasia = wrapper.findGenericValue("NomFan");
 
 		String cidade = wrapper.findGenericValue("MunicipioTovs.cc2_mun");
+		cidade = cidade.trim();
 		
 		String estado = wrapper.findGenericValue("EstadoTotvs.x5_chave");
+		estado = estado.trim();
 		String bairro = wrapper.findGenericValue("Bairro");
 		String complemento = wrapper.findGenericValue("Comple");
 		String cep = wrapper.findGenericValue("CEP");
@@ -66,7 +68,7 @@ public class ValidaClienteAdapter implements AdapterInterface {
 		rua.append("");
 		rua.append(bairro);
 		
-		Long inscricaoEstadual = wrapper.findGenericValue("InsEst");
+		String inscricaoEstadual = wrapper.findGenericValue("InsEsta");
 		String classificacao = wrapper.findGenericValue("SegmentoTotvs.Segmento");
 		Integer pessoa = wrapper.findGenericValue("Pessoa");
 		Boolean pessoaJuridica = pessoa != null ? pessoa == 1 : false;
@@ -179,7 +181,7 @@ public class ValidaClienteAdapter implements AdapterInterface {
 
 				company.setCpf(strCpf);
 			}
-			company.setInscricaoEstadual(inscricaoEstadual == null ? "isento" : inscricaoEstadual.toString());
+			company.setInscricaoEstadual(inscricaoEstadual == null ? "ISENTO" : inscricaoEstadual);
 
 			company.setResponsavel(codigoResponsavel);
 

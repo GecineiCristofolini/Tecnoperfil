@@ -1,10 +1,7 @@
-package com.neomind.fusion.custom.tecnoperfil.totvs;
+package com.neomind.fusion.custom.tecnoperfil.testes;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.google.gson.Gson;
 import com.neomind.fusion.common.NeoObject;
@@ -16,59 +13,25 @@ import com.neomind.fusion.workflow.Activity;
 import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.adapter.AdapterUtils;
-import com.neomind.fusion.workflow.exception.WorkflowException;
 
-public class TotvsCadastrarCliente implements AdapterInterface
+public class TotvsCadastrarClientetESTE implements AdapterInterface
 {
 
-	private static final Log log = LogFactory.getLog(TotvsCadastrarCliente.class);
+	
 
 	@Override
 	public void start(Task arg0, EntityWrapper wrapercliente, Activity arg2)
 	{
-		try
-		{
-			log.debug("Iniciar busca de info");
-			
-			String json = buscarInformacoes(wrapercliente);
-			String acao = wrapercliente.findGenericValue("CAcao.Bat");
-			log.debug("informacoes retornadas + " + json);
-			CadastrarCliente cadCliente = new CadastrarCliente();
-			log.debug("Iniciando cadastro do cliente");
-			cadCliente.cadastroDeCliente(json,acao);
-
-		}
-		catch (WorkflowException e)
-		{
-			e.printStackTrace();
-			log.error("Erro ao cadastrar cliente", e);
-			throw e;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			log.error("Erro ao iniciar atendimento", e);
-			throw new WorkflowException("Erro ao iniciar atendimento" + e.getCause());
-		}
-
-	}
-
-	@Override
-	public void back(EntityWrapper arg0, Activity arg1)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	public String buscarInformacoes(EntityWrapper wrapercliente)
-	{
+		
+		
 
 		try
 		{
 
 			String codcliente = wrapercliente.findGenericValue("CodCli");
+			CadCliente cadcli = new CadCliente();
 
-			if (codcliente == null || codcliente.isBlank() )
+			if (codcliente == null || codcliente == "" )
 			{
 
 				List<NeoObject> sequenciadorcliente = PersistEngine
@@ -91,17 +54,19 @@ public class TotvsCadastrarCliente implements AdapterInterface
 
 				// Seta o Valor Codigo Cliente
 				wrapercliente.setValue("CodCli", codcliente);
+				System.out.print(codcliente);
 
 			}
 			
 			
 
-			CadCliente cadcli = new CadCliente();
+			
 			cadcli.setIdFusion(codcliente);
 			cadcli.setCgc(wrapercliente.findGenericValue("CGC"));
 			cadcli.setNomeReduzido(wrapercliente.findGenericValue("NomFan"));
 			cadcli.setNome(wrapercliente.findGenericValue("RazSoc"));
 			String inscriestadual = wrapercliente.findGenericValue("InsEsta");
+			
 			if (inscriestadual == null || inscriestadual.isBlank())
 			{
 				inscriestadual = "ISENTO";
@@ -167,7 +132,7 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			cadcli.setCodigoSuframa(wrapercliente.findGenericValue("Sufram"));
 			cadcli.setTabeladePreco("");
 			
-
+			
 			boolean clintetransp = wrapercliente.findGenericValue("TraEspe");
 
 			if (clintetransp == false)
@@ -235,15 +200,20 @@ public class TotvsCadastrarCliente implements AdapterInterface
 				cadcli.setTipoFrete(wrapercliente.findGenericValue("TipoFreteC.Codigo"));
 
 			}
-
+			
+			
 			cadcli.setContribuinte(wrapercliente.findGenericValue("ContribuinteICMS.Codigo"));
 			cadcli.setDocumentoEstrageiro(wrapercliente.findGenericValue("DocumentoEstrangeiro"));
 
 			cadcli.setOptanteSimplesNacional(wrapercliente.findGenericValue("OptanteDoSimplesNacional.Codigo"));
+			
+			
 			cadcli.setGrupoclientes(wrapercliente.findGenericValue("CodigoGrupoCliente"));
 			
 			cadcli.setDescontosuframa(wrapercliente.findGenericValue("DescontoFiscais.Codigo"));
+			
 			String paisbacen = wrapercliente.findGenericValue("PaisBacen.cch_codigo");
+			
 			cadcli.setCodpaisbacen(paisbacen.trim());
 			String segmento1 = wrapercliente.findGenericValue("CategoriaTotvs.x5_chave");
 			cadcli.setSegmento1(segmento1.trim());
@@ -253,11 +223,16 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			cadcli.setSegmento5("");
 			cadcli.setStatus("1");
 			cadcli.setCodvendedor("6001");
+			System.out.print(cadcli.toString());
+			
 			String codmuniciposuframa = wrapercliente.findGenericValue("CodigoMunicipioSuframa");
 			cadcli.setCodigomunicipiosuframa(codmuniciposuframa.trim());
 
 			cadcli.setContacontabil(wrapercliente.findGenericValue("ContaContabil"));
 			cadcli.setNaturezafinanceira(wrapercliente.findGenericValue("NaturezaFinanceira"));
+			
+			
+
 
 			List<NeoObject> listaContato = wrapercliente.findGenericValue("Telefo");
 
@@ -290,23 +265,30 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			}
 
 			cadcli.setContatos(contatos);
+			System.out.print(cadcli.toString());
+			
 
 			String jsoncli = new Gson().toJson(cadcli);
 
 			System.out.println(jsoncli.toString());
-			return jsoncli;
+		
 
 		}
-		catch (Exception e)
-		{
-
-			log.error("Erro ao cadastrar cliente : " + e.getCause());
+		catch (Exception e) {
 			System.out.print(e.getMessage());
-			e.printStackTrace();
-			throw new WorkflowException("Erro ao cadastrar cliente" + e.getCause());
-
 		}
+		
 
+			
+		
+
+	}
+
+	@Override
+	public void back(EntityWrapper arg0, Activity arg1)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

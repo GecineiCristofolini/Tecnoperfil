@@ -11,17 +11,15 @@ import com.neomind.fusion.common.NeoObject;
 import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.CadCliente;
 import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.Contato;
 import com.neomind.fusion.entity.EntityWrapper;
-import com.neomind.fusion.persist.PersistEngine;
 import com.neomind.fusion.workflow.Activity;
 import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
-import com.neomind.fusion.workflow.adapter.AdapterUtils;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 
-public class TotvsCadastrarCliente implements AdapterInterface
+public class TotvsAlterarCadastroCliente implements AdapterInterface
 {
 
-	private static final Log log = LogFactory.getLog(TotvsCadastrarCliente.class);
+	private static final Log log = LogFactory.getLog(TotvsAlterarCadastroCliente.class);
 
 	@Override
 	public void start(Task arg0, EntityWrapper wrapercliente, Activity arg2)
@@ -30,18 +28,20 @@ public class TotvsCadastrarCliente implements AdapterInterface
 		{
 			log.debug("Iniciar busca de info");
 			
+			String idcliente = wrapercliente.findGenericValue("CodigoProtheus");
+			String acao = wrapercliente.findGenericValue("Altacao.Bat");		
 			String json = buscarInformacoes(wrapercliente);
-			String acao = wrapercliente.findGenericValue("CAcao.Bat");
+			
 			log.debug("informacoes retornadas + " + json);
-			CadastrarCliente cadCliente = new CadastrarCliente();
+			AlterarCadastroCliente altcadCliente = new AlterarCadastroCliente();
 			log.debug("Iniciando cadastro do cliente");
-			cadCliente.cadastroDeCliente(json,acao);
+			altcadCliente.alterarCadastroCliente(json,acao,idcliente);
 
 		}
 		catch (WorkflowException e)
 		{
 			e.printStackTrace();
-			log.error("Erro ao cadastrar cliente", e);
+			log.error("Erro ao Alterar cadastrar cliente", e);
 			throw e;
 		}
 		catch (Exception e)
@@ -66,68 +66,44 @@ public class TotvsCadastrarCliente implements AdapterInterface
 		try
 		{
 
-			String codcliente = wrapercliente.findGenericValue("CodCli");
+		
 
-			if (codcliente == null || codcliente.isBlank() )
-			{
-
-				List<NeoObject> sequenciadorcliente = PersistEngine
-						.getObjects(AdapterUtils.getEntityClass("CadastroDeClientesParametros"));
-
-				for (NeoObject neosec : sequenciadorcliente)
-				{
-
-					EntityWrapper wrappersequenciador = new EntityWrapper(neosec);
-
-					long numero = (long) wrappersequenciador.findField("CodigoCliente").getValue();
-					codcliente = Long.toString(numero);
-					System.out.println(codcliente);
-
-					numero = numero + 1;
-
-					wrappersequenciador.setValue("CodigoCliente", numero);
-
-				}
-
-				// Seta o Valor Codigo Cliente
-				wrapercliente.setValue("CodCli", codcliente);
-
-			}
-			
-			
+					
 
 			CadCliente cadcli = new CadCliente();
-			cadcli.setIdFusion(codcliente);
-			cadcli.setCgc(wrapercliente.findGenericValue("CGC"));
-			cadcli.setNomeReduzido(wrapercliente.findGenericValue("NomFan"));
-			cadcli.setNome(wrapercliente.findGenericValue("RazSoc"));
-			String inscriestadual = wrapercliente.findGenericValue("InsEsta");
+			cadcli.setIdFusion(wrapercliente.findGenericValue("AltCli.CodCli"));
+			String cgc = wrapercliente.findGenericValue("AltCli.CGC"); 
+			cgc = cgc.replaceAll("[^0-9]+", "");
+			cadcli.setCgc(cgc);
+			cadcli.setNomeReduzido(wrapercliente.findGenericValue("AltCli.NomFan"));
+			cadcli.setNome(wrapercliente.findGenericValue("AltCli.RazSoc"));
+			String inscriestadual = wrapercliente.findGenericValue("AltCli.InsEsta");
 			if (inscriestadual == null || inscriestadual.isBlank())
 			{
 				inscriestadual = "ISENTO";
 			}
 			cadcli.setInscricaoEstadual(inscriestadual);
 			cadcli.setInscricaoMunicipal(inscriestadual);
-			String estado = wrapercliente.findGenericValue(("EstadoTotvs.x5_chave"));
+			String estado = wrapercliente.findGenericValue(("AltCli.EstadoTotvs.x5_chave"));
 			String estadosupreespaco = estado.trim();
 			cadcli.setEstado(estadosupreespaco);
-			cadcli.setBairro(wrapercliente.findGenericValue("Bairro"));
-			String nomemunicipio = wrapercliente.findGenericValue(("MunicipioTovs.cc2_mun"));
+			cadcli.setBairro(wrapercliente.findGenericValue("AltCli.Bairro"));
+			String nomemunicipio = wrapercliente.findGenericValue(("AltCli.MunicipioTovs.cc2_mun"));
 			cadcli.setMunicipio(nomemunicipio.trim());
-			String codmunicipio = wrapercliente.findGenericValue("MunicipioTovs.cc2_codmun");
+			String codmunicipio = wrapercliente.findGenericValue("AltCli.MunicipioTovs.cc2_codmun");
 			cadcli.setCodigoMunicipio(codmunicipio.trim());
-			String endereco = wrapercliente.findGenericValue("EnderecoCompleto");
+			String endereco = wrapercliente.findGenericValue("AltCli.EnderecoCompleto");
 			cadcli.setEndereco(endereco.trim());
-			cadcli.setCep(wrapercliente.findGenericValue("CEP"));
+			cadcli.setCep(wrapercliente.findGenericValue("AltCli.CEP"));
 			
-			boolean Clientexp = wrapercliente.findGenericValue("ClienteExportacao");
+			boolean Clientexp = wrapercliente.findGenericValue("AltCli.ClienteExportacao");
 			
 			
 			if (Clientexp == true)
 			{
                 
 				cadcli.setCep("00000000");
-				cadcli.setMunicipio(wrapercliente.findGenericValue("MunicipioEstrangeiro"));
+				cadcli.setMunicipio(wrapercliente.findGenericValue("AltCli.MunicipioEstrangeiro"));
 
 			}
 			
@@ -135,7 +111,7 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			
 			
 
-			List<NeoObject> listaDanfe = wrapercliente.findGenericValue("Email");
+			List<NeoObject> listaDanfe = wrapercliente.findGenericValue("AltCli.Email");
 
 			String Listaemail = null;
 
@@ -160,15 +136,15 @@ public class TotvsCadastrarCliente implements AdapterInterface
 
 			cadcli.setEmailFinanceiro(Listaemail);
 
-			cadcli.setTipo(wrapercliente.findGenericValue("PessoaT"));
-			String pais = wrapercliente.findGenericValue("PaisTovs.ya_codgi");
+			cadcli.setTipo(wrapercliente.findGenericValue("AltCli.PessoaT"));
+			String pais = wrapercliente.findGenericValue("AltCli.PaisTovs.ya_codgi");
 			cadcli.setPais(pais.trim());
-			cadcli.setTipoCliente(wrapercliente.findGenericValue("TipoCliente.Tipo"));
-			cadcli.setCodigoSuframa(wrapercliente.findGenericValue("Sufram"));
+			cadcli.setTipoCliente(wrapercliente.findGenericValue("AltCli.TipoCliente.Tipo"));
+			cadcli.setCodigoSuframa(wrapercliente.findGenericValue("AltCli.Sufram"));
 			cadcli.setTabeladePreco("");
 			
 
-			boolean clintetransp = wrapercliente.findGenericValue("TraEspe");
+			boolean clintetransp = wrapercliente.findGenericValue("AltCli.TraEspe");
 
 			if (clintetransp == false)
 			{
@@ -178,12 +154,12 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			}
 			else
 			{
-                String transportadora = wrapercliente.findGenericValue("TransportadoraTOTVS.a4_cod");
+                String transportadora = wrapercliente.findGenericValue("AltCli.TransportadoraTOTVS.a4_cod");
 				cadcli.setTransportadora(transportadora.trim());
 
 			}
 
-			boolean condpag = wrapercliente.findGenericValue("CodEspe");
+			boolean condpag = wrapercliente.findGenericValue("AltCli.CodEspe");
 
 			if (condpag == false)
 			{
@@ -194,12 +170,12 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			else
 			{
 
-				String condpagmento = wrapercliente.findGenericValue("CondicaoDePagamentoTotvs.e4_codigo");
+				String condpagmento = wrapercliente.findGenericValue("AltCli.CondicaoDePagamentoTotvs.e4_codigo");
 				cadcli.setCodicaoPagamento(condpagmento.trim());
 
 			}
 
-			boolean enderecoentrega = wrapercliente.findGenericValue("CteloE");
+			boolean enderecoentrega = wrapercliente.findGenericValue("AltCli.CteloE");
 
 			if (enderecoentrega == false)
 			{
@@ -213,15 +189,15 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			}
 			else
 			{
-                String codmunentrega = wrapercliente.findGenericValue("MunicipioDeEntrega.cc2_codmun");
+                String codmunentrega = wrapercliente.findGenericValue("AltCli.MunicipioDeEntrega.cc2_codmun");
 				cadcli.setCodigoMunicipioEntrega(codmunentrega.trim());
-				cadcli.setUfEntrega(wrapercliente.findGenericValue("UFDeEntrega"));
-				cadcli.setBairroEntrega(wrapercliente.findGenericValue("BairroDeEntrega"));
-				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("EnderecoDeEntrega"));
-				cadcli.setCepentrega(wrapercliente.findGenericValue("CepDeEntrega"));
+				cadcli.setUfEntrega(wrapercliente.findGenericValue("AltCli.UFDeEntrega"));
+				cadcli.setBairroEntrega(wrapercliente.findGenericValue("AltCli.BairroDeEntrega"));
+				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("AltCli.EnderecoDeEntrega"));
+				cadcli.setCepentrega(wrapercliente.findGenericValue("AltCli.CepDeEntrega"));
 			}
 
-			boolean tipofrete = wrapercliente.findGenericValue("Clietipfret");
+			boolean tipofrete = wrapercliente.findGenericValue("AltCli.Clietipfret");
 
 			if (tipofrete == false)
 			{
@@ -232,20 +208,20 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			else
 			{
 
-				cadcli.setTipoFrete(wrapercliente.findGenericValue("TipoFreteC.Codigo"));
+				cadcli.setTipoFrete(wrapercliente.findGenericValue("AltCli.TipoFreteC.Codigo"));
 
 			}
 
-			cadcli.setContribuinte(wrapercliente.findGenericValue("ContribuinteICMS.Codigo"));
-			cadcli.setDocumentoEstrageiro(wrapercliente.findGenericValue("DocumentoEstrangeiro"));
+			cadcli.setContribuinte(wrapercliente.findGenericValue("AltCli.ContribuinteICMS.Codigo"));
+			cadcli.setDocumentoEstrageiro(wrapercliente.findGenericValue("AltCli.DocumentoEstrangeiro"));
 
-			cadcli.setOptanteSimplesNacional(wrapercliente.findGenericValue("OptanteDoSimplesNacional.Codigo"));
-			cadcli.setGrupoclientes(wrapercliente.findGenericValue("CodigoGrupoCliente"));
+			cadcli.setOptanteSimplesNacional(wrapercliente.findGenericValue("AltCli.OptanteDoSimplesNacional.Codigo"));
+			cadcli.setGrupoclientes(wrapercliente.findGenericValue("AltCli.CodigoGrupoCliente"));
 			
-			cadcli.setDescontosuframa(wrapercliente.findGenericValue("DescontoFiscais.Codigo"));
-			String paisbacen = wrapercliente.findGenericValue("PaisBacen.cch_codigo");
+			cadcli.setDescontosuframa(wrapercliente.findGenericValue("AltCli.DescontoFiscais.Codigo"));
+			String paisbacen = wrapercliente.findGenericValue("AltCli.PaisBacen.cch_codigo");
 			cadcli.setCodpaisbacen(paisbacen.trim());
-			String segmento1 = wrapercliente.findGenericValue("CategoriaTotvs.x5_chave");
+			String segmento1 = wrapercliente.findGenericValue("AltCli.CategoriaTotvs.x5_chave");
 			cadcli.setSegmento1(segmento1.trim());
 			cadcli.setSegmento2("");
 			cadcli.setSegmento3("");
@@ -253,13 +229,13 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			cadcli.setSegmento5("");
 			cadcli.setStatus("1");
 			cadcli.setCodvendedor("6001");
-			String codmuniciposuframa = wrapercliente.findGenericValue("CodigoMunicipioSuframa");
+			String codmuniciposuframa = wrapercliente.findGenericValue("AltCli.CodigoMunicipioSuframa");
 			cadcli.setCodigomunicipiosuframa(codmuniciposuframa.trim());
 
-			cadcli.setContacontabil(wrapercliente.findGenericValue("ContaContabil"));
-			cadcli.setNaturezafinanceira(wrapercliente.findGenericValue("NaturezaFinanceira"));
+			cadcli.setContacontabil(wrapercliente.findGenericValue("AltCli.ContaContabil"));
+			cadcli.setNaturezafinanceira(wrapercliente.findGenericValue("AltCli.NaturezaFinanceira"));
 
-			List<NeoObject> listaContato = wrapercliente.findGenericValue("Telefo");
+			List<NeoObject> listaContato = wrapercliente.findGenericValue("AltCli.Telefo");
 
 			List<Contato> contatos = new ArrayList<Contato>();
 

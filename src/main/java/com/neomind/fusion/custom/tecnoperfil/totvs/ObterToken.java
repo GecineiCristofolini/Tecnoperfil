@@ -20,20 +20,25 @@ public class ObterToken
 	
 	private static final Log log = LogFactory.getLog(ObterToken.class);
 
-	public String obterToken()
+	public String obterToken(String acao)
 	{
 
 		try
 		{
 			
 			log.debug("Obtendo token oauth2/v1/token");
+			
+			
+			
 			String baseUrl = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/api/oauth2/v1/token";
+			
 			String grantType = "password";
 			String password = "F5l9jvKHD89j0ZEMVSiACL";
 			String username = "fusion";
 
 			String url = String.format("%s?grant_type=%s&password=%s&username=%s", baseUrl, grantType,
 					password, username);
+			
 
 			HttpClient client = HttpClient.newHttpClient();
 
@@ -77,7 +82,7 @@ public class ObterToken
 
 	}
 
-	public String RefreshToken()
+	public String RefreshToken(String acao)
 	{
 
 		try
@@ -85,7 +90,8 @@ public class ObterToken
 			log.debug("Obtendo  refresh token");
 			List<NeoObject> listaformToken = PersistEngine
 					.getObjects(AdapterUtils.getEntityClass("CadastroDeClientesParametros"));
-			String baseUrl = "https://localhost:8080/rest/api/oauth2/v1/token";
+			
+			String baseUrl = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/api/oauth2/v1/token";
 			String grantType = "refresh_token";
 			String refreshToken = "";
 			for (NeoObject token : listaformToken)

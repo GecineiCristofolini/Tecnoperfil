@@ -4,9 +4,8 @@ public class Contato
 {
 	private String nome;
 	private String dd;
-	private String telefone;
 	private String ddi;
-	private String telefoneinternacional;
+	private String telefone;
 	private String email;
 
 	public String getNome()
@@ -19,19 +18,14 @@ public class Contato
 		return dd;
 	}
 
-	public String getTelefone()
-	{
-		return telefone;
-	}
-
 	public String getDdi()
 	{
 		return ddi;
 	}
 
-	public String getTelefoneinternacional()
+	public String getTelefone()
 	{
-		return telefoneinternacional;
+		return telefone;
 	}
 
 	public String getEmail()
@@ -49,19 +43,14 @@ public class Contato
 		this.dd = dd;
 	}
 
-	public void setTelefone(String telefone)
-	{
-		this.telefone = telefone;
-	}
-
 	public void setDdi(String ddi)
 	{
 		this.ddi = ddi;
 	}
 
-	public void setTelefoneinternacional(String telefoneinternacional)
+	public void setTelefone(String telefone)
 	{
-		this.telefoneinternacional = telefoneinternacional;
+		this.telefone = telefone;
 	}
 
 	public void setEmail(String email)

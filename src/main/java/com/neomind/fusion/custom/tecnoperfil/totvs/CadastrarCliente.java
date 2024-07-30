@@ -14,15 +14,18 @@ public class CadastrarCliente
 
 	private static final Log log = LogFactory.getLog(CadastrarCliente.class);
 
-	public void cadastroDeCliente(String json) throws Exception
+	public void cadastroDeCliente(String json,String acao) throws Exception
 	{
 		try
 		{
 
 			log.debug("Obtendo token");
 			ObterToken token = new ObterToken();
-			String accessToken = token.obterToken();
+			String accessToken = token.obterToken(acao);
 			log.debug("Token Obtido : " + accessToken);
+			
+			
+			
 			String url = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/fusion/v1/cliente/";
 
 			HttpClient client = HttpClient.newHttpClient();
@@ -48,7 +51,7 @@ public class CadastrarCliente
 			{
 
 				log.debug("Token expirado! atualizando token");
-				String refreshToken = token.RefreshToken();
+				String refreshToken = token.RefreshToken(acao);
 				HttpRequest requestRefreshed = HttpRequest.newBuilder().uri(URI.create(url))
 						.header("Authorization", "Bearer " + refreshToken)
 						.header("Content-Type", "application/json")
