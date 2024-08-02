@@ -31,11 +31,10 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			log.debug("Iniciar busca de info");
 			
 			String json = buscarInformacoes(wrapercliente);
-			String acao = wrapercliente.findGenericValue("CAcao.Bat");
 			log.debug("informacoes retornadas + " + json);
 			CadastrarCliente cadCliente = new CadastrarCliente();
 			log.debug("Iniciando cadastro do cliente");
-			cadCliente.cadastroDeCliente(json,acao);
+			cadCliente.cadastroDeCliente(json);
 
 		}
 		catch (WorkflowException e)

@@ -1,5 +1,10 @@
 package com.neomind.fusion.custom.tecnoperfil.totvs;
 
+import com.neomind.fusion.common.NeoObject;
+import com.neomind.fusion.entity.EntityWrapper;
+import com.neomind.fusion.persist.PersistEngine;
+import com.neomind.fusion.persist.QLEqualsFilter;
+import com.neomind.fusion.workflow.adapter.AdapterUtils;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 
 import java.net.URI;
@@ -14,20 +19,23 @@ public class CadastrarCliente
 
 	private static final Log log = LogFactory.getLog(CadastrarCliente.class);
 
-	public void cadastroDeCliente(String json,String acao) throws Exception
+	public void cadastroDeCliente(String json) throws Exception
 	{
 		try
 		{
 
 			log.debug("Obtendo token");
 			ObterToken token = new ObterToken();
-			String accessToken = token.obterToken(acao);
+			String accessToken = token.obterToken();
 			log.debug("Token Obtido : " + accessToken);
 			
+			NeoObject endPointURL = PersistEngine
+					.getObject(AdapterUtils.getEntityClass("IntegracaoTOTVS"), new QLEqualsFilter("Endpoint", "CadastrarCliente"));
 			
+			EntityWrapper endPointEW = new EntityWrapper(endPointURL);
 			
-			String url = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/fusion/v1/cliente/";
-
+			String url = endPointEW.findGenericValue("URL");
+			
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
 					.header("Authorization", "Bearer " + accessToken)
@@ -51,7 +59,7 @@ public class CadastrarCliente
 			{
 
 				log.debug("Token expirado! atualizando token");
-				String refreshToken = token.RefreshToken(acao);
+				String refreshToken = token.RefreshToken();
 				HttpRequest requestRefreshed = HttpRequest.newBuilder().uri(URI.create(url))
 						.header("Authorization", "Bearer " + refreshToken)
 						.header("Content-Type", "application/json")

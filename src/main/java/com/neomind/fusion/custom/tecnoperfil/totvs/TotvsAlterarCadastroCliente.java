@@ -29,13 +29,12 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 			log.debug("Iniciar busca de info");
 			
 			String idcliente = wrapercliente.findGenericValue("CodigoProtheus");
-			String acao = wrapercliente.findGenericValue("Altacao.Bat");		
 			String json = buscarInformacoes(wrapercliente);
 			
 			log.debug("informacoes retornadas + " + json);
 			AlterarCadastroCliente altcadCliente = new AlterarCadastroCliente();
 			log.debug("Iniciando cadastro do cliente");
-			altcadCliente.alterarCadastroCliente(json,acao,idcliente);
+			altcadCliente.alterarCadastroCliente(json,idcliente);
 
 		}
 		catch (WorkflowException e)
@@ -75,8 +74,10 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 			String cgc = wrapercliente.findGenericValue("AltCli.CGC"); 
 			cgc = cgc.replaceAll("[^0-9]+", "");
 			cadcli.setCgc(cgc);
-			cadcli.setNomeReduzido(wrapercliente.findGenericValue("AltCli.NomFan"));
-			cadcli.setNome(wrapercliente.findGenericValue("AltCli.RazSoc"));
+			String nomereduzido = wrapercliente.findGenericValue("AltCli.NomFan");
+			cadcli.setNomeReduzido(nomereduzido.trim());
+			String nome = wrapercliente.findGenericValue("AltCli.RazSoc");
+			cadcli.setNome(nome.trim());
 			String inscriestadual = wrapercliente.findGenericValue("AltCli.InsEsta");
 			if (inscriestadual == null || inscriestadual.isBlank())
 			{

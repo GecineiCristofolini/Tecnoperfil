@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import com.neomind.fusion.common.NeoObject;
 import com.neomind.fusion.entity.EntityWrapper;
 import com.neomind.fusion.persist.PersistEngine;
+import com.neomind.fusion.persist.QLEqualsFilter;
 import com.neomind.fusion.workflow.adapter.AdapterUtils;
 
 public class ObterToken
@@ -20,7 +21,7 @@ public class ObterToken
 	
 	private static final Log log = LogFactory.getLog(ObterToken.class);
 
-	public String obterToken(String acao)
+	public String obterToken()
 	{
 
 		try
@@ -28,9 +29,12 @@ public class ObterToken
 			
 			log.debug("Obtendo token oauth2/v1/token");
 			
+			NeoObject endPointURL = PersistEngine
+					.getObject(AdapterUtils.getEntityClass("IntegracaoTOTVS"), new QLEqualsFilter("Endpoint", "ObterToken"));
 			
+			EntityWrapper endPointEW = new EntityWrapper(endPointURL);
 			
-			String baseUrl = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/api/oauth2/v1/token";
+			String baseUrl = endPointEW.findGenericValue("URL");
 			
 			String grantType = "password";
 			String password = "F5l9jvKHD89j0ZEMVSiACL";
@@ -82,7 +86,7 @@ public class ObterToken
 
 	}
 
-	public String RefreshToken(String acao)
+	public String RefreshToken()
 	{
 
 		try
@@ -91,7 +95,13 @@ public class ObterToken
 			List<NeoObject> listaformToken = PersistEngine
 					.getObjects(AdapterUtils.getEntityClass("CadastroDeClientesParametros"));
 			
-			String baseUrl = "https://tecnoperfil169383.protheus.cloudtotvs.com.br:1623/rest/api/oauth2/v1/token";
+			NeoObject endPointURL = PersistEngine
+					.getObject(AdapterUtils.getEntityClass("IntegracaoTOTVS"), new QLEqualsFilter("Endpoint", "RefreshToken"));
+			
+			EntityWrapper endPointEW = new EntityWrapper(endPointURL);
+			
+			String baseUrl = endPointEW.findGenericValue("URL");
+			
 			String grantType = "refresh_token";
 			String refreshToken = "";
 			for (NeoObject token : listaformToken)
