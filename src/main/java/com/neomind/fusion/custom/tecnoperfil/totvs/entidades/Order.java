@@ -13,6 +13,8 @@ public class Order
 	private String C5_TABELA;
 	private String C5_TRANSP;
 	private Double C5_FRETE;
+	private Double C5_PBRUTO;
+	private Double C5_PESOL;
 	private Double C5_SEGURO;
 	private String C5_REDESP;
 	private String C5_ZMENNF;

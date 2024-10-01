@@ -11,8 +11,37 @@ public class TecnoperfilItensPedidoDataSource {
 	private String total;
 	private String valoripi;
 	private String VltotCipi;
+	private String unidadem;
+	private String valorunim;
+	private String qtdumsegunda;
 	
 	
+	
+	public String getQtdumsegunda()
+	{
+		return qtdumsegunda;
+	}
+	public void setQtdumsegunda(String qtdumsegunda)
+	{
+		this.qtdumsegunda = qtdumsegunda;
+	}
+	public String getUnidadem()
+	{
+		return unidadem;
+	}
+	public String getValorunim()
+	{
+		return valorunim;
+	}
+	
+	public void setUnidadem(String unidadem)
+	{
+		this.unidadem = unidadem;
+	}
+	public void setValorunim(String valorunim)
+	{
+		this.valorunim = valorunim;
+	}
 	public String getCodigo()
 	{
 		return codigo;

@@ -69,8 +69,8 @@ public class EnviarPedidoIndustrialBitrixAdapter implements AdapterInterface {
 		DealRequest dRequest = new DealRequest();
 		StringBuilder numerPedidoBitrix = new StringBuilder();
 
-		String title = wrapper.findGenericValue("WPedInd.Cliind.nome_empresa");
-		String codCli = wrapper.findGenericValue("WPedInd.Cliind.Client.cod_empresa");
+		String title = wrapper.findGenericValue("WPedInd.ClienteTotvs.ClienteTotvs.a1_nome");
+		String codCli = wrapper.findGenericValue("WPedInd.ClienteTotvs.ClienteTotvs.a1_zfusion");
 		BigDecimal valorTotal = wrapper.findGenericValue("WPedInd.VatTMer");
 		String numeroPedido = wrapper.findGenericValue("WPedInd.NumPedI");
 
@@ -83,8 +83,8 @@ public class EnviarPedidoIndustrialBitrixAdapter implements AdapterInterface {
 		dRequest.setRequestNumber(numerPedidoBitrix.toString());
 		System.out.println("-------------------");
 
-		String codigoKugel = wrapper.findGenericValue("WPedInd.Cliind.Client.cod_empresa");
-		JSONObject clienteJson = ValidaClienteAdapter.findCliente(title, codigoKugel);
+		String codigototvs = wrapper.findGenericValue("WPedInd.ClienteTotvs.ClienteTotvs.a1_zfusion");
+		JSONObject clienteJson = ValidaClienteAdapter.findCliente(title, codigototvs);
 		if (clienteJson != null) {
 			dRequest.setCompanyId((String) clienteJson.get("ID"));
 			dRequest.setResponsavel((String) clienteJson.get("ASSIGNED_BY_ID"));

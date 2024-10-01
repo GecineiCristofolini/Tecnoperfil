@@ -52,6 +52,9 @@ public class CadCliente
 	private String contacontabil;
 	private String naturezafinanceira;
 	private String codigomunicipiosuframa;
+	private String codclientrega;
+	private String lojaclientrega;
+	
 	private List<Contato> contatos = new ArrayList<Contato>();
 
 	public String getCgc()

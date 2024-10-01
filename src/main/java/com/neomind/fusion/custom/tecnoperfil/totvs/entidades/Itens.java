@@ -12,6 +12,9 @@ public class Itens
 	private String C6_ENTREG;
 	private String C6_NUMPCOM;
 	private String C6_ITEMPC;
+	private String ID_ITEMFUSION;
+	
+	
 	public String getC6_ITEM()
 	{
 		return C6_ITEM;
