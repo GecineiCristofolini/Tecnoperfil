@@ -1,6 +1,5 @@
 package com.neomind.fusion.custom.tecnoperfil.totvs;
 
-import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,7 +11,6 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 
 import com.neomind.fusion.common.NeoObject;
-import com.neomind.fusion.custom.tecnoperfil.totvs.entidades.DadosFinanceiro;
 import com.neomind.fusion.entity.EntityWrapper;
 import com.neomind.fusion.persist.PersistEngine;
 import com.neomind.fusion.persist.QLEqualsFilter;

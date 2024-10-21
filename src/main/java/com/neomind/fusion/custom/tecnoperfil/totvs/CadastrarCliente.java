@@ -46,7 +46,7 @@ public class CadastrarCliente
 
 			log.debug("Status code :" + response.statusCode());
 
-			if (response.statusCode() != 202)
+			if (response.statusCode() != 200)
 			{
 
 				throw new WorkflowException("Erro na integração" + response.body());

@@ -208,6 +208,8 @@ public class TotvsCadastrarCliente implements AdapterInterface
 				cadcli.setBairroEntrega("");
 				cadcli.setEnderecoEntrega("");
 				cadcli.setCepentrega("");
+				cadcli.setCodclientrega("");
+				cadcli.setLojaclientrega("");
 
 			}
 			else
@@ -218,6 +220,8 @@ public class TotvsCadastrarCliente implements AdapterInterface
 				cadcli.setBairroEntrega(wrapercliente.findGenericValue("BairroDeEntrega"));
 				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("EnderecoDeEntrega"));
 				cadcli.setCepentrega(wrapercliente.findGenericValue("CepDeEntrega"));
+				cadcli.setCodclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_cod"));
+				cadcli.setLojaclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_loja"));
 			}
 
 			boolean tipofrete = wrapercliente.findGenericValue("Clietipfret");
@@ -272,6 +276,10 @@ public class TotvsCadastrarCliente implements AdapterInterface
 				Contato contato = new Contato();
 
 				contato.setNome(contatoWrapper.findGenericValue("Telefo.Contato"));
+				cadcli.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				contato.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				
+						
 
 				cadcli.setDdd(contatoWrapper.findGenericValue("Telefo.DDD"));
 				cadcli.setDdi(contatoWrapper.findGenericValue("Telefo.DDI"));
@@ -281,8 +289,7 @@ public class TotvsCadastrarCliente implements AdapterInterface
 				contato.setDdi(contatoWrapper.findGenericValue("Telefo.DDI"));
 				contato.setTelefone(contatoWrapper.findGenericValue("Telefo.Telefone"));
 
-				cadcli.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
-				contato.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				
 				
 				contatos.add(contato);
 

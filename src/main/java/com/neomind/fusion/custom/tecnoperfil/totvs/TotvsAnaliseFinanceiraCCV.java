@@ -15,10 +15,10 @@ import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 
-public class TotvsAnaliseFinanceiraIND implements AdapterInterface
+public class TotvsAnaliseFinanceiraCCV implements AdapterInterface
 {
 
-	private static final Log log = LogFactory.getLog(TotvsAnaliseFinanceiraIND.class);
+	private static final Log log = LogFactory.getLog(TotvsAnaliseFinanceiraCCV.class);
 
 	@Override
 	public void start(Task arg0, EntityWrapper wrapercliente, Activity arg2)
@@ -27,7 +27,7 @@ public class TotvsAnaliseFinanceiraIND implements AdapterInterface
 		{
 			log.debug("Iniciar busca de info");
 
-			String idcliente = wrapercliente.findGenericValue("CodCliAnalise");
+			String idcliente = wrapercliente.findGenericValue("CodCliAF");
 
 			AnaliseFinanceira analisefina = new AnaliseFinanceira();
 			log.debug("Iniciando cadastro do cliente");
@@ -56,12 +56,12 @@ public class TotvsAnaliseFinanceiraIND implements AdapterInterface
 				
 			}
 
-			wrapercliente.findField("VrLicrI").setValue(totalCreditLimit);
-			wrapercliente.findField("VlcontRI").setValue(creditLimitUsedByOrdersAndFinance);
+			wrapercliente.findField("VrlimCr").setValue(totalCreditLimit);
+			wrapercliente.findField("VlcontR").setValue(creditLimitUsedByOrdersAndFinance);
 			wrapercliente.findField("DataVencimento").setValue(formattedDate);
 
 			String inadimplente = "N";
-			wrapercliente.findField("InadipI").setValue(inadimplente);
+			wrapercliente.findField("inedip").setValue(inadimplente);
 
 			if (formattedDate != null && !formattedDate.equals(""))
 			{
@@ -74,7 +74,7 @@ public class TotvsAnaliseFinanceiraIND implements AdapterInterface
 				{
 
 					inadimplente = "S";
-					wrapercliente.findField("InadipI").setValue(inadimplente);
+					wrapercliente.findField("inedip").setValue(inadimplente);
 
 				}
 
@@ -85,7 +85,7 @@ public class TotvsAnaliseFinanceiraIND implements AdapterInterface
 			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 			String datahoje = Timehoje.format(fmt);
 			
-			wrapercliente.findField("DatAtuF").setValue(datahoje);
+			wrapercliente.findField("AtuDateF").setValue(datahoje);
 			
 
 		}

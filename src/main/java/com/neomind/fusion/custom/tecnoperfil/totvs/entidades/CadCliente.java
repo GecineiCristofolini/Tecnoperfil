@@ -55,6 +55,7 @@ public class CadCliente
 	private String codclientrega;
 	private String lojaclientrega;
 	
+	
 	private List<Contato> contatos = new ArrayList<Contato>();
 
 	public String getCgc()
@@ -525,6 +526,29 @@ public class CadCliente
 	public void setContatos(List<Contato> contatos)
 	{
 		this.contatos = contatos;
+	}
+	
+	
+	
+
+	public String getCodclientrega()
+	{
+		return codclientrega;
+	}
+
+	public String getLojaclientrega()
+	{
+		return lojaclientrega;
+	}
+
+	public void setCodclientrega(String codclientrega)
+	{
+		this.codclientrega = codclientrega;
+	}
+
+	public void setLojaclientrega(String lojaclientrega)
+	{
+		this.lojaclientrega = lojaclientrega;
 	}
 
 	@Override

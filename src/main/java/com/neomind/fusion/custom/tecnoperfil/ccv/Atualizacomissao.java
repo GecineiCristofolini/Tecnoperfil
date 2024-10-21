@@ -7,7 +7,7 @@ import com.neomind.fusion.entity.EntityWrapper;
 import com.neomind.fusion.workflow.Activity;
 import com.neomind.fusion.workflow.Task;
 
-public class ApagaHistoricoAnaliseCCV
+public class Atualizacomissao
 {
 
 	public void start(Task arg0, EntityWrapper wrapper, Activity arg2)
@@ -18,6 +18,7 @@ public class ApagaHistoricoAnaliseCCV
 
 			List<NeoObject> listaHistorico = wrapper.findGenericValue("WPedido.HistoricosDeAprovacao");
 			listaHistorico.clear();
+			
 	
 		}catch (Exception e) {
 			System.out.print(e.getMessage());

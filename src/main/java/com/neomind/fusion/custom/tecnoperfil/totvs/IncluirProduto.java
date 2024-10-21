@@ -17,28 +17,28 @@ import com.neomind.fusion.persist.QLEqualsFilter;
 import com.neomind.fusion.workflow.adapter.AdapterUtils;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 
-public class IncluirPedido
+public class IncluirProduto
 {
 
-	private static final Log log = LogFactory.getLog(IncluirPedido.class);
+	private static final Log log = LogFactory.getLog(IncluirProduto.class);
 
-	public void IntegracaoIncluirPedido(String json,EntityWrapper wraperpedido)
+	public void IntegracaoIncluirProduto(String json, EntityWrapper ewProduto)
 	{
-		
-		try {
-			
+
+		try
+		{
+
 			ObterToken token = new ObterToken();
 			String accessToken = token.obterToken();
 			log.debug("Token Obtido : " + accessToken);
 
-			NeoObject endPointURL = PersistEngine.getObject(AdapterUtils.getEntityClass("IntegracaoTOTVS"),
-					new QLEqualsFilter("Endpoint", "IncluirPedido"));
+			NeoObject endPointURL = PersistEngine.getObject(
+					AdapterUtils.getEntityClass("IntegracaoTOTVS"),
+					new QLEqualsFilter("Endpoint", "IncluirProduto"));
 
 			EntityWrapper endPointEW = new EntityWrapper(endPointURL);
 
 			String urlIncluirPedido = endPointEW.findGenericValue("URL");
-			
-		
 
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(urlIncluirPedido))
@@ -47,37 +47,41 @@ public class IncluirPedido
 					.POST(HttpRequest.BodyPublishers.ofString(json)).build();
 
 			HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+			
+			System.out.println(response.body());
 
 			log.debug("Status code :" + response.statusCode());
-			String Statusbody = response.body();
-			System.out.println(Statusbody) ;
-			
-			if (response.statusCode() != 202)
-			{
 
-				throw new WorkflowException("Erro na integração" + response.body());
-			}
+//			if (response.statusCode() != 202)
+//			{
+//
+//				throw new WorkflowException("Erro na integração" + response.body());
+//			}
+//			
 			
-			
+     
+//			JSONObject responseBody = new JSONObject(response.body());
+//
+//			//String codigo = responseBody.getString("id");
+//			//ewProduto.getField("CodItemP").setValue(codigo);
+//			System.out.println(responseBody.toString());
+//			
+//			JSONArray errors = responseBody.getJSONArray("errors");
+//
+//			if (errors.length() > 0)
+//			{
+//				JSONObject firstError = errors.getJSONObject(0);
+//				String errorMessage = firstError.getString("message");
+//				log.debug("Erro no json de retorno. " + errorMessage);
+//				throw new WorkflowException("Erro na integração: " + errorMessage);
+//			}
+//			else
+//			{
+//				log.debug("Pedido Incluído com sucesso");
+//			}
 
-			
-			JSONObject responseBody = new JSONObject(response.body());
-			JSONArray errors = responseBody.getJSONArray("errors");
-			
-			if (errors.length() > 0) {
-			    JSONObject firstError = errors.getJSONObject(0);
-			    String errorMessage = firstError.getString("message");
-			    log.debug("Erro no json de retorno. " + errorMessage );
-			    throw new WorkflowException("Erro na integração: " + errorMessage);
-			}else
-			{
-				log.debug("Pedido Incluído com sucesso");
-			}
-			
-			
-			
-			
-		}catch (WorkflowException e)
+		}
+		catch (WorkflowException e)
 		{
 			e.printStackTrace();
 			log.error("Erro ao cadastrar cliente");
@@ -90,13 +94,6 @@ public class IncluirPedido
 			throw new WorkflowException("Erro ao montar o Json de Inclusão de pedido");
 		}
 
-		
-	
-	
-	
-		
 	}
-
-
 
 }

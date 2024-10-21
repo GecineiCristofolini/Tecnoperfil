@@ -186,16 +186,20 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 				cadcli.setBairroEntrega("");
 				cadcli.setEnderecoEntrega("");
 				cadcli.setCepentrega("");
+				cadcli.setCodclientrega("");
+				cadcli.setLojaclientrega("");
 
 			}
 			else
 			{
-                String codmunentrega = wrapercliente.findGenericValue("AltCli.MunicipioDeEntrega.cc2_codmun");
+                String codmunentrega = wrapercliente.findGenericValue("MunicipioDeEntrega.cc2_codmun");
 				cadcli.setCodigoMunicipioEntrega(codmunentrega.trim());
-				cadcli.setUfEntrega(wrapercliente.findGenericValue("AltCli.UFDeEntrega"));
-				cadcli.setBairroEntrega(wrapercliente.findGenericValue("AltCli.BairroDeEntrega"));
-				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("AltCli.EnderecoDeEntrega"));
-				cadcli.setCepentrega(wrapercliente.findGenericValue("AltCli.CepDeEntrega"));
+				cadcli.setUfEntrega(wrapercliente.findGenericValue("UFDeEntrega"));
+				cadcli.setBairroEntrega(wrapercliente.findGenericValue("BairroDeEntrega"));
+				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("EnderecoDeEntrega"));
+				cadcli.setCepentrega(wrapercliente.findGenericValue("CepDeEntrega"));
+				cadcli.setCodclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_cod"));
+				cadcli.setLojaclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_loja"));
 			}
 
 			boolean tipofrete = wrapercliente.findGenericValue("AltCli.Clietipfret");
@@ -250,6 +254,10 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 				Contato contato = new Contato();
 
 				contato.setNome(contatoWrapper.findGenericValue("Telefo.Contato"));
+				cadcli.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				contato.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				
+						
 
 				cadcli.setDdd(contatoWrapper.findGenericValue("Telefo.DDD"));
 				cadcli.setDdi(contatoWrapper.findGenericValue("Telefo.DDI"));
@@ -259,8 +267,7 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 				contato.setDdi(contatoWrapper.findGenericValue("Telefo.DDI"));
 				contato.setTelefone(contatoWrapper.findGenericValue("Telefo.Telefone"));
 
-				cadcli.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
-				contato.setEmail(contatoWrapper.findGenericValue("Telefo.Email"));
+				
 				
 				contatos.add(contato);
 
