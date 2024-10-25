@@ -33,7 +33,7 @@ public class ComparaProduto implements AdapterInterface
 			EntityWrapper ewProjeto = new EntityWrapper(projeto);
 			List<NeoObject> listaItens = ewProjeto.findGenericValue("ItensProHdp");
 			//String Gerencia = ewProjeto.findGenericValue("Gerencia");
-			String ncm = ewProjeto.findGenericValue("PesoBarras.b1_posipi");
+			String ncm = ewProjeto.findGenericValue("ProdutoBaseBarra.zb4_posipi");
 
 			for (NeoObject item : listaItens)
 			{

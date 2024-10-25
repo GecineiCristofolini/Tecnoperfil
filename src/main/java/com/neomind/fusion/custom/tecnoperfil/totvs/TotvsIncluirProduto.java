@@ -81,15 +81,23 @@ public class TotvsIncluirProduto implements AdapterInterface
 						String descricao = ewItem.findGenericValue("descricao");
 						String tipo = "PA";
 						String grupo = "30356";
+						String armazem = "01";
 						String origem = "0";
 						String descricaoProdutor = "";
 						String ferramenta = ewItem.findGenericValue("FeritemPr");
-						String cor = "";
+						String codcor = "";
+						String descricor = "";
 						BigDecimal tamanho = ewItem.findGenericValue("TamanPr");
 						String embalagem = "";
 						String unidadeMedida = ewItem.findGenericValue("unidade");
 						String ncm = "84248229";
 						String cest = "";
+						BigDecimal aliqipi= BigDecimal.ZERO;
+						String hdp = "S";
+						String ccv = "N";
+						String ind = "N";
+						String exp = "N";
+						Long qtdEmbalagem = 1L;
 						Long iditem = ewItem.findGenericValue("neoId");
 						String idfusion = Long.toString(iditem);
 						BigDecimal pesoliquido = ewItem.findGenericValue("PesoLiquido");
@@ -104,21 +112,29 @@ public class TotvsIncluirProduto implements AdapterInterface
 						BigDecimal largura = ewItem.findGenericValue("Largura");
 						BigDecimal altura = ewItem.findGenericValue("Altura");
 						String contaContabil = "11030205";
-
+						
 						Produto produto = new Produto();
 
 						produto.setDescricao(descricao);
 						produto.setTipo(tipo);
 						produto.setGrupo(grupo);
+						produto.setArmazem(armazem);
 						produto.setOrigem(origem);
 						produto.setDescricaoProdutor(descricaoProdutor);
 						produto.setFerramenta(ferramenta);
-						produto.setCor(cor);
+						produto.setCodcor(codcor);
+						produto.setDescricor(descricor);
 						produto.setTamanho(tamanho);
 						produto.setEmbalagem(embalagem);
 						produto.setUnidadeMedida(unidadeMedida);
 						produto.setNcm(ncm);
 						produto.setCest(cest);
+						produto.setAliqipi(aliqipi);
+						produto.setHdp(hdp);
+						produto.setCcv(ccv);
+						produto.setInd(ind);
+						produto.setExp(exp);
+						produto.setQtdEmbalagem(qtdEmbalagem);
 						produto.setIdFusion(idfusion);
 						produto.setPesoliquido(pesoliquido);
 						produto.setPesoBruto(pesoBruto);
@@ -132,6 +148,7 @@ public class TotvsIncluirProduto implements AdapterInterface
 						produto.setAltura(altura);
 						produto.setLargura(largura);
 						produto.setContaContabil(contaContabil);
+						produto.setNomeCientifico(descricao);
 						
 						String json = new Gson().toJson(produto);
 						
@@ -139,7 +156,9 @@ public class TotvsIncluirProduto implements AdapterInterface
 						
 						log.debug("informacoes retornadas + " + json);
 						IncluirProduto IncluirProduto = new IncluirProduto();
-						IncluirProduto.IntegracaoIncluirProduto(json, ewProduto);
+						IncluirProduto.IntegracaoIncluirProduto(json, ewItem);
+						
+						
 						
 						log.debug("Itens atualizados");
 						

@@ -90,9 +90,11 @@ public class HidroponiaSnapshotpedido {
 		try {
 			String prefixoCliente = ew.findGenericValue("ClienCadH.CTelefo.prefixo_telecom");
 			String numeroCliente = ew.findGenericValue("ClienCadH.CTelefo.num_aparelho");
+			if (numeroCliente != null){
 			telefoneCliente.append(prefixoCliente.trim());
 			telefoneCliente.append("-");
 			telefoneCliente.append(numeroCliente.trim());
+			}
 
 			if (ew.findGenericValue("ClienCadH.TeleCel") != null) {
 				String celularddd = ew.findGenericValue("ClienCadH.TeleCel.prefixo_telecom");
@@ -111,10 +113,12 @@ public class HidroponiaSnapshotpedido {
 		}
 
 		StringBuilder cidadeEstado = new StringBuilder();
+		String municipio = ew.findGenericValue(("ClienCadH.Client.municipio").trim());
+		if (municipio != null) {
 		cidadeEstado.append(((String) ew.findGenericValue("ClienCadH.Client.municipio")).trim());
 		cidadeEstado.append(" - ");
 		cidadeEstado.append((String) ew.findGenericValue("ClienCadH.Client.sigla_uf"));
-
+		}
 		try {
 			Set<NeoPhone> telefones = ew.findGenericValue("VendHdp.phoneList");
 			if (telefones.size() > 0) {
@@ -153,6 +157,7 @@ public class HidroponiaSnapshotpedido {
 			exibirFrete = "none";
 		}
 
+		if (nomeCli != null) {
 		p.put("foneCliente", telefoneCliente.toString());
 		p.put("nroOrcamento", ew.findGenericValue("NumOrcH"));
 		p.put("cidadeEstado", cidadeEstado.toString());
@@ -192,7 +197,7 @@ public class HidroponiaSnapshotpedido {
 		} else {
 			p.put("clienteDOC", TecnoperfilServletUtils.aplicaMascara(getValue(ew, "ClienCadH.CPFCLI"), false));
 		}
-		
+		}
 		return p;
 	}
       

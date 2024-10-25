@@ -24,7 +24,7 @@ public class EnviarPedidoBitrixAdapter implements AdapterInterface {
 
 	@Override
 	public void start(Task arg0, EntityWrapper arg1, Activity arg2) {
-		HidroponiaSnapshotpedido snapshotPedido = new HidroponiaSnapshotpedido();
+		HidroponiaSnapshotpedidoTotvs snapshotPedido = new HidroponiaSnapshotpedidoTotvs();
 
 		try {
 			snapshot = snapshotPedido.buildContent((NeoBaseEntity)arg1.getObject());
@@ -67,8 +67,8 @@ public class EnviarPedidoBitrixAdapter implements AdapterInterface {
 		DealRequest dRequest = new DealRequest();
 		StringBuilder numerPedidoBitrix = new StringBuilder();
 
-		String title = wrapper.findGenericValue("ClienCadH.Client.nome_empresa");
-		String codCli = wrapper.findGenericValue("ClienCadH.CCoDCli");
+		String title = wrapper.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_nome");
+		String codCli = wrapper.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_zfusion");
 		BigDecimal valorTotal = wrapper.findGenericValue("Desconto");
 		if(valorTotal == null) {
 			valorTotal = wrapper.findGenericValue("TotalGeral");
@@ -84,7 +84,7 @@ public class EnviarPedidoBitrixAdapter implements AdapterInterface {
 		System.out.println("-------------------");
 
 
-		String codigoKugel = wrapper.findGenericValue("ClienCadH.Client.cod_empresa");
+		String codigoKugel = wrapper.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_nome");
 		JSONObject clienteJson = ValidaClienteAdapter.findCliente(title, codigoKugel);
 		if (clienteJson != null) {
 			dRequest.setCompanyId((String) clienteJson.get("ID"));

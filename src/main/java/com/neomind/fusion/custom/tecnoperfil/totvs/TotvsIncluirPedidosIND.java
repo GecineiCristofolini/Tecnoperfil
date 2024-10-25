@@ -108,8 +108,8 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 
 			// Informações para cabeçalho do pedido "Order"
 
-			String idClienteFusion = wraperpedido
-					.findGenericValue("WPedInd.ClienteTotvs.ClienteTotvs.a1_zfusion");
+			String idClienteFusion = wraperpedido.findGenericValue("WPedInd.ClienteTotvs.ClienteTotvs.a1_zfusion");
+			idClienteFusion = idClienteFusion.trim();
 			GregorianCalendar emissao = wraperpedido.findGenericValue("WPedInd.DatEMI");
 			String emissaofusion = NeoCalendarUtils.dateToString(emissao);
 
@@ -330,8 +330,8 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 
 			// Informações para cabeçalho do pedido "Order"
 
-			String idClienteFusiono = wraperpedido
-					.findGenericValue("WPedInd.ClienteOrdem.a1_zfusion");
+			String idClienteFusiono = wraperpedido.findGenericValue("WPedInd.ClienteOrdem.a1_zfusion");
+			idClienteFusiono = idClienteFusion.trim();
 			GregorianCalendar emissaoo = wraperpedido.findGenericValue("WPedInd.DatEMI");
 			String emissaofusiono = NeoCalendarUtils.dateToString(emissaoo);
 

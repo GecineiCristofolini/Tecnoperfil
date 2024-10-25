@@ -64,13 +64,15 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				BigDecimal pesobrutoadesivoun = arg1.findGenericValue("CodItemAdesivo.b1_pesbru");
 				BigDecimal pesoliquidoadesivoun = arg1.findGenericValue("CodItemAdesivo.b1_pesbru");
 				BigDecimal embalagem = arg1.findGenericValue("CodItemAdesivo.b1_qe");
-				
-				
-				
+				String ferramenta = arg1.findGenericValue("FerraAdesiv");
+				String grupo = arg1.findGenericValue("CodItemAdesivo.b1_grupo");
+				String codigocor = arg1.findGenericValue("CodItemAdesivo.b1_zcorprd");
+				String cor = arg1.findGenericValue("CodItemAdesivo.b1_zcor");
+				String ncm = arg1.findGenericValue("CodItemAdesivo.b1_posipi");
 
 				List<NeoObject> itens = projetoWrapper.findGenericValue(listaDeItens);
 				NeoObject itemObject = AdapterUtils.createNewEntityInstance("hidItemProj");
-				String ferramenta = arg1.findGenericValue("FerraAdesiv");
+				
 				
 				
 				EntityWrapper wrapper = new EntityWrapper(itemObject);
@@ -92,8 +94,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				wrapper.setValue("PesoLiquido", pesobrutoadesivoun);
 				wrapper.setValue("PesoBruto", pesoliquidoadesivoun);
 				wrapper.setValue("Embalagem", embalagem);
-				
-				
+				wrapper.setValue("Grupo", grupo);
+				wrapper.setValue("CodigoCor", codigocor);
+				wrapper.setValue("DescricaoDaCor", cor);
+				wrapper.setValue("Ncm", ncm);
 				
 			
 				
@@ -174,8 +178,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPeB1"), qtdBarra1LadoA,
 					unidade,codigo, projeto.findGenericValue("PrUniBar1A"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLAB1"),projeto.findGenericValue("QtdVLAB1"),projeto.findGenericValue("QtdPLAB1"),
-					projeto.findGenericValue("QtdPLAB1L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLAB1L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_cor"),projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -187,8 +193,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPeLBB1"), qtdBarra1LadoB,
 					unidade, codigo, projeto.findGenericValue("PreLaBB1"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLBB1"),projeto.findGenericValue("QtdVLBB1"),projeto.findGenericValue("QtdPLBB1"),
-					projeto.findGenericValue("QtdPLBB1L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLBB1L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 		
@@ -202,8 +210,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPELAB2"), qtdBarra2LadoA,
 					unidade, codigo, projeto.findGenericValue("PreLaAB2"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLAB2"),projeto.findGenericValue("QtdVLAB2"),projeto.findGenericValue("QtdPLAB2")
-					,projeto.findGenericValue("QtdPLAB2l"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					,projeto.findGenericValue("QtdPLAB2l"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -216,8 +226,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPeLaBB2"), qtdBarra2LadoB,
 					unidade, codigo, projeto.findGenericValue("PreLaBB2"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLBB2"),projeto.findGenericValue("QtdVLBB2"),projeto.findGenericValue("QtdPLBB2"),
-					projeto.findGenericValue("QtdPLBB2L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLBB2L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 			
 		}
@@ -231,8 +243,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPeLAB3"), qtdBarra3LadoA,
 					unidade, codigo, projeto.findGenericValue("PreLAB3"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLAB3"),projeto.findGenericValue("QtdVLAB3"),projeto.findGenericValue("QtdPLAB3"),
-					projeto.findGenericValue("QtdPLAB3L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLAB3L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -244,8 +258,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPELBB3"), qtdBarra3LadoB,
 					unidade, codigo, projeto.findGenericValue("PreLaBB3"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLBB3"),projeto.findGenericValue("QtdVLBB3"),projeto.findGenericValue("QtdPLBB3"),
-					projeto.findGenericValue("QtdPLBB3L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLBB3L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -257,8 +273,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPELAB4"), qtdBarra4LadoA,
 					unidade,codigo, projeto.findGenericValue("PreLaAB4"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLAB4"),projeto.findGenericValue("QtdVLAB4"),projeto.findGenericValue("QtdPLAB4"),
-					projeto.findGenericValue("QtdPLB4L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLB4L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -270,8 +288,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPELBB4"), qtdBarra4LadoB,
 					unidade,codigo, projeto.findGenericValue("PreLaBB4"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLBB4"),projeto.findGenericValue("QtdVLBB4"),projeto.findGenericValue("QtdPLBB4"),
-					projeto.findGenericValue("QtdPLBB4L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLBB4L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
@@ -283,8 +303,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPELAB5"), qtdBarra5LadoA,
 					unidade,codigo, projeto.findGenericValue("PreLaAB5"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLAB5"),projeto.findGenericValue("QtdVLAB5"),projeto.findGenericValue("QtdPLAB5"),
-					projeto.findGenericValue("QtdPLAB5L"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLAB5L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 		}
 
 		// Barra5B
@@ -295,49 +317,55 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DesPeLBB5"), qtdBarra5LadoB,
 					unidade, codigo, projeto.findGenericValue("PreLaBB5"), ferramentaBarra, tamanho,
 					projeto.findGenericValue("CubLBB5"),projeto.findGenericValue("QtdVLBB5"),projeto.findGenericValue("QtdPLBB5"),
-					projeto.findGenericValue("QtdPLBB5l"),projeto.findGenericValue("PMKLAB1.b5_altura"),projeto.findGenericValue("PMKLAB1.b5_larg")
-					,projeto.findGenericValue("PesoBarras.b1_pesbru"),projeto.findGenericValue("PesoBarras.b1_peso"),projeto.findGenericValue("PesoBarras.b1_qe")));
+					projeto.findGenericValue("QtdPLBB5l"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
 			
 		}
 
 		// Tampa Entrada
 		// Incluido POr Gecinei CubTAE,QtdVTE,QtdPTE
 		if (validateLong(qtdTampaEntrada)) {
-			String ferramenta = projeto.findGenericValue("FerTENT.b1_zferram");
-			String codigo = projeto.findGenericValue("FerTENT.b1_cod");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_cod");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescTE"), qtdTampaEntrada,
 					unidade, codigo, getPrecofromObject(projeto.findGenericValue("PreTaEnT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubTAE"),projeto.findGenericValue("QtdVTE"),projeto.findGenericValue("QtdPTE"),
-					projeto.findGenericValue("QtdPTEL"),projeto.findGenericValue("PMKTamEnt.b5_altura"),projeto.findGenericValue("PMKTamEnt.b5_larg")
-					,projeto.findGenericValue("FerTENT.b1_pesbru"),projeto.findGenericValue("FerTENT.b1_peso"),projeto.findGenericValue("FerTENT.b1_qe")));
+					projeto.findGenericValue("QtdPTEL"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_alt"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_peso"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_posipi")));
 			
 		}
 
 		// Tampa Saida
 		// Incluido POr Gecinei CubTAS,QtdVTS,QtdPTS 
 		if (validateLong(qtdTampaSaida)) {
-			String ferramenta = projeto.findGenericValue("FerramentaTampaSaida.b1_zferram");
-			String codigo = projeto.findGenericValue("FerramentaTampaSaida.b1_cod");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_cod");
 
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescTS"), qtdTampaSaida,
 					unidade,codigo, getPrecofromObject(projeto.findGenericValue("PreTASAT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubTAS"),projeto.findGenericValue("QtdVTS"),projeto.findGenericValue("QtdPTS"),
-					projeto.findGenericValue("QtdPTSL"),projeto.findGenericValue("PMKTaS.b5_altura"),projeto.findGenericValue("PMKTaS.b5_larg")
-					,projeto.findGenericValue("FerramentaTampaSaida.b1_pesbru"),projeto.findGenericValue("FerramentaTampaSaida.b1_peso")
-					,projeto.findGenericValue("FerramentaTampaSaida.b1_qe")));
-			
+					projeto.findGenericValue("QtdPTSL"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_alt"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_peso"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_posipi")));
 		}
 		// Emenda
 		// Incluido POr Gecinei CubEme,QtdVEme,QtdPEme
 		
 		if (validateLong(qtdEmenda)) {
-			String ferramenta = projeto.findGenericValue("FerEmT.b1_zferram");
-			String codigo = projeto.findGenericValue("FerEmT.b1_cod");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseEmenda.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBaseEmenda.zb4_cod");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescEmen"), qtdEmenda,
 					unidade,codigo, getPrecofromObject(projeto.findGenericValue("PreEmT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubEme"),projeto.findGenericValue("QtdVEme"),projeto.findGenericValue("QtdPEme")
-					,projeto.findGenericValue("QtdPEmel"),projeto.findGenericValue("PMKEMT.b5_altura"),projeto.findGenericValue("PMKEMT.b5_larg")
-					,projeto.findGenericValue("FerEmT.b1_pesbru"),projeto.findGenericValue("FerEmT.b1_peso"),projeto.findGenericValue("FerEmT.b1_qe")));
+					,projeto.findGenericValue("QtdPEmel"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_alt"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_peso"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseEmenda.zb4_grupo"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_cor"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_posipi")));
 			
 			
 		}
@@ -345,29 +373,33 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		// Coletor Antigo
 		// Incluido POr Gecinei CubCOA,QtdVCOA,QtdPeCOA
 		if (validateLong(qtdcoletorAntigo)) {
-			String ferramenta = projeto.findGenericValue("fercolantT.b1_zferram");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_ferram");
 			String codigo = "0";
 			
 			BigDecimal tamanho = projeto.findGenericValue("LargHi");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescPeCo"), qtdcoletorAntigo,
 					unidade,codigo, projeto.findGenericValue("PrColAnt"), ferramenta, tamanho,
 					projeto.findGenericValue("CubCOA"),projeto.findGenericValue("QtdVCOA"),projeto.findGenericValue("QtdPeCOA"),
-					projeto.findGenericValue("QtdPeCOAl"),projeto.findGenericValue("PMKCoAT.b5_altura"),projeto.findGenericValue("PMKCoAT.b5_larg")
-					,projeto.findGenericValue("fercolantT.b1_pesbru"),projeto.findGenericValue("fercolantT.b1_peso"),projeto.findGenericValue("fercolantT.b1_qe")));
+					projeto.findGenericValue("QtdPeCOAl"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_alt"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_peso"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_posipi")));
 			
 		}
 
 		// Coletor Novo
 		// Incluido POr Gecinei CubCON, QtdVCON,QtdPCON
 		if (validateLong(qtdcoletorNovo)) {
-			String ferramenta = projeto.findGenericValue("FerColNT.b1_zferram");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_ferram");
 			String codigo = "0";
 			BigDecimal tamanho = projeto.findGenericValue("LargHi");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("descrPeCoN"), qtdcoletorNovo,
 					unidade,codigo, projeto.findGenericValue("PreUColN"), ferramenta, tamanho,
 					projeto.findGenericValue("CubCON"),projeto.findGenericValue("QtdVCON"),projeto.findGenericValue("QtdPCON"),
-					projeto.findGenericValue("QtdPCONL"),projeto.findGenericValue("PMKColNT.b5_altura"),projeto.findGenericValue("PMKColNT.b5_larg")
-					,projeto.findGenericValue("FerColNT.b1_pesbru"),projeto.findGenericValue("FerColNT.b1_peso"),projeto.findGenericValue("FerColNT.b1_qe")));
+					projeto.findGenericValue("QtdPCONL"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_alt"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_peso"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_posipi")));
 			
 		}
 
@@ -380,11 +412,11 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescTrCN"), qtdTravessaNova,
 					unidade,codigo, projeto.findGenericValue("PreuTraN"), ferramenta, tamanho,
 					projeto.findGenericValue("CubTRN"),projeto.findGenericValue("QtdVTRN"),projeto.findGenericValue("QtdPTRN"),
-					projeto.findGenericValue("QtdPTRNT"),projeto.findGenericValue("PMKTrnT.b5_altura"),projeto.findGenericValue("PMKTrnT.b5_larg")
-					,projeto.findGenericValue("FerTravnoT.b1_pesbru"),projeto.findGenericValue("FerTravnoT.b1_peso")
-					,projeto.findGenericValue("FerTravnoT.b1_qe")));
+					projeto.findGenericValue("QtdPTRNT"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_alt"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_peso"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_qe"),
+				projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_cor")
+				,projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_posipi")));
 		}
-
 		// Travessa Antiga 
 		// Incluido POr Gecinei CubTRA,QtdVTRA,QtdPTRA
 		if (validateLong(qtdTravessaAntiga)) {
@@ -395,24 +427,26 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					.add(addItenToList(lista, projeto.findGenericValue("DescTrCoA"), qtdTravessaAntiga, unidade, codigo,
 							projeto.findGenericValue("PrUTraA"), ferramenta, tamanho,
 							projeto.findGenericValue("CubTRA"),projeto.findGenericValue("QtdVTRA"),projeto.findGenericValue("QtdPTRA")
-							,projeto.findGenericValue("QtdPTRAL"),projeto.findGenericValue("PMKTrAT.b5_altura"),projeto.findGenericValue("PMKTrAT.b5_larg")
-							,projeto.findGenericValue("FerTravveT.b1_pesbru"),projeto.findGenericValue("FerTravveT.b1_peso")
-							,projeto.findGenericValue("FerTravveT.b1_qe")));
+							,projeto.findGenericValue("QtdPTRAL"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_alt"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_larg")
+							,projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_peso"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_qe"),
+							projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_zcorprod")
+							,projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_posipi")));
 			
 		}
 
 		// Coluna Nova
 		// Incluido POr Gecinei CubColN ,QtdVColN,QtdPColN
 		if (validateLong(qtdColunaNova)) {
-			String ferramenta = projeto.findGenericValue("FerConoT.b1_zferram");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseColunaNova.zb4_ferram");
 			String codigo = "0";
 			BigDecimal tamanho = projeto.findGenericValue("Coluna");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescrPerCCN"), qtdColunaNova,
 					unidade,codigo, projeto.findGenericValue("PreUColNo"), ferramenta, tamanho,
 					projeto.findGenericValue("CubColN"),projeto.findGenericValue("QtdVColN"),
-					projeto.findGenericValue("QtdPColN"),projeto.findGenericValue("QtdPColNT"),projeto.findGenericValue("PMKColnoT.b5_altura"),projeto.findGenericValue("PMKColnoT.b5_larg")
-					,projeto.findGenericValue("FerConoT.b1_pesbru"),projeto.findGenericValue("FerConoT.b1_peso")
-					,projeto.findGenericValue("FerConoT.b1_qe")));
+					projeto.findGenericValue("QtdPColN"),projeto.findGenericValue("QtdPColNT"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_alt"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseColunaNova.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_peso"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseColunaNova.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_zcorprod"),
+					projeto.findGenericValue("ProdutoBaseColunaNova.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_posipi")));
 			
 			
 		}
@@ -420,14 +454,16 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		// Coluna Antiga
 		// Incluido POr Gecinei CubColA,QtdVColA,QtdPColA
 		if (validateLong(qtdColunaAntiga)) {
-			String ferramenta = projeto.findGenericValue("FerCoAnT.b1_zferram");
+			String ferramenta = projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_ferram");
 			String codigo = "0";
 			BigDecimal tamanho = projeto.findGenericValue("Coluna");
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescPCCA"), qtdColunaAntiga,
 					unidade,codigo, projeto.findGenericValue("PreUClANt"), ferramenta, tamanho,
 					projeto.findGenericValue("CubColA"),projeto.findGenericValue("QtdVColA"),projeto.findGenericValue("QtdPColA"),
-					projeto.findGenericValue("QtdPColAT"),projeto.findGenericValue("PMKColAntT.b5_altura"),projeto.findGenericValue("PMKColAntT.b5_larg")
-					,projeto.findGenericValue("FerCoAnT.b1_pesbru"),projeto.findGenericValue("FerCoAnT.b1_peso"),projeto.findGenericValue("FerCoAnT.b1_qe")));
+					projeto.findGenericValue("QtdPColAT"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_alt"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_peso"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_zcorprod")
+					,projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_posipi")));
 			
 		}
 
@@ -436,44 +472,46 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		
 		if (validateLong(qtdSuporteColetor)) {
 			String ferramenta = projeto.findGenericValue("FerSuCol");
-			String codigo = projeto.findGenericValue("PreuniSCT.da1_codpro"); 
+			String codigo = projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_cod"); 
 			totalProjeto = totalProjeto
 					.add(addItenToList(lista, projeto.findGenericValue("DescSuCOl"), qtdSuporteColetor, unidade,codigo,
 							getPrecofromObject(projeto.findGenericValue("PreuniSCT")), ferramenta, BigDecimal.ZERO,
 							projeto.findGenericValue("CubSuC"),projeto.findGenericValue("QtdVSC"),projeto.findGenericValue("QtdPSC"),
-							projeto.findGenericValue("QtdPSCT"),projeto.findGenericValue("PMKSupCT.b5_altura"),projeto.findGenericValue("PMKSupCT.b5_larg")
-							,projeto.findGenericValue("FerSuColT.b1_pesbru"),projeto.findGenericValue("FerSuColT.b1_peso")
-							,projeto.findGenericValue("FerSuColT.b1_qe")));
-			
+							projeto.findGenericValue("QtdPSCT"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_alt"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_larg")
+							,projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_peso"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_qe"),
+							projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_grupo"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_zcorprod"),
+							projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_posipi")));
+					
 			
 		}
 
 		// Injetor
 		// Incluido POr Gecinei CubINJ,QtdVINJ,QtdPINJ
 		if (validateLong(qtdInjetor)) {
-			String ferramenta = projeto.findGenericValue("PreUNllnHt.b1_zferram");
-			String codigo = projeto.findGenericValue("PreUNllnHt.b1_cod"); 
+			String ferramenta = projeto.findGenericValue("ProdutoBaseInjetor.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBaseInjetor.zb4_cod"); 
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescInjet"), qtdInjetor,
 					unidade,codigo, getPrecofromObject(projeto.findGenericValue("PreUNIlnHT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubINJ"),projeto.findGenericValue("QtdVINJ"),projeto.findGenericValue("QtdPINJ"),
-					projeto.findGenericValue("QtdPINJT"),projeto.findGenericValue("PMKINjT.b5_altura"),projeto.findGenericValue("PMKINjT.b5_larg")
-					,projeto.findGenericValue("PreUNllnHt.b1_pesbru"),projeto.findGenericValue("PreUNllnHt.b1_peso")
-					,projeto.findGenericValue("PreUNllnHt.b1_qe")));
+					projeto.findGenericValue("QtdPINJT"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_alt"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseInjetor.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_peso"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseInjetor.zb4_grupo"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_zcorprod"),
+					projeto.findGenericValue("ProdutoBaseInjetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_posipi")));
 			
 		}
 
 		// Presilhas
 		// Incluido POr Gecinei CubPre,QtdVPre,QtdPPre
 		if (validateLong(qtdPresilhas)) {
-			String ferramenta = projeto.findGenericValue("FerrPrest.b1_zferram");
-			String codigo = projeto.findGenericValue("FerrPrest.b1_cod"); 
+			String ferramenta = projeto.findGenericValue("ProdutoBasePresilhas.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBasePresilhas.zb4_cod"); 
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescPres"), qtdPresilhas,
 					unidade, codigo, getPrecofromObject(projeto.findGenericValue("PreUPresT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubPre"),projeto.findGenericValue("QtdVPre"),projeto.findGenericValue("QtdPPre"),
-					projeto.findGenericValue("QtdPPret"),projeto.findGenericValue("PMKpreT.b5_altura"),projeto.findGenericValue("PMKpreT.b5_larg")
-					,projeto.findGenericValue("FerrPrest.b1_pesbru"),projeto.findGenericValue("FerrPrest.b1_peso")
-					,projeto.findGenericValue("FerrPrest.b1_qe")));
-			
+					projeto.findGenericValue("QtdPPret"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_alt"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_larg")
+					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_pesbru"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_peso"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_qe"),
+					projeto.findGenericValue("ProdutoBasePresilhas.zb4_grupo"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_zcorprod"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_cor")
+					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi")));
 			
 		}
 		
@@ -481,14 +519,15 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		// Incluido por gecinei 29/0/2023
 		
 		if (validateLong(qtdSuporteflauta)) {
-			String ferramenta = projeto.findGenericValue("FerSupFlat.b1_zferram");
-			String codigo = projeto.findGenericValue("FerSupFlat.b1_cod"); 
+			String ferramenta = projeto.findGenericValue("ProdutoBaseFlauta.zb4_ferram");
+			String codigo = projeto.findGenericValue("ProdutoBaseFlauta.zb4_cod"); 
 			totalProjeto = totalProjeto.add(addItenToList(lista, projeto.findGenericValue("DescrSupFla"), qtdSuporteflauta,
 					unidade,codigo, getPrecofromObject(projeto.findGenericValue("PreSupFlaT")), ferramenta, BigDecimal.ZERO,
 					projeto.findGenericValue("CubSupFla"),projeto.findGenericValue("QtdVolSupFla"),projeto.findGenericValue("QtdPesoSufla"),
-					projeto.findGenericValue("QtdPesoSul"),projeto.findGenericValue("PMKSupFlauta.b5_altura"),projeto.findGenericValue("PMKSupFlauta.b5_larg")
-					,projeto.findGenericValue("FerSupFlat.b1_pesbru"),projeto.findGenericValue("FerSupFlat.b1_peso")
-					,projeto.findGenericValue("FerSupFlat.b1_qe")));
+					projeto.findGenericValue("QtdPesoSul"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_alt"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_larg")
+					,projeto.findGenericValue("ProdutoBaseFlauta.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_peso"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_qe"),
+					projeto.findGenericValue("ProdutoBaseFlauta.zb4_grupo"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_zcorprod"),
+					projeto.findGenericValue("ProdutoBaseFlauta.zb4_cor"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi")));
 			
 			
 		}
@@ -505,7 +544,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
    // Incluido por Gecinei BigDecimal Cubagem, volume,pesobruto,pesoliquido,total item EXP
 	private BigDecimal addItenToList(List<NeoObject> lista, String descricao, Long quantidade, String unidade,
 			String codigo, BigDecimal preco, String ferramenta, BigDecimal tamanho,BigDecimal cubagem, Long volume,BigDecimal peso,
-			BigDecimal pesoliquido,BigDecimal altura,BigDecimal Largura, BigDecimal pesobru,BigDecimal pesoliq,BigDecimal embalagem) {
+			BigDecimal pesoliquido,BigDecimal altura,BigDecimal Largura,BigDecimal pesobru,
+			BigDecimal pesoliq,BigDecimal embalagem,String grupo,String codigocor,String cor,String ncm) {
+		
+		
 		BigDecimal totalItem = BigDecimal.ZERO;
 		BigDecimal totalItemEXP = BigDecimal.ZERO;
 		
@@ -532,10 +574,13 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			wrapper.setValue("QtdPesItemPL",pesoliquido);
 			wrapper.setValue("Altura", altura);
 			wrapper.setValue("Largura", Largura);
-			wrapper.setValue("PesoLiquido", pesobru);
-			wrapper.setValue("PesoBruto", pesoliq);
+			wrapper.setValue("PesoBruto",pesobru);
+			wrapper.setValue("PesoLiquido", pesoliq);
 			wrapper.setValue("Embalagem", embalagem);
-			
+			wrapper.setValue("Grupo", grupo);
+			wrapper.setValue("CodigoCor", codigocor);
+			wrapper.setValue("DescricaoDaCor", cor);
+			wrapper.setValue("Ncm", ncm);
 
 			if (preco != null) {
 				totalItem = preco.multiply(new BigDecimal(quantidade));

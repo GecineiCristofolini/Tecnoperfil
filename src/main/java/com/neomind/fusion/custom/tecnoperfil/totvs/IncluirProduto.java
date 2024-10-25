@@ -7,7 +7,6 @@ import java.net.http.HttpResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.neomind.fusion.common.NeoObject;
@@ -22,12 +21,12 @@ public class IncluirProduto
 
 	private static final Log log = LogFactory.getLog(IncluirProduto.class);
 
-	public void IntegracaoIncluirProduto(String json, EntityWrapper ewProduto)
+	public void IntegracaoIncluirProduto(String json, EntityWrapper ewItem)
 	{
 
 		try
 		{
-
+            
 			ObterToken token = new ObterToken();
 			String accessToken = token.obterToken();
 			log.debug("Token Obtido : " + accessToken);
@@ -52,39 +51,27 @@ public class IncluirProduto
 
 			log.debug("Status code :" + response.statusCode());
 
-//			if (response.statusCode() != 202)
-//			{
-//
-//				throw new WorkflowException("Erro na integração" + response.body());
-//			}
-//			
+			if (response.statusCode() != 202)
+		    {
+				throw new WorkflowException("Erro na integração" + response.toString());
+			}
+		
 			
-     
-//			JSONObject responseBody = new JSONObject(response.body());
-//
-//			//String codigo = responseBody.getString("id");
-//			//ewProduto.getField("CodItemP").setValue(codigo);
-//			System.out.println(responseBody.toString());
-//			
-//			JSONArray errors = responseBody.getJSONArray("errors");
-//
-//			if (errors.length() > 0)
-//			{
-//				JSONObject firstError = errors.getJSONObject(0);
-//				String errorMessage = firstError.getString("message");
-//				log.debug("Erro no json de retorno. " + errorMessage);
-//				throw new WorkflowException("Erro na integração: " + errorMessage);
-//			}
-//			else
-//			{
-//				log.debug("Pedido Incluído com sucesso");
-//			}
+			JSONObject responseBody = new JSONObject(response.body());
+
+			String codigo = responseBody.getString("id");
+			ewItem.getField("CodItemP").setValue(codigo);
+			System.out.println(codigo);
+			
+			log.debug("Pedido Incluído com sucesso");
+			
+			
 
 		}
 		catch (WorkflowException e)
 		{
 			e.printStackTrace();
-			log.error("Erro ao cadastrar cliente");
+			log.error("Erro ao cadastrar Produto");
 			throw e;
 		}
 		catch (Exception e)
