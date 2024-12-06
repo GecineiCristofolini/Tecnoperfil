@@ -24,10 +24,10 @@ import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 import com.neomind.util.NeoCalendarUtils;
 
-public class TotvsIncluirPedidosCCV implements AdapterInterface
+public class TotvsIncluirPedidosHDP implements AdapterInterface
 {
 
-	private static final Log log = LogFactory.getLog(TotvsIncluirPedidosCCV.class);
+	private static final Log log = LogFactory.getLog(TotvsIncluirPedidosHDP.class);
 
 	@Override
 	public void back(EntityWrapper arg0, Activity arg1)
@@ -51,7 +51,7 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 			incluirPedido.IntegracaoIncluirPedido(json, wraperpedido);
 			log.debug("Pedido incluído com sucesso.");
 
-			wraperpedido.findField("WPedido.StatPed").setValue(
+			wraperpedido.findField("StatPedH").setValue(
 					"Importado Com Sucesso - Verifique no Campo Abaixo se Aparece Numero Pedido Totvs Se não entre em contato com TI!!");
 
 			Timer timer = new Timer(); // Creating a Timer object from the timer class
@@ -102,26 +102,27 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 			// Informações para cabeçalho do pedido "Order"
 
 			String idClienteFusion = wraperpedido
-					.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_zfusion");
+					.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_zfusion");
 			idClienteFusion = idClienteFusion.trim();
-			GregorianCalendar emissao = wraperpedido.findGenericValue("WPedido.DataEm");
+			GregorianCalendar emissao = wraperpedido.findGenericValue("DtEmissaoH");
 			String emissaofusion = NeoCalendarUtils.dateToString(emissao);
 
 			String ano = emissaofusion.substring(6, 10);
 			String mes = emissaofusion.substring(3, 5);
 			String dia = emissaofusion.substring(0, 2);
 			String dataemissao = ano + mes + dia;
-			String numeropedidofusion = wraperpedido.findGenericValue("WPedido.NumPed");
-			String condpag = wraperpedido.findGenericValue("WPedido.CondPagtovs.e4_codigo");
-			String transportadora = wraperpedido.findGenericValue("WPedido.Transportadora.a4_cod");
-			BigDecimal frete = wraperpedido.findGenericValue("WPedido.ValFret");
+			String numeropedidofusion = wraperpedido.findGenericValue("NumOrcH");
+			String condpag = wraperpedido.findGenericValue("CondpagTotvs.e4_codigo");
+			String transportadora = wraperpedido.findGenericValue("TransportadoraOficial.a4_cod");
+			BigDecimal frete = wraperpedido.findGenericValue("VlFretHDP");
 
 			String redespasho = "";
 			String clienteentrega = "";
 			String lojaentrega = "";
 
-			Boolean tementregadif = wraperpedido.findGenericValue("WPedido.TemEntredif.InformeSimOuNao");
-			String tipoentrega = wraperpedido.findGenericValue("WPedido.TipoDeEntrega.Codigo");
+			Boolean tementregadif = wraperpedido
+					.findGenericValue("TemEntregaDiferenciada.InformeSimOuNao");
+			String tipoentrega = wraperpedido.findGenericValue("TipoDeEntrega.Codigo");
 
 			if (tementregadif)
 			{
@@ -129,28 +130,26 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 				if (tipoentrega.equals("3"))
 				{
 
-					redespasho = wraperpedido
-							.findGenericValue("WPedido.TransportadoraRedespacho.a4_cod");
+					redespasho = wraperpedido.findGenericValue("TransportadoraRedespacho.a4_cod");
 
 				}
 
-				if (tipoentrega.equals("2") || tipoentrega.equals("4") || tipoentrega.equals("5"))
+				if (tipoentrega.equals("2") || tipoentrega.equals("4"))
 				{
 
-					clienteentrega = wraperpedido.findGenericValue("WPedido.ClienteEntrega.a1_cod");
-					lojaentrega = wraperpedido.findGenericValue("WPedido.ClienteEntrega.a1_loja");
+					clienteentrega = wraperpedido.findGenericValue("ClienteEntrrega.a1_cod");
+					lojaentrega = wraperpedido.findGenericValue("ClienteEntrrega.a1_loja");
 
 				}
 
 			}
 
-			String infmensagem = wraperpedido.findGenericValue("WPedido.InformeMensagemNaNota");
-			String ordemcompra = wraperpedido.findGenericValue("WPedido.OrdCom");
-			String suframa = wraperpedido
-					.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_suframa");
-			String LocalEntrega = wraperpedido.findGenericValue("WPedido.LocalEntrega");
+			String infmensagem = wraperpedido.findGenericValue("InformeMensagemNaNota");
+			String ordemcompra = wraperpedido.findGenericValue("OrdComHDP");
+			String suframa = wraperpedido.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_suframa");
+			String LocalEntrega = wraperpedido.findGenericValue("EnderecoDeEntregaOficial");
 
-			if (ordemcompra == null || ordemcompra.equals("")|| ordemcompra.isBlank())
+			if (ordemcompra == null || ordemcompra.equals("") || ordemcompra.isBlank())
 			{
 
 				ordemcompra = "";
@@ -162,7 +161,7 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 				ordemcompra = "Ordem de Compra:" + ordemcompra;
 			}
 
-			if (suframa == null || suframa.equals("") || suframa.isBlank())
+			if (suframa == null || suframa.equals("")|| suframa.isBlank())
 			{
 
 				suframa = "";
@@ -171,7 +170,7 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 			else
 			{
 
-				suframa = "Inscricao Suframa:" + suframa;
+				suframa = "Inscrição Suframa:" + suframa;
 			}
 
 			if (LocalEntrega == null || LocalEntrega.equals(""))
@@ -191,15 +190,15 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 
 			String mensagemnota = mensagem.toString();
 
-			String tipoliberacao = wraperpedido.findGenericValue("WPedido.TipLib.Codigo");
-			String tipofrete = wraperpedido.findGenericValue("WPedido.TipoDeFrete.SiglaTipoFrete");
-			BigDecimal pesobruto = wraperpedido.findGenericValue("WPedido.PesoBrutoTotal");
-			BigDecimal pesoliquido = wraperpedido.findGenericValue("WPedido.PesoLiquidoTotal");
+			String tipoliberacao = wraperpedido.findGenericValue("TipoDeLiberacao.Codigo");
+			String tipofrete = wraperpedido.findGenericValue("TFretHDP.SiglaTipoDeFreteTotvs");
+			BigDecimal pesobruto = wraperpedido.findGenericValue("PesoBrutoTotalDosItens");
+			BigDecimal pesoliquido = wraperpedido.findGenericValue("PesoLiquidoTotalDosItens");
 			LocalDateTime d05 = LocalDateTime.now();
 			DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("yyyyMMdd");
 			String dateinclusao = d05.format(fmt2);
 
-			Long volume = wraperpedido.findGenericValue("WPedido.VolumeTotal");
+			Long volume = wraperpedido.findGenericValue("VolumeTotal");
 
 			Order ordertotvs = new Order();
 
@@ -223,11 +222,57 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 			ordertotvs.setC5_VOLUME1(volume);
 			ordertotvs.setC5_DESPESA(BigDecimal.ZERO);
 
+			// Fim do Cabeçario Pedido
+
+			// Vendedores de Vendas 
+
+			boolean vendcompartilhada = wraperpedido
+					.findGenericValue("TemVendaCompartilhadaRepresentante");
+			boolean TeAgenE = wraperpedido.findGenericValue("TemVendaCompartilhadaRepresentante");
+
+			String Agente = wraperpedido.findGenericValue("codVenH.ACodRep");
+
+			String Agentecompartilhado = wraperpedido.findGenericValue("temvendcomp.a3_cod");
+			BigDecimal ComissaoAgenteCompartilhado = wraperpedido
+					.findGenericValue("ComissaoRepresentante");
+			String Pic = wraperpedido.findGenericValue("CodigovendePIC.a3_cod");
+			BigDecimal ComissaoAgentePic = wraperpedido.findGenericValue("Infperpic");
+
+			if (!vendcompartilhada)
+			{
+
+				Agentecompartilhado = "";
+				ComissaoAgenteCompartilhado = BigDecimal.ZERO;
+			}
+
+			if (!TeAgenE)
+			{
+
+				Pic = "";
+				ComissaoAgentePic = BigDecimal.ZERO;
+
+			}
+
+			ordertotvs.setC5_VEND1(Agente);
+			ordertotvs.setC5_COMIS1(BigDecimal.ZERO);
+			ordertotvs.setC5_VEND2(Agentecompartilhado);
+			ordertotvs.setC5_COMIS2(BigDecimal.ZERO);
+			ordertotvs.setC5_VEND3(Pic);
+			ordertotvs.setC5_COMIS3(BigDecimal.ZERO);
+			ordertotvs.setC5_VEND4("");
+			ordertotvs.setC5_COMIS4(BigDecimal.ZERO);
+			ordertotvs.setC5_VEND5("");
+			ordertotvs.setC5_COMIS5(BigDecimal.ZERO);
+
+			// Fim do Vendedores 
+
+			// Busca Itens do Pedido Para Protheus
+
 			List<Itens> listitens = new ArrayList<Itens>();
 
 			String tabelapreco = "";
-			String tipooperacao = wraperpedido.findGenericValue("WPedido.TipoDeOperacao.x5_chave");
-			GregorianCalendar dataembarque = wraperpedido.findGenericValue("WPedido.PrevEmb");
+			String tipooperacao = wraperpedido.findGenericValue("TipoDeOperacao.x5_chave");
+			GregorianCalendar dataembarque = wraperpedido.findGenericValue("PrevembHDP");
 			String prevembarquepedido = NeoCalendarUtils.dateToString(dataembarque);
 
 			String anoem = prevembarquepedido.substring(6, 10);
@@ -235,19 +280,19 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 			String diaem = prevembarquepedido.substring(0, 2);
 			String dtembarquepedido = anoem + mesem + diaem;
 
-			List<NeoObject> itensfusion = wraperpedido.findGenericValue("WPedido.PItenPed");
+			List<NeoObject> itensfusion = wraperpedido.findGenericValue("ListaItens");
 
 			for (NeoObject itensPedido : itensfusion)
 			{
 
 				EntityWrapper itensPedidoWrapper = new EntityWrapper(itensPedido);
 
-				String codigoproduto = itensPedidoWrapper.findGenericValue("CodItem");
-				BigDecimal quantidade = itensPedidoWrapper.findGenericValue("QtdTotvs");
-				BigDecimal vlunitario = itensPedidoWrapper.findGenericValue("ValUni");
-				BigDecimal valormerc = itensPedidoWrapper.findGenericValue("vlmerc");
-				String tabelaprecoitem = itensPedidoWrapper
-						.findGenericValue("TabelaDePrecoTotvs.da0_codtab");
+				String codigoproduto = itensPedidoWrapper.findGenericValue("CodigoDoItem");
+				String qtd = itensPedidoWrapper.findGenericValue("Qtd");
+				BigDecimal quantidade = new BigDecimal(qtd);
+				BigDecimal vlunitario = itensPedidoWrapper.findGenericValue("ValorUnitario");
+				BigDecimal valormerc = itensPedidoWrapper.findGenericValue("ValorMerc");
+				String tabelaprecoitem = "920";
 
 				if (tabelaprecoitem != null)
 				{
@@ -255,29 +300,10 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 				}
 
 				String tipooperacaoitem = tipooperacao.trim();
-
-				Boolean desejaembarqueitem = itensPedidoWrapper.findGenericValue("TeDaEmIT");
 				String dtembarque = "";
+				dtembarque = dtembarquepedido;
 
-				if (desejaembarqueitem)
-				{
-
-					GregorianCalendar dataembarqueitem = itensPedidoWrapper.findGenericValue("DatEmbI");
-					String prevembarquepedidoitem = NeoCalendarUtils.dateToString(dataembarqueitem);
-
-					String anoemitem = prevembarquepedidoitem.substring(6, 10);
-					String mesemitem = prevembarquepedidoitem.substring(3, 5);
-					String diaemitem = prevembarquepedidoitem.substring(0, 2);
-					dtembarque = anoemitem + mesemitem + diaemitem;
-
-				}
-				else
-				{
-
-					dtembarque = dtembarquepedido;
-				}
-
-				String ordemitem = itensPedidoWrapper.findGenericValue("OrderItem");
+				String ordemitem = itensPedidoWrapper.findGenericValue("Itemped");
 
 				Long iditem = itensPedidoWrapper.findGenericValue("neoId");
 
@@ -294,37 +320,12 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 				itensped.setC6_ENTREG(dtembarque);
 				itensped.setC6_NUMPCOM(ordemcompra);
 				itensped.setC6_ITEMPC(ordemitem);
-				itensped.setC6_ITEMCTA("200200000"); // conta contabil ccv
-
-				// Comissao POr Linha 
-
-				BigDecimal comissao1 = itensPedidoWrapper.findGenericValue("ComissaoAgenteTLV");
-				BigDecimal comissao2 = itensPedidoWrapper.findGenericValue("ComissaoAgenteRV");
-				BigDecimal comissao3 = itensPedidoWrapper.findGenericValue("ComissaoAgenteEntrega");
-				BigDecimal comissao4 = itensPedidoWrapper.findGenericValue("ComissaoEntregatlv");
-				BigDecimal comissao5 = BigDecimal.ZERO;
-				String Vendedor1 = itensPedidoWrapper.findGenericValue("AgenteTLV");
-				String Vendedor2 = itensPedidoWrapper.findGenericValue("Agenterv");
-				String Vendedor3 = itensPedidoWrapper.findGenericValue("AgenteEntregaRV");
-				String Vendedor4 = itensPedidoWrapper.findGenericValue("AgenteEntregaTLV");
-				String Vendedor5 = "";
-
-				ordertotvs.setC5_VEND1(Vendedor1);
-				ordertotvs.setC5_COMIS1(BigDecimal.ZERO);
-				ordertotvs.setC5_VEND2(Vendedor2);
-				ordertotvs.setC5_COMIS2(BigDecimal.ZERO);
-				ordertotvs.setC5_VEND3(Vendedor3);
-				ordertotvs.setC5_COMIS3(BigDecimal.ZERO);
-				ordertotvs.setC5_VEND4(Vendedor4);
-				ordertotvs.setC5_COMIS4(BigDecimal.ZERO);
-				ordertotvs.setC5_VEND5(Vendedor5);
-				ordertotvs.setC5_COMIS5(BigDecimal.ZERO);
-
-				itensped.setC6_COMIS1(comissao1);
-				itensped.setC6_COMIS2(comissao2);
-				itensped.setC6_COMIS3(comissao3);
-				itensped.setC6_COMIS4(comissao4);
-				itensped.setC6_COMIS5(comissao5);
+				itensped.setC6_ITEMCTA("200500000"); // conta contabil IND 
+				itensped.setC6_COMIS1(BigDecimal.ZERO);
+				itensped.setC6_COMIS2(ComissaoAgenteCompartilhado);
+				itensped.setC6_COMIS3(ComissaoAgentePic);
+				itensped.setC6_COMIS4(BigDecimal.ZERO);
+				itensped.setC6_COMIS5(BigDecimal.ZERO);
 				itensped.setIdItemFusion(neoid);
 
 				listitens.add(itensped);
@@ -337,10 +338,7 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 
 			ListPedido.add(ordertotvs);
 
-			String tipooperacaoordem = wraperpedido
-					.findGenericValue("WPedido.TipoDeOperacaoOrdem.x5_chave");
-			
-			
+			String tipooperacaoordem = wraperpedido.findGenericValue("TipoDeOperacaoOrdem.x5_chave");
 			
 			if (tipooperacaoordem != null)
 			{
@@ -353,36 +351,35 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 
 					String idClienteFusiono = wraperpedido
 							.findGenericValue("ClienteOrdem.a1_zfusion");
-					idClienteFusiono = idClienteFusion.trim();
-					GregorianCalendar emissaoo = wraperpedido.findGenericValue("WPedido.DataEm");
+					idClienteFusiono = idClienteFusiono.trim();
+					GregorianCalendar emissaoo = wraperpedido.findGenericValue("DtEmissaoH");
 					String emissaofusiono = NeoCalendarUtils.dateToString(emissaoo);
 
 					String anoo = emissaofusiono.substring(6, 10);
 					String meso = emissaofusiono.substring(3, 5);
 					String diao = emissaofusiono.substring(0, 2);
 					String dataemissaoo = anoo + meso + diao;
-					String numeropedidofusiono = wraperpedido.findGenericValue("WPedido.NumPed");
+					String numeropedidofusiono = wraperpedido.findGenericValue("NumOrcH");
 					numeropedidofusiono = numeropedidofusiono + "o";
-					String condpago = wraperpedido.findGenericValue("WPedido.CondPagtovs.e4_codigo");
+					String condpago = wraperpedido.findGenericValue("CondpagTotvs.e4_codigo");
 					String transportadorao = wraperpedido
-							.findGenericValue("WPedido.Transportadora.a4_cod");
-					BigDecimal freteo = wraperpedido.findGenericValue("WPedido.ValFret");
+							.findGenericValue("TransportadoraOficial.a4_cod");
+					BigDecimal freteo = wraperpedido.findGenericValue("VlFretHDP");
 
 					String redespashoo = "";
 					String clienteentregao = "";
 					String lojaentregao = "";
 
 					String mensagemnotao = "";
-					String tipoliberacaoo = wraperpedido.findGenericValue("WPedido.TipLib.Codigo");
-					String tipofreteo = wraperpedido
-							.findGenericValue("WPedido.TipoDeFrete.SiglaTipoFrete");
-					BigDecimal pesobrutoo = wraperpedido.findGenericValue("WPedido.PesoBrutoTotal");
-					BigDecimal pesoliquidoo = wraperpedido.findGenericValue("WPedido.PesoLiquidoTotal");
+					String tipoliberacaoo = wraperpedido.findGenericValue("TipoDeLiberacao.Codigo");
+					String tipofreteo = wraperpedido.findGenericValue("TFretHDP.SiglaTipoDeFreteTotvs");
+					BigDecimal pesobrutoo = wraperpedido.findGenericValue("PesoBrutoTotalDosItens");
+					BigDecimal pesoliquidoo = wraperpedido.findGenericValue("PesoLiquidoTotalDosItens");
 					LocalDateTime d05o = LocalDateTime.now();
 					DateTimeFormatter fmt2o = DateTimeFormatter.ofPattern("yyyyMMdd");
 					String dateinclusaoo = d05o.format(fmt2o);
 
-					Long volumeo = wraperpedido.findGenericValue("WPedido.VolumeTotal");
+					Long volumeo = wraperpedido.findGenericValue("VolumeTotal");
 
 					Order ordertotvso = new Order();
 
@@ -427,63 +424,40 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 
 					List<Itens> listitenso = new ArrayList<Itens>();
 
-					String tabelaprecoo = "";
-					String tipooperacaoo = wraperpedido
-							.findGenericValue("WPedido.TipoDeOperacaoOrdem.x5_chave");
-					GregorianCalendar dataembarqueo = wraperpedido.findGenericValue("WPedido.PrevEmb");
+					String tabelaprecoo = "920";
+					String tipooperacaoo = wraperpedido.findGenericValue("TipoDeOperacaoOrdem.x5_chave");
+					GregorianCalendar dataembarqueo = wraperpedido.findGenericValue("PrevembHDP");
 					String prevembarquepedidoo = NeoCalendarUtils.dateToString(dataembarqueo);
 
 					String anoemo = prevembarquepedidoo.substring(6, 10);
 					String mesemo = prevembarquepedidoo.substring(3, 5);
 					String diaemo = prevembarquepedidoo.substring(0, 2);
 					String dtembarquepedidoo = anoemo + mesemo + diaemo;
-					String ordemcomprao = wraperpedido.findGenericValue("WPedido.OrdCom");
+					String ordemcomprao = wraperpedido.findGenericValue("OrdComHDP");
 
-					List<NeoObject> itensfusiono = wraperpedido.findGenericValue("WPedido.PItenPed");
+					List<NeoObject> itensfusiono = wraperpedido.findGenericValue("ListaItens");
 
 					for (NeoObject itensPedidoo : itensfusiono)
 					{
 
 						EntityWrapper itensPedidoWrappero = new EntityWrapper(itensPedidoo);
 
-						String codigoprodutoo = itensPedidoWrappero.findGenericValue("CodItem");
-						BigDecimal quantidadeo = itensPedidoWrappero.findGenericValue("QtdTotvs");
-						BigDecimal vlunitarioo = itensPedidoWrappero.findGenericValue("ValUni");
-						BigDecimal valormerco = itensPedidoWrappero.findGenericValue("vlmerc");
-						String tabelaprecoitemo = itensPedidoWrappero
-								.findGenericValue("TabelaDePrecoTotvs.da0_codtab");
+						String codigoprodutoo = itensPedidoWrappero.findGenericValue("CodigoDoItem");
+						String qtd = itensPedidoWrappero.findGenericValue("Qtd");
+						BigDecimal quantidadeo = new BigDecimal(qtd);
+						
+						BigDecimal vlunitarioo = itensPedidoWrappero.findGenericValue("ValorUnitario");
+						BigDecimal valormerco = itensPedidoWrappero.findGenericValue("ValorMerc");
+						
 
-						if (tabelaprecoitemo == null)
-						{
-							tabelaprecoo = tabelaprecoitemo;
-						}
-
+						
 						String tipooperacaoitemo = tipooperacaoo.trim();
 
-						Boolean desejaembarqueitemo = itensPedidoWrappero.findGenericValue("TeDaEmIT");
 						String dtembarqueo = "";
 
-						if (desejaembarqueitemo)
-						{
-
-							GregorianCalendar dataembarqueitemo = itensPedidoWrappero
-									.findGenericValue("DatEmbI");
-							String prevembarquepedidoitemo = NeoCalendarUtils
-									.dateToString(dataembarqueitemo);
-
-							String anoemitemo = prevembarquepedidoitemo.substring(6, 10);
-							String mesemitemo = prevembarquepedidoitemo.substring(3, 5);
-							String diaemitemo = prevembarquepedidoitemo.substring(0, 2);
-							dtembarqueo = anoemitemo + mesemitemo + diaemitemo;
-
-						}
-						else
-						{
-
-							dtembarqueo = dtembarquepedidoo;
-						}
-
-						String ordemitemo = itensPedidoWrappero.findGenericValue("OrderItem");
+						dtembarqueo = dtembarquepedidoo;
+						
+						String ordemitemo = itensPedidoWrappero.findGenericValue("Itemped");
 
 						Long iditemo = itensPedidoWrappero.findGenericValue("neoId");
 
@@ -499,14 +473,13 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 						itenspedo.setC6_ENTREG(dtembarqueo);
 						itenspedo.setC6_NUMPCOM(ordemcomprao);
 						itenspedo.setC6_ITEMPC(ordemitemo);
-						itenspedo.setC6_ITEMCTA("200200000"); // conta contabil ccv
-						itenspedo.setIdItemFusion(neoido);
-						
+						itenspedo.setC6_ITEMCTA("200500000"); // conta contabil HDP ´
 						itenspedo.setC6_COMIS1(BigDecimal.ZERO);
 						itenspedo.setC6_COMIS2(BigDecimal.ZERO);
 						itenspedo.setC6_COMIS3(BigDecimal.ZERO);
 						itenspedo.setC6_COMIS4(BigDecimal.ZERO);
 						itenspedo.setC6_COMIS5(BigDecimal.ZERO);
+						itenspedo.setIdItemFusion(neoido);
 
 						listitenso.add(itenspedo);
 
@@ -518,7 +491,6 @@ public class TotvsIncluirPedidosCCV implements AdapterInterface
 
 					ListPedido.add(ordertotvso);
 				}
-
 			}
 
 			pedidototvs.setOrder(ListPedido);

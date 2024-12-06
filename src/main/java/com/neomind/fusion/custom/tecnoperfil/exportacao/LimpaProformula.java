@@ -1,4 +1,4 @@
-package com.neomind.fusion.custom.tecnoperfil.ccv;
+package com.neomind.fusion.custom.tecnoperfil.exportacao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.neomind.fusion.workflow.Activity;
 import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 
-public class ApagaHistoricoAnaliseCCV implements AdapterInterface
+public class LimpaProformula implements AdapterInterface
 {
 
 	public void start(Task arg0, EntityWrapper wrapper, Activity arg2)
@@ -17,8 +17,8 @@ public class ApagaHistoricoAnaliseCCV implements AdapterInterface
 		try
 		{
 
-			List<NeoObject> listaHistorico = wrapper.findGenericValue("WPedido.HistoricosDeAprovacao");
-			listaHistorico.clear();
+			List<NeoObject> listaproformula = wrapper.findGenericValue("AdicionaPedido");
+			listaproformula.clear();
 	
 		}catch (Exception e) {
 			System.out.print(e.getMessage());

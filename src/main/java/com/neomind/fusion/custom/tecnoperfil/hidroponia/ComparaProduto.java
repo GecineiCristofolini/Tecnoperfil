@@ -34,6 +34,7 @@ public class ComparaProduto implements AdapterInterface
 			List<NeoObject> listaItens = ewProjeto.findGenericValue("ItensProHdp");
 			//String Gerencia = ewProjeto.findGenericValue("Gerencia");
 			String ncm = ewProjeto.findGenericValue("ProdutoBaseBarra.zb4_posipi");
+			
 
 			for (NeoObject item : listaItens)
 			{
@@ -49,7 +50,7 @@ public class ComparaProduto implements AdapterInterface
 
 					log.info("codigo do Item igual a 0");
 
-					String sql = "SELECT B1_COD, B1_DESC FROM SB1010 WHERE B1_DESC = '" + descricao
+					String sql = "SELECT B1_COD, B1_DESC FROM SB1010 WHERE B1_DESC = '" + descricao.trim()
 							+ "' AND B1_POSIPI = '" + ncm.trim() + "'";
 
 					log.info("Query executada: " + sql);

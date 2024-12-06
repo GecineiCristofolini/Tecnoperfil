@@ -55,7 +55,10 @@ public class ListaGeralItens implements AdapterInterface
 				BigDecimal pesobruto = ItensdoPedidoWraper.findGenericValue("PesoBruto");
 				Long volume = ItensdoPedidoWraper.findGenericValue("Volumes");
 				BigDecimal volumem3 = ItensdoPedidoWraper.findGenericValue("VolumesM3");
-
+				String qtd2 = ItensdoPedidoWraper.findGenericValue("QuantidadeSegundaUM");
+				String um2 = ItensdoPedidoWraper.findGenericValue("SegundaUnidadeMedida");
+				
+				
 				NeoObject listaitenspedido = AdapterUtils
 						.createNewEntityInstance("ExportacaoListaGeralItens");
 
@@ -79,6 +82,8 @@ public class ListaGeralItens implements AdapterInterface
 				wrapperitenspedido.setValue("PesoBruto", pesobruto);
 				wrapperitenspedido.setValue("Volume", volume);
 				wrapperitenspedido.setValue("VolumeM3", volumem3);
+				wrapperitenspedido.setValue("Qtd2", qtd2);
+				wrapperitenspedido.setValue("UM2", um2);
 
 				// Adicionar na Lista do Campo Itens do Pedido
 				listageralitens.add(listaitenspedido);

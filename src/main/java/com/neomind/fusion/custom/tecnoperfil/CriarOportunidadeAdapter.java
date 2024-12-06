@@ -41,7 +41,7 @@ public class CriarOportunidadeAdapter implements AdapterInterface {
 		String bitrixID = wrapper.findGenericValue("bitrixId");
 		BigDecimal valorTotal = wrapper.findGenericValue("WPedido.ValMer");
 		String numeroPedido = wrapper.findGenericValue("WPedido.NumPed");
-		String title = wrapper.findGenericValue("WPedido.Client.Client.nome_empresa");
+		String title = wrapper.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_nome");
 		String tipoPedido =  wrapper.findGenericValue("WPedido.tipoPedido");
 
 		DealRequest dRequest = new DealRequest();
@@ -66,7 +66,7 @@ public class CriarOportunidadeAdapter implements AdapterInterface {
 		DealRequest dRequest = new DealRequest();
 		StringBuilder numerPedidoBitrix = new StringBuilder();
 
-		String title = wrapper.findGenericValue("WPedido.Client.Client.nome_empresa");
+		String title = wrapper.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_nome");
 		BigDecimal valorTotal = wrapper.findGenericValue("WPedido.ValMer");
 		String numeroPedido = wrapper.findGenericValue("WPedido.NumPed");
 		String tipoPedido =  wrapper.findGenericValue("WPedido.tipoPedido");
@@ -85,7 +85,7 @@ public class CriarOportunidadeAdapter implements AdapterInterface {
 		}
 
 
-		String codigoKugel = wrapper.findGenericValue("WPedido.Client.Client.cod_empresa");
+		String codigoKugel = wrapper.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_zfusion");
 		JSONObject clienteJson = ValidaClienteAdapter.findCliente(title, codigoKugel);
 		if (clienteJson != null) {
 			dRequest.setCompanyId((String) clienteJson.get("ID"));
@@ -102,7 +102,7 @@ public class CriarOportunidadeAdapter implements AdapterInterface {
 
 	private void createComment(String idPEd, String dealId, String numeroPedido) {
 		try {
-		File proposta = TecnoperfilRelatorioPedido.geraPDF(idPEd);
+		File proposta = TecnoperfilRelatorioPedidoTotvs.geraPDF(idPEd);
 		CommentRequest cr = new CommentRequest();
 
 		cr.setComment("Documento - Proposta Pedido " + numeroPedido);

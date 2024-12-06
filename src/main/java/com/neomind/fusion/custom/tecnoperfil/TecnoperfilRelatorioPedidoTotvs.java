@@ -283,7 +283,7 @@ public class TecnoperfilRelatorioPedidoTotvs {
 			}
 
 			paramMap.put("valortotal",
-					formatCurrencyValue(NeoUtils.safeOutputString(wrapper.findValue("VldaDaMerc")).trim()));
+					formatCurrencyValue(NeoUtils.safeOutputString(wrapper.findValue("ValMer")).trim()));
 			paramMap.put("valorfrete",
 					formatCurrencyValue(NeoUtils.safeOutputString(wrapper.findValue("ValFret")).trim()));
 

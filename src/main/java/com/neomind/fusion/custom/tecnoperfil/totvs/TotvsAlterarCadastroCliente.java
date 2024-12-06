@@ -192,14 +192,14 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 			}
 			else
 			{
-                String codmunentrega = wrapercliente.findGenericValue("MunicipioDeEntrega.cc2_codmun");
+                String codmunentrega = wrapercliente.findGenericValue("AltCli.MunicipioDeEntrega.cc2_codmun");
 				cadcli.setCodigoMunicipioEntrega(codmunentrega.trim());
-				cadcli.setUfEntrega(wrapercliente.findGenericValue("UFDeEntrega"));
-				cadcli.setBairroEntrega(wrapercliente.findGenericValue("BairroDeEntrega"));
-				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("EnderecoDeEntrega"));
-				cadcli.setCepentrega(wrapercliente.findGenericValue("CepDeEntrega"));
-				cadcli.setCodclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_cod"));
-				cadcli.setLojaclientrega(wrapercliente.findGenericValue("infocodtotvs.a1_loja"));
+				cadcli.setUfEntrega(wrapercliente.findGenericValue("AltCli.UFDeEntrega"));
+				cadcli.setBairroEntrega(wrapercliente.findGenericValue("AltCli.BairroDeEntrega"));
+				cadcli.setEnderecoEntrega(wrapercliente.findGenericValue("AltCli.EnderecoDeEntrega"));
+				cadcli.setCepentrega(wrapercliente.findGenericValue("AltCli.CepDeEntrega"));
+				cadcli.setCodclientrega(wrapercliente.findGenericValue("AltCli.infocodtotvs.a1_cod"));
+				cadcli.setLojaclientrega(wrapercliente.findGenericValue("AltCli.infocodtotvs.a1_loja"));
 			}
 
 			boolean tipofrete = wrapercliente.findGenericValue("AltCli.Clietipfret");
@@ -232,8 +232,8 @@ public class TotvsAlterarCadastroCliente implements AdapterInterface
 			cadcli.setSegmento3("");
 			cadcli.setSegmento4("");
 			cadcli.setSegmento5("");
-			cadcli.setStatus("1");
-			cadcli.setCodvendedor("6001");
+			cadcli.setStatus("2");
+			cadcli.setCodvendedor("");
 			String codmuniciposuframa = wrapercliente.findGenericValue("AltCli.CodigoMunicipioSuframa");
 			cadcli.setCodigomunicipiosuframa(codmuniciposuframa.trim());
 

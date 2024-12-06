@@ -19,7 +19,7 @@ public class BotaoImprimirPackingList extends StringConverter {
 				+ field.getForm().getObject().getNeoId());
 		EntityWrapper ew = new EntityWrapper((NeoBaseEntity<Long>)field.getForm().getObject());
 		
-		String pedido = ew.findGenericValue("NumPed");
+		String pedido = ew.findGenericValue("Invoice");
 		System.out.println("numero pedido" + pedido);
 		String url = PortalUtil.getBaseURL();
 		String botao = "<script>" 

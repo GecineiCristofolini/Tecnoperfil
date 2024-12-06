@@ -13,6 +13,7 @@ import com.neomind.fusion.workflow.adapter.AdapterUtils;
 public class ListaGeralHDP implements AdapterInterface
 {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void start(Task arg0, EntityWrapper wrapper, Activity arg2)
 	{
@@ -50,7 +51,8 @@ public class ListaGeralHDP implements AdapterInterface
 				String ncm = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_posipi");
 				BigDecimal aliqipi = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_ipi");
 				BigDecimal valunitario = ItensdoPedidoWraper.findGenericValue("PvItenAv");
-				BigDecimal valmercadoria = ItensdoPedidoWraper.findGenericValue("PrecToTal");
+				BigDecimal valmercadoria = BigDecimal.ZERO;
+				valmercadoria = valunitario.multiply(new BigDecimal(quantidade)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 				String tipo = "PA";
 				BigDecimal pesoliquido = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_peso");
 				BigDecimal pesobruto = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_pesbru");
@@ -69,7 +71,9 @@ public class ListaGeralHDP implements AdapterInterface
 				String grupoTrib = "P01";
 				String armazem ="01";
 				String pedidofusion = wrapper.findGenericValue("NumOrcH");
-				
+				String Lado = "";
+				String passo ="";
+				String diametro = "";
 				
 				
 				NeoObject listaitenspedido = AdapterUtils
@@ -120,6 +124,9 @@ public class ListaGeralHDP implements AdapterInterface
 				wrapperitenspedido.setValue("NomeCientifico",narrativatecnia );
 				wrapperitenspedido.setValue("PedidoFusion",pedidofusion );
 				wrapperitenspedido.setValue("Itemped",itemped );
+				wrapperitenspedido.setValue("Lado",Lado );
+				wrapperitenspedido.setValue("Passo",passo );
+				wrapperitenspedido.setValue("Diametro",diametro );
 
 
 				
@@ -160,7 +167,8 @@ public class ListaGeralHDP implements AdapterInterface
 					String descricaoIngles = "";
 					String descricaoespanhol = "";
 					BigDecimal valunitario = itensprojetopWraper.findGenericValue("PvItenPr");
-					BigDecimal valmercadoria = itensprojetopWraper.findGenericValue("PreTotalP");
+					BigDecimal valmercadoria = BigDecimal.ZERO;
+					valmercadoria = valunitario.multiply(new BigDecimal(quantidade)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 					BigDecimal Largura = itensprojetopWraper.findGenericValue("Largura");
 					String grupo = itensprojetopWraper.findGenericValue("Grupo");
 					String codigocor = itensprojetopWraper.findGenericValue("CodigoCor");
@@ -183,6 +191,9 @@ public class ListaGeralHDP implements AdapterInterface
 					String pedidofusion = wrapper.findGenericValue("NumOrcH");
 					String ncm = itensprojetopWraper.findGenericValue("Ncm");
 					String grupoTrib = "P01";
+					String Lado = itensprojetopWraper.findGenericValue("Lado");
+					String passo = itensprojetopWraper.findGenericValue("Passo");
+					String diametro = itensprojetopWraper.findGenericValue("Diametro");
 					
 							
 					
@@ -234,9 +245,12 @@ public class ListaGeralHDP implements AdapterInterface
 					wrapperitensprojeto.setValue("grupotrib", grupoTrib);
 					wrapperitensprojeto.setValue("Largura", Largura);
 					wrapperitensprojeto.setValue("Altura", Altura);
-					wrapperitensprojeto.setValue("NomeCientifico",narrativatecnia );
+					wrapperitensprojeto.setValue("NomeCientifico",narrativatecnia);
 					wrapperitensprojeto.setValue("PedidoFusion",pedidofusion );
 					wrapperitensprojeto.setValue("Itemped",itemped );
+					wrapperitensprojeto.setValue("Lado",Lado );
+					wrapperitensprojeto.setValue("Passo",passo );
+					wrapperitensprojeto.setValue("Diametro",diametro );
 
 					// Adicionar na Lista do Campo Itens do Pedido hdp no Listagem Geral 
 					listageralitens.add(listaitenspedido);

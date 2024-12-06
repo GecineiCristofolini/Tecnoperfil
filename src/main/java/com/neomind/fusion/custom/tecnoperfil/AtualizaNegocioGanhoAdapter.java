@@ -37,7 +37,7 @@ public class AtualizaNegocioGanhoAdapter implements AdapterInterface {
 		String bitrixID = wrapper.findGenericValue("bitrixId");
 		BigDecimal valorTotal = wrapper.findGenericValue("WPedido.ValMer");
 		String numeroPedido = wrapper.findGenericValue("WPedido.NumPed");
-		String title = wrapper.findGenericValue("WPedido.Client.Client.nome_empresa");
+		String title = wrapper.findGenericValue("WPedido.ClientesTovs.ClienteTotvs.a1_nome");
 		String tipoPedido =  wrapper.findGenericValue("WPedido.tipoPedido");
 
 		DealRequest dRequest = new DealRequest();
@@ -59,7 +59,7 @@ public class AtualizaNegocioGanhoAdapter implements AdapterInterface {
 	}
 
 	private void createComment(String idPedido, String dealId, String numeroPedido) {
-		File proposta = TecnoperfilRelatorioPedido.geraPDF(idPedido);
+		File proposta = TecnoperfilRelatorioPedidoTotvs.geraPDF(idPedido);
 		CommentRequest cr = new CommentRequest();
 
 		cr.setComment("Documento - Proposta Pedido " + numeroPedido);

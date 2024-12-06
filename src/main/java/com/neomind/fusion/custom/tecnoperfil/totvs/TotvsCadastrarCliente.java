@@ -254,8 +254,8 @@ public class TotvsCadastrarCliente implements AdapterInterface
 			cadcli.setSegmento3("");
 			cadcli.setSegmento4("");
 			cadcli.setSegmento5("");
-			cadcli.setStatus("1");
-			cadcli.setCodvendedor("6001");
+			cadcli.setStatus("2");
+			cadcli.setCodvendedor("");
 			String codmuniciposuframa = wrapercliente.findGenericValue("CodigoMunicipioSuframa");
 			cadcli.setCodigomunicipiosuframa(codmuniciposuframa.trim());
 

@@ -36,6 +36,20 @@ public class Order
 	private BigDecimal C5_COMIS4;
 	private String C5_VEND5;
 	private BigDecimal C5_COMIS5;
+	private BigDecimal C5_DESPESA;
+	
+	
+	
+	public BigDecimal getC5_DESPESA()
+	{
+		return C5_DESPESA;
+	}
+
+	public void setC5_DESPESA(BigDecimal c5_DESPESA)
+	{
+		C5_DESPESA = c5_DESPESA;
+	}
+
 	private List<Itens> itens = new ArrayList<Itens>();
 
 	public String getIdClienteFusion()

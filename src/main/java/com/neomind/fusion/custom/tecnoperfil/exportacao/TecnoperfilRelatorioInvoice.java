@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.neomind.framework.base.entity.NeoBaseEntity;
 import com.neomind.fusion.common.NeoObject;
-import com.neomind.fusion.custom.tecnoperfil.TecnoperfilItensPedidoDataSource;
 import com.neomind.fusion.doc.NeoStorage;
 import com.neomind.fusion.entity.EntityWrapper;
 import com.neomind.fusion.entity.InstantiableEntityInfo;
@@ -48,7 +47,7 @@ public class TecnoperfilRelatorioInvoice {
 		Long pedidoId = Long.parseLong(numeroPedido);
 
 		try {
-			InstantiableEntityInfo ieiColaborador = AdapterUtils.getInstantiableEntityInfo("PedExp");
+			InstantiableEntityInfo ieiColaborador = AdapterUtils.getInstantiableEntityInfo("DocEXP");
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			NeoBaseEntity pedido = (NeoObject) PersistEngine.getObject(ieiColaborador.getEntityClass(),
 					new QLEqualsFilter("neoId", pedidoId));
@@ -98,124 +97,304 @@ public class TecnoperfilRelatorioInvoice {
 		try {
 			paramMap = new HashMap<String, Object>();
 			EntityWrapper wrapper = new EntityWrapper(pedido);
-            // Dados do Cabeçario 
-			@SuppressWarnings("unused")
-			NeoUser usuarioLogado = PortalUtil.getCurrentUser();
-			paramMap.put("pathLogo", PATH_LOGO);
-			paramMap.put("Invoice", "EXP 12-24");
-		    paramMap.put("importer",  NeoUtils.safeOutputString(wrapper.findValue("ClienteExp.Client.nome_empresa")).trim());
-		    paramMap.put("importador",  NeoUtils.safeOutputString(wrapper.findValue("ClienteExp.CEnder")).trim());
-		    paramMap.put("contact",  "Verficar");
-		    paramMap.put("tel",  "Verficar Telefone");
-		    paramMap.put("email",  "Verificar email");
-		    GregorianCalendar emissao = wrapper.findGenericValue("DataDeEmissao");
-			paramMap.put("datafecha", NeoCalendarUtils.dateToString(emissao));		    
-			paramMap.put("orderpedido",NeoUtils.safeOutputString(wrapper.findValue("NumPed")).trim());
-			paramMap.put("paymentcond","verificar 50% anteciipado");
-			paramMap.put("Inconterm","verificar inconterm");
-			paramMap.put("portshipment",NeoUtils.safeOutputString(wrapper.findValue("ClienteExp.Cidade")).trim()+ " "
-			+NeoUtils.safeOutputString(wrapper.findValue("ClienteExp.Estado")).trim());
-			paramMap.put("portdestination","verificar destination ");
-			paramMap.put("pathSubRelatorio1", subRelatorio);
-						
-		
-		Collection<NeoObject> itens = (Collection<NeoObject>) wrapper.findField("ItenPedExp").getValues();
-		Collection<TecnoperfilItensInvoiceDataSource> listaItens = populaGrid(itens);
-		
-		paramMap.put("listaItens", listaItens);
-
-		
-		paramMap.put("listaItens", listaItens);
-
-			return paramMap;
-		} catch (Exception e) {
-			log.error("Erro ao preencher o mapa de parâmetros da Impressão do Relatório", e);
-			e.printStackTrace();
-		}
-		return paramMap;
-	}
-
-	/**
-	 * Retorna dados dos itens do pedido 
-	 */
-	
-	public static Collection<TecnoperfilItensInvoiceDataSource> populaGrid(Collection<NeoObject> itens) {
-		
-	
-		
-		List<TecnoperfilItensInvoiceDataSource> listaItens = new ArrayList();
-
-		try {
 			
-			int Contitem = 0;
-			for (NeoObject item : itens) {
-				EntityWrapper wItem = new EntityWrapper(item);
-				
-				Contitem ++;
-				
-				String seqitem = Integer.toString(Contitem);				
-				String quantidade = NeoUtils.safeOutputString(wItem.findValue("QtdEXP"));
-				String um = NeoUtils.safeOutputString(wItem.findValue("UmeExp.cod_um"));
-				String descricao = NeoUtils.safeOutputString(wItem.findValue("DesItemEXP.linha_nar_item"));
-				String ferramenta = NeoUtils.safeOutputString(wItem.findValue("Ferrament.produto"));
-				String cor = NeoUtils.safeOutputString(wItem.findValue("CorEXP.cor_formulacao"));
-				String ncm = NeoUtils.safeOutputString(wItem.findValue("ProdEXP.cod_clas_fiscal"));
-				String codigo = NeoUtils.safeOutputString(wItem.findValue("codItemE"));
-				
-				String valoruni = NeoUtils.safeOutputString(wItem.findValue("ValorUnitario"));
-				String total = NeoUtils.safeOutputString(wItem.findValue("VlmeEXP"));
-				
-				
+			// Dados do Cabeçario 
+						@SuppressWarnings("unused")
+						NeoUser usuarioLogado = PortalUtil.getCurrentUser();
+						paramMap.put("pathLogo", PATH_LOGO);
+						paramMap.put("Invoice", NeoUtils.safeOutputString(wrapper.findValue("Invoice")).trim());
 
-				TecnoperfilItensInvoiceDataSource ped = new TecnoperfilItensInvoiceDataSource();
-				ped.setItem(seqitem);
-				ped.setQuantidade(quantidade);
-				ped.setUnidade(um);
-				ped.setDescricao(descricao);
-				ped.setFerramenta(ferramenta);
-				ped.setCor(cor);
-				ped.setNcm(ncm);
-				ped.setCodigoitem(codigo);
-				ped.setValoUnitario(valoruni);
-				ped.setVltotal(total);
-				
-				
+						String nomeempresa = NeoUtils
+								.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_nome")).trim();
+						String docestrangeiro = NeoUtils
+								.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_zdocext")).trim();
+						String importer = nomeempresa + " " + docestrangeiro;
+						paramMap.put("importer", importer);
+						String endereco = NeoUtils
+								.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_end")).trim();
+						String municipio = NeoUtils
+								.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_mun")).trim();
+						String pais = NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.NomePais.ya_descr"))
+								.trim();
+						String importador = endereco + "," + municipio + "," + pais;
+						paramMap.put("importador", importador);
 
-				listaItens.add(ped);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-       // System.out.println(listaItens.toString());
-		return listaItens;
-	}
+						Integer Contato = wrapper.findGenericValue("Contatos");
+						String estado = NeoUtils
+								.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_est")).trim();
 
-	@SuppressWarnings("static-access")
-	public static String formatCurrencyValue(String plainValue) {
-		try {
-			BigDecimal value = new BigDecimal(plainValue);
-			NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
+						if (Contato == 2)
+						{
+							String DDD = NeoUtils.safeOutputString(wrapper.findValue("ContatoPessoa.u5_ddd")).trim();
+							String DDI = NeoUtils.safeOutputString(wrapper.findValue("ContatoPessoa.u5_codpais"))
+									.trim();
+							String numero = NeoUtils.safeOutputString(wrapper.findValue("ContatoPessoa.u5_fone"))
+									.trim();
+							paramMap.put("contact",
+									NeoUtils.safeOutputString(wrapper.findValue("ContatoPessoa.u5_contat")).trim());
+							paramMap.put("email",
+									NeoUtils.safeOutputString(wrapper.findValue("ContatoPessoa.u5_email")).trim());
+							String telefo = "";
+							if (estado.equals("EX"))
+							{
 
-			return nf.getCurrencyInstance().format(value);
-		} catch (Exception e) {
-				System.out.println("Erro ao aplicar máscara monetária: "+plainValue);
-		}
-		return "R$ 0,00";
-	}
+								telefo = "(" + DDI + ") " + numero;
 
-	@SuppressWarnings("unused")
-	private static String safeNotNullString(Object value) {
-		try {
-			if (value instanceof String) {
-				String valueStr = (String) value;
-				if (valueStr != null && !valueStr.isEmpty()) {
-					return valueStr.trim();
+							}
+							else
+							{
+
+								telefo = "(" + DDD + ") " + numero;
+
+							}
+
+							paramMap.put("tel", telefo);
+
+						}
+
+						GregorianCalendar emissao = wrapper.findGenericValue("DataDeEmissao");
+						paramMap.put("datafecha", NeoCalendarUtils.dateToString(emissao));
+						paramMap.put("paymentcond", "CondicaoDePagamento");
+
+						String pedidos = "";
+						
+						StringBuilder pedidoordem = new StringBuilder();
+
+						List<NeoObject> AdicionaPedido = wrapper.findGenericValue("AdicionaPedido");
+						
+						
+
+						for (NeoObject ListaAdicianaPedido : AdicionaPedido)
+						{
+
+							
+
+							EntityWrapper ListaPedidoWraper = new EntityWrapper(ListaAdicianaPedido);
+
+							String NumeroPedido = ListaPedidoWraper.findGenericValue("PedidoFusion");
+
+							
+							
+
+							if (pedidos.equals(NumeroPedido))
+							{
+
+							}
+							else
+							{
+								pedidos = NumeroPedido;
+								pedidoordem.append(NumeroPedido);
+								pedidoordem.append("-");
+
+							}
+
+							
+
+						}
+						
+						String orderpedido = pedidoordem.toString();
+
+						paramMap.put("orderpedido", orderpedido);
+						String Incoterm = NeoUtils.safeOutputString(wrapper.findValue("Incoterm.Codigo"))+" - "
+								+ NeoUtils.safeOutputString(wrapper.findValue("Incoterm.Descricao"));
+						paramMap.put("Inconterm", Incoterm);
+						paramMap.put("portshipment",
+								NeoUtils.safeOutputString(wrapper.findValue("PortoEmbarque")).trim());
+
+						paramMap.put("portdestination",
+								NeoUtils.safeOutputString(wrapper.findValue("PortoDesembarque")).trim());
+
+						paramMap.put("condiciones",
+								NeoUtils.safeOutputString(wrapper.findValue("CondicoesFornecimento")).trim());
+
+						paramMap.put("siglamoeda",
+								NeoUtils.safeOutputString(wrapper.findValue("Moeda.cto_simb")).trim());
+						paramMap.put("incoterm",
+								NeoUtils.safeOutputString(wrapper.findValue("Incoterm.Codigo")).trim());
+
+						paramMap.put("TotMerc",
+								NeoUtils.safeOutputString(wrapper.findValue("ValorMercadoria")).trim());
+
+						paramMap.put("FLETE", NeoUtils.safeOutputString(wrapper.findValue("ValorFrete")).trim());
+
+						paramMap.put("SEGURO", NeoUtils.safeOutputString(wrapper.findValue("ValorSeguro")).trim());
+
+						paramMap.put("TOTALFCA", NeoUtils.safeOutputString(wrapper.findValue("ValorTotal")).trim());
+
+						paramMap.put("PESONETO", NeoUtils.safeOutputString(wrapper.findValue("PesoLiquido")).trim());
+
+						paramMap.put("PESOBRUTO", NeoUtils.safeOutputString(wrapper.findValue("PesoBruto")).trim());
+
+						paramMap.put("VOLUME", NeoUtils.safeOutputString(wrapper.findValue("Volumes")).trim());
+
+						paramMap.put("VOLUMEM", NeoUtils.safeOutputString(wrapper.findValue("Volumecubico")).trim());
+
+						paramMap.put("pathSubRelatorio1", subRelatorio);
+
+						String indioma = NeoUtils.safeOutputString(wrapper.findValue("Indioma.Sigla"));
+						String moeda = NeoUtils.safeOutputString(wrapper.findValue("Moeda.cto_desc"));
+
+						@SuppressWarnings("unchecked")
+						Collection<NeoObject> itens = (Collection<NeoObject>) wrapper.findField("AdicionaPedido")
+								.getValues();
+						Collection<TecnoperfilItensInvoiceDataSource> listaItens = populaGrid(itens, indioma,
+								moeda);
+
+						paramMap.put("listaItens", listaItens);
+
+						return paramMap;
+					}
+					catch (Exception e)
+					{
+						log.error("Erro ao preencher o mapa de parâmetros da Impressão do Relatório", e);
+						e.printStackTrace();
+					}
+					return paramMap;
+				}
+
+				/**
+				 * Retorna dados dos itens do pedido
+				 */
+
+				public static Collection<TecnoperfilItensInvoiceDataSource> populaGrid(Collection<NeoObject> itens,
+						String indioma, String moeda)
+				{
+
+					List<TecnoperfilItensInvoiceDataSource> listaItens = new ArrayList<TecnoperfilItensInvoiceDataSource>();
+
+					try
+					{
+
+						int Contitem = 0;
+						for (NeoObject item : itens)
+						{
+							EntityWrapper wItem = new EntityWrapper(item);
+
+							Contitem++;
+
+							String seqitem = Integer.toString(Contitem);
+							String quantidade = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.Qtd"));
+							String um = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.UM"));
+							String descricao = "";
+
+							if (indioma.contains("E"))
+							{
+
+								descricao = NeoUtils
+										.safeOutputString(wItem.findValue("AdicionaPedido.DescricaoEspanhol"));
+
+							}
+
+							if (indioma.contains("P"))
+							{
+
+								descricao = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.Descricao"));
+
+							}
+
+							if (indioma.contains("I"))
+							{
+
+								descricao = NeoUtils
+										.safeOutputString(wItem.findValue("AdicionaPedido.DescricaoIngles"));
+
+							}
+
+							String siglamoeda = "";
+
+							if (moeda.contains("REAL"))
+							{
+
+								siglamoeda = "R$";
+
+							}
+
+							if (moeda.contains("DOLAR"))
+							{
+
+								siglamoeda = "US$";
+
+							}
+
+							if (moeda.contains("EURO"))
+							{
+
+								siglamoeda = "€";
+
+							}
+
+							String ferramenta = NeoUtils
+									.safeOutputString(wItem.findValue("AdicionaPedido.Ferramenta"));
+							String cor = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.DescricaoCor"));
+							String ncm = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.NCM"));
+							String codigo = NeoUtils
+									.safeOutputString(wItem.findValue("AdicionaPedido.CodigoDoItem"));
+
+							String valoruni = NeoUtils
+									.safeOutputString(wItem.findValue("AdicionaPedido.ValorUnitario"));
+							String total = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.ValorMerc"));
+
+							TecnoperfilItensInvoiceDataSource ped = new TecnoperfilItensInvoiceDataSource();
+							ped.setItem(seqitem);
+							ped.setQuantidade(quantidade);
+							ped.setUnidade(um);
+							ped.setDescricao(descricao);
+							ped.setFerramenta(ferramenta);
+							ped.setCor(cor);
+							ped.setNcm(ncm);
+							ped.setCodigoitem(codigo);
+							ped.setValoUnitario(valoruni);
+							ped.setVltotal(total);
+							ped.setSiglamoeda(siglamoeda);
+
+							listaItens.add(ped);
+						}
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					// System.out.println(listaItens.toString());
+					return listaItens;
+
+				}
+
+				@SuppressWarnings("static-access")
+				public static String formatCurrencyValue(String plainValue)
+				{
+					try
+					{
+						BigDecimal value = new BigDecimal(plainValue);
+						NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
+
+						return nf.getCurrencyInstance().format(value);
+					}
+					catch (Exception e)
+					{
+						System.out.println("Erro ao aplicar máscara monetária: " + plainValue);
+					}
+					return "R$ 0,00";
+				}
+
+				@SuppressWarnings("unused")
+				private static String safeNotNullString(Object value)
+				{
+					try
+					{
+						if (value instanceof String)
+						{
+							String valueStr = (String) value;
+							if (valueStr != null && !valueStr.isEmpty())
+							{
+								return valueStr.trim();
+							}
+						}
+					}
+					catch (Exception e)
+					{
+
+					}
+
+					return "";
 				}
 			}
-		} catch (Exception e) {
-
-		}
-
-		return "";
-	}
-}

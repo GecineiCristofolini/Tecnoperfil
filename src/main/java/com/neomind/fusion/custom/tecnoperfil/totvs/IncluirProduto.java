@@ -21,7 +21,7 @@ public class IncluirProduto
 
 	private static final Log log = LogFactory.getLog(IncluirProduto.class);
 
-	public void IntegracaoIncluirProduto(String json, EntityWrapper ewItem)
+	public String IntegracaoIncluirProduto(String json)
 	{
 
 		try
@@ -50,22 +50,34 @@ public class IncluirProduto
 			System.out.println(response.body());
 
 			log.debug("Status code :" + response.statusCode());
-
+			String codigo ="0";
+			
 			if (response.statusCode() != 202)
-		    {
-				throw new WorkflowException("Erro na integração" + response.toString());
-			}
+			{
+
+				log.error("Erro ao cadastrar Produto");
+				
+			}else {		
 		
 			
 			JSONObject responseBody = new JSONObject(response.body());
+			codigo = responseBody.getString("id");
+			
+			}
+			
+//			String codigoitem = ewProjeto.findGenericValue("CodigoDoItem");
+//			System.out.println(codigoitem +"enc");
 
-			String codigo = responseBody.getString("id");
-			ewItem.getField("CodItemP").setValue(codigo);
-			System.out.println(codigo);
 			
-			log.debug("Pedido Incluído com sucesso");
+			//codigoitem = codigo;
+			
+			//ewProjeto.setValue("CodigoDoItem",codigo);
 			
 			
+			
+			log.debug("Produto Incluído com sucesso");
+			
+			return codigo;
 
 		}
 		catch (WorkflowException e)
@@ -77,8 +89,8 @@ public class IncluirProduto
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			log.error("Erro ao cadastrar cliente");
-			throw new WorkflowException("Erro ao montar o Json de Inclusão de pedido");
+			log.error("Erro ao cadastrar Produto");
+			throw new WorkflowException("Erro ao montar o Json de Inclusão de produto");
 		}
 
 	}

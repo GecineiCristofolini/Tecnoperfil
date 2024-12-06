@@ -50,13 +50,14 @@ public class ExportacaoServeletUtilsProforma extends HttpServlet
 	@SuppressWarnings("unused")
 	private void geraRelatorioProforma(HttpServletRequest request, HttpServletResponse response)
 	{
-		String numeroPedido = NeoUtils.safeOutputString(request.getParameter("pedido"));
+		String proformula = NeoUtils.safeOutputString(request.getParameter("proformula"));
+		
 
 		try
 		{
-			if (numeroPedido != null && !numeroPedido.isEmpty())
+			if (proformula != null && !proformula.isEmpty())
 			{
-				File fileProposta = TecnoperfilRelatorioProforma.geraPDF(numeroPedido);
+				File fileProposta = TecnoperfilRelatorioProforma.geraPDF(proformula);
 
 				if (fileProposta == null)
 				{

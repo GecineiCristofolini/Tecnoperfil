@@ -12,8 +12,22 @@ public class TecnoperfilItensInvoiceDataSource {
 	private String codigoitem;
 	private String valoUnitario;
 	private String vltotal;
+	private String siglamoeda;
 	
 	
+	
+	public String getSiglamoeda()
+	{
+		return siglamoeda;
+	}
+
+
+	public void setSiglamoeda(String siglamoeda)
+	{
+		this.siglamoeda = siglamoeda;
+	}
+
+
 	public TecnoperfilItensInvoiceDataSource() {
 		
 	}

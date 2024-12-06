@@ -19,15 +19,15 @@ public class BotaoImprimirProforma extends StringConverter {
 				+ field.getForm().getObject().getNeoId());
 		EntityWrapper ew = new EntityWrapper((NeoBaseEntity<Long>)field.getForm().getObject());
 		
-		String pedido = ew.findGenericValue("NumPed");
-		System.out.println("numero pedido" + pedido);
+		String proformula = ew.findGenericValue("Proformula");
+		System.out.println("numero pedido" + proformula);
 		String url = PortalUtil.getBaseURL();
 		String botao = "<script>" 
 				
 				+ "function opnreportProforma(){"
 				+ "var url = '"
 				+ url
-				+ "servlet/ExportacaoServeletUtilsProforma?action=geraRelatorioProforma&pedido="
+				+ "servlet/ExportacaoServeletUtilsProforma?action=geraRelatorioProforma&proformula="
 				+ field.getForm().getObject().getNeoId()
 				+ "';"
 				+ "window,open(url);"

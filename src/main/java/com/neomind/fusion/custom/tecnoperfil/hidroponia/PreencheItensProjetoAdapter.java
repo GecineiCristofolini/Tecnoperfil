@@ -69,6 +69,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				String codigocor = arg1.findGenericValue("CodItemAdesivo.b1_zcorprd");
 				String cor = arg1.findGenericValue("CodItemAdesivo.b1_zcor");
 				String ncm = arg1.findGenericValue("CodItemAdesivo.b1_posipi");
+				String descesp = arg1.findGenericValue("CodItemAdesivo.b1_zdesces");
 
 				List<NeoObject> itens = projetoWrapper.findGenericValue(listaDeItens);
 				NeoObject itemObject = AdapterUtils.createNewEntityInstance("hidItemProj");
@@ -98,6 +99,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 				wrapper.setValue("CodigoCor", codigocor);
 				wrapper.setValue("DescricaoDaCor", cor);
 				wrapper.setValue("Ncm", ncm);
+				wrapper.setValue("DescricaoEspanhol",descesp);
 				
 			
 				
@@ -144,6 +146,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 		
 		
 		String ferramentaBarra = projeto.findGenericValue("FerBarra");
+		String grupo = projeto.findGenericValue("PerfisH.Grupo");
 
 		Long qtdBarra1LadoA = projeto.findGenericValue("QtdTLAB1");
 		Long qtdBarra1LadoB = projeto.findGenericValue("QtdLBB1");
@@ -180,8 +183,9 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLAB1"),projeto.findGenericValue("QtdVLAB1"),projeto.findGenericValue("QtdPLAB1"),
 					projeto.findGenericValue("QtdPLAB1L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_cor"),projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor"),projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra1"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB1A")));
 			
 		}
 
@@ -195,8 +199,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLBB1"),projeto.findGenericValue("QtdVLBB1"),projeto.findGenericValue("QtdPLBB1"),
 					projeto.findGenericValue("QtdPLBB1L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra1BOUC2"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DesESPB1B")));
 			
 		}
 		
@@ -212,8 +218,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLAB2"),projeto.findGenericValue("QtdVLAB2"),projeto.findGenericValue("QtdPLAB2")
 					,projeto.findGenericValue("QtdPLAB2l"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra2AOuD1"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB2A")));
 			
 		}
 
@@ -228,8 +236,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLBB2"),projeto.findGenericValue("QtdVLBB2"),projeto.findGenericValue("QtdPLBB2"),
 					projeto.findGenericValue("QtdPLBB2L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra2BOuD2"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB2B")));
 			
 			
 		}
@@ -245,8 +255,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLAB3"),projeto.findGenericValue("QtdVLAB3"),projeto.findGenericValue("QtdPLAB3"),
 					projeto.findGenericValue("QtdPLAB3L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra3A"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DesESPB3A")));
 			
 		}
 
@@ -260,8 +272,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLBB3"),projeto.findGenericValue("QtdVLBB3"),projeto.findGenericValue("QtdPLBB3"),
 					projeto.findGenericValue("QtdPLBB3L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")
+					,projeto.findGenericValue("LadoBarra3B"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB3B")));
 			
 		}
 
@@ -275,8 +289,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLAB4"),projeto.findGenericValue("QtdVLAB4"),projeto.findGenericValue("QtdPLAB4"),
 					projeto.findGenericValue("QtdPLB4L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi"),
+					projeto.findGenericValue("LadoBarra4A"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB4A")));
 			
 		}
 
@@ -290,9 +306,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("CubLBB4"),projeto.findGenericValue("QtdVLBB4"),projeto.findGenericValue("QtdPLBB4"),
 					projeto.findGenericValue("QtdPLBB4L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
-					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
-			
+					grupo,projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi"),
+					projeto.findGenericValue("LadoBarra4B"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB4B")));
 		}
 
 		// Barra5A
@@ -306,7 +323,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPLAB5L"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi"),projeto.findGenericValue("LadoBarra5A"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB5A")));
 		}
 
 		// Barra5B
@@ -320,7 +338,9 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPLBB5l"),projeto.findGenericValue("ProdutoBaseBarra.zb4_alt"),projeto.findGenericValue("ProdutoBaseBarra.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseBarra.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseBarra.zb4_peso"),projeto.findGenericValue("ProdutoBaseBarra.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseBarra.zb4_grupo"),projeto.findGenericValue("ProdutoBaseBarra.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseBarra.zb4_cor")
-					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseBarra.zb4_posipi"),projeto.findGenericValue("LadoBarra5B"),projeto.findGenericValue("DisdoFur.DistFHdp"),projeto.findGenericValue("FurosPe.DescFu")
+					,projeto.findGenericValue("DescESPB5B")));
+					
 			
 		}
 
@@ -335,7 +355,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPTEL"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_alt"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_peso"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_posipi")
+					,"","","",projeto.findGenericValue("ProdutoBaseTampaEntrada.zb4_desces")));
 			
 		}
 
@@ -351,7 +372,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPTSL"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_alt"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_peso"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_cor"),projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_posipi"),"","",""
+					,projeto.findGenericValue("ProdutoBaseTampaSaida.zb4_desces")));
 		}
 		// Emenda
 		// Incluido POr Gecinei CubEme,QtdVEme,QtdPEme
@@ -365,7 +387,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					,projeto.findGenericValue("QtdPEmel"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_alt"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_peso"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseEmenda.zb4_grupo"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_cor"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_cor"),projeto.findGenericValue("ProdutoBaseEmenda.zb4_posipi"),"","",""
+					,projeto.findGenericValue("ProdutoBaseEmenda.zb4_desces")));
 			
 			
 		}
@@ -383,7 +406,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPeCOAl"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_alt"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_peso"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorAntigo.zb4_posipi"),"","",""
+					,projeto.findGenericValue("DescESPCOLANT")));
 			
 		}
 
@@ -399,7 +423,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPCONL"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_alt"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_peso"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_cor"),projeto.findGenericValue("ProdutoBaseColetorNovo.zb4_posipi"),"","",""
+					,projeto.findGenericValue("DescESPColetorNovo")));
 			
 		}
 
@@ -415,7 +440,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPTRNT"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_alt"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_peso"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_qe"),
 				projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_zcorprod"),projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_cor")
-				,projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_posipi")));
+				,projeto.findGenericValue("ProdutoBaseTravessaNova.zb4_posipi"),"","","",projeto.findGenericValue("DescESPTravessaNovat")));
 		}
 		// Travessa Antiga 
 		// Incluido POr Gecinei CubTRA,QtdVTRA,QtdPTRA
@@ -430,7 +455,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 							,projeto.findGenericValue("QtdPTRAL"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_alt"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_larg")
 							,projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_peso"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_qe"),
 							projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_grupo"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_zcorprod")
-							,projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_posipi")));
+							,projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseTravessaAntiga.zb4_posipi"),"","",""
+							,projeto.findGenericValue("DescESPTravessaAntiga")));
 			
 		}
 
@@ -446,7 +472,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPColN"),projeto.findGenericValue("QtdPColNT"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_alt"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseColunaNova.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_peso"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseColunaNova.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_zcorprod"),
-					projeto.findGenericValue("ProdutoBaseColunaNova.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_posipi")));
+					projeto.findGenericValue("ProdutoBaseColunaNova.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaNova.zb4_posipi"),"","",""
+					,projeto.findGenericValue("DescEspColNova")));
 			
 			
 		}
@@ -463,7 +490,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPColAT"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_alt"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_peso"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_grupo"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_zcorprod")
-					,projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_cor"),projeto.findGenericValue("ProdutoBaseColunaAntiga.zb4_posipi"),"","",""
+					,projeto.findGenericValue("DescESpColunaAntiga")));
 			
 		}
 
@@ -480,7 +508,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 							projeto.findGenericValue("QtdPSCT"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_alt"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_larg")
 							,projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_peso"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_qe"),
 							projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_grupo"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_zcorprod"),
-							projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_posipi")));
+							projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_posipi"),"","",""
+							,projeto.findGenericValue("ProdutoBaseSuporteColetor.zb4_desces")));
 					
 			
 		}
@@ -496,7 +525,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPINJT"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_alt"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseInjetor.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_peso"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseInjetor.zb4_grupo"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_zcorprod"),
-					projeto.findGenericValue("ProdutoBaseInjetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_posipi")));
+					projeto.findGenericValue("ProdutoBaseInjetor.zb4_cor"),projeto.findGenericValue("ProdutoBaseInjetor.zb4_posipi"),"","",""
+					,projeto.findGenericValue("ProdutoBaseInjetor.zb4_desces")));
 			
 		}
 
@@ -511,7 +541,7 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPPret"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_alt"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_larg")
 					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_pesbru"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_peso"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_qe"),
 					projeto.findGenericValue("ProdutoBasePresilhas.zb4_grupo"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_zcorprod"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_cor")
-					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi")));
+					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi"),"","","",projeto.findGenericValue("ProdutoBasePresilhas.zb4_desces")));
 			
 		}
 		
@@ -527,7 +557,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 					projeto.findGenericValue("QtdPesoSul"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_alt"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_larg")
 					,projeto.findGenericValue("ProdutoBaseFlauta.zb4_pesbru"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_peso"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_qe"),
 					projeto.findGenericValue("ProdutoBaseFlauta.zb4_grupo"),projeto.findGenericValue("ProdutoBaseFlauta.zb4_zcorprod"),
-					projeto.findGenericValue("ProdutoBaseFlauta.zb4_cor"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi")));
+					projeto.findGenericValue("ProdutoBaseFlauta.zb4_cor"),projeto.findGenericValue("ProdutoBasePresilhas.zb4_posipi"),"","",""
+					,projeto.findGenericValue("ProdutoBasePresilhas.zb4_desces")));
 			
 			
 		}
@@ -545,7 +576,8 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 	private BigDecimal addItenToList(List<NeoObject> lista, String descricao, Long quantidade, String unidade,
 			String codigo, BigDecimal preco, String ferramenta, BigDecimal tamanho,BigDecimal cubagem, Long volume,BigDecimal peso,
 			BigDecimal pesoliquido,BigDecimal altura,BigDecimal Largura,BigDecimal pesobru,
-			BigDecimal pesoliq,BigDecimal embalagem,String grupo,String codigocor,String cor,String ncm) {
+			BigDecimal pesoliq,BigDecimal embalagem,String grupo,String codigocor,String cor,
+			String ncm,String Lado,String passo,String Diametro,String descesp) {
 		
 		
 		BigDecimal totalItem = BigDecimal.ZERO;
@@ -581,6 +613,10 @@ public class PreencheItensProjetoAdapter implements AdapterInterface {
 			wrapper.setValue("CodigoCor", codigocor);
 			wrapper.setValue("DescricaoDaCor", cor);
 			wrapper.setValue("Ncm", ncm);
+			wrapper.setValue("Lado", Lado);
+			wrapper.setValue("Passo", passo);
+			wrapper.setValue("Diametro", Diametro);
+			wrapper.setValue("DescricaoEspanhol", descesp);
 
 			if (preco != null) {
 				totalItem = preco.multiply(new BigDecimal(quantidade));

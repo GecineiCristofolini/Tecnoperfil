@@ -1,7 +1,8 @@
 package com.neomind.fusion.custom.tecnoperfil.exportacao;
 
-public class TecnoperfilItensProformaDataSource {
-	
+public class TecnoperfilItensProformaDataSource
+{
+
 	private String item;
 	private String quantidade;
 	private String unidade;
@@ -12,16 +13,16 @@ public class TecnoperfilItensProformaDataSource {
 	private String codigoitem;
 	private String valoUnitario;
 	private String vltotal;
-	
-	
-	public TecnoperfilItensProformaDataSource() {
-		
-	}
+	private String siglamoeda;
 
+	public TecnoperfilItensProformaDataSource()
+	{
+
+	}
 
 	public TecnoperfilItensProformaDataSource(String item, String quantidade, String unidade,
 			String descricao, String ferramenta, String cor, String ncm, String codigoitem,
-			String valoUnitario, String vltotal)
+			String valoUnitario, String vltotal, String siglamoeda)
 	{
 		super();
 		this.item = item;
@@ -34,128 +35,118 @@ public class TecnoperfilItensProformaDataSource {
 		this.codigoitem = codigoitem;
 		this.valoUnitario = valoUnitario;
 		this.vltotal = vltotal;
+		this.siglamoeda = siglamoeda;
 	}
-
 
 	public String getItem()
 	{
 		return item;
 	}
 
-
 	public void setItem(String item)
 	{
 		this.item = item;
 	}
-
 
 	public String getQuantidade()
 	{
 		return quantidade;
 	}
 
-
 	public void setQuantidade(String quantidade)
 	{
 		this.quantidade = quantidade;
 	}
-
 
 	public String getUnidade()
 	{
 		return unidade;
 	}
 
-
 	public void setUnidade(String unidade)
 	{
 		this.unidade = unidade;
 	}
-
 
 	public String getDescricao()
 	{
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao)
 	{
 		this.descricao = descricao;
 	}
-
 
 	public String getFerramenta()
 	{
 		return ferramenta;
 	}
 
-
 	public void setFerramenta(String ferramenta)
 	{
 		this.ferramenta = ferramenta;
 	}
-
 
 	public String getCor()
 	{
 		return cor;
 	}
 
-
 	public void setCor(String cor)
 	{
 		this.cor = cor;
 	}
-
 
 	public String getNcm()
 	{
 		return ncm;
 	}
 
-
 	public void setNcm(String ncm)
 	{
 		this.ncm = ncm;
 	}
-
 
 	public String getCodigoitem()
 	{
 		return codigoitem;
 	}
 
-
 	public void setCodigoitem(String codigoitem)
 	{
 		this.codigoitem = codigoitem;
 	}
-
 
 	public String getValoUnitario()
 	{
 		return valoUnitario;
 	}
 
-
 	public void setValoUnitario(String valoUnitario)
 	{
 		this.valoUnitario = valoUnitario;
 	}
-
 
 	public String getVltotal()
 	{
 		return vltotal;
 	}
 
-
 	public void setVltotal(String vltotal)
 	{
 		this.vltotal = vltotal;
 	}
 
+	public String getSiglamoeda()
+	{
+		return siglamoeda;
+	}
+
+	public void setSiglamoeda(String siglamoeda)
+	{
+		this.siglamoeda = siglamoeda;
+	}
 
 	@Override
 	public String toString()
@@ -166,10 +157,4 @@ public class TecnoperfilItensProformaDataSource {
 				+ valoUnitario + ", vltotal=" + vltotal + "]";
 	}
 
-	
-
-   
-
-
-	
 }

@@ -15,10 +15,10 @@ import com.neomind.fusion.workflow.Task;
 import com.neomind.fusion.workflow.adapter.AdapterInterface;
 import com.neomind.fusion.workflow.exception.WorkflowException;
 
-public class TotvsIncluirProduto implements AdapterInterface
+public class TotvsIncluirProdutoEXP implements AdapterInterface
 {
 
-	private static final Log log = LogFactory.getLog(TotvsIncluirProduto.class);
+	private static final Log log = LogFactory.getLog(TotvsIncluirProdutoEXP.class);
 
 	@Override
 	public void back(EntityWrapper arg0, Activity arg1)
@@ -60,7 +60,7 @@ public class TotvsIncluirProduto implements AdapterInterface
 		try
 		{
 
-			List<NeoObject> listaItens = ewProduto.findGenericValue("ListaItens");
+			List<NeoObject> listaItens = ewProduto.findGenericValue("PedidoEXP.ListaItens");
 			StringBuilder mensagem = new StringBuilder();
 
 			for (NeoObject projeto : listaItens)
@@ -183,7 +183,7 @@ public class TotvsIncluirProduto implements AdapterInterface
                 
 					String codigoi = IncluirProduto.IntegracaoIncluirProduto(json);
 					codigo = codigoi;
-					
+					System.out.println(codigoi);
 
 					
 
@@ -216,8 +216,9 @@ public class TotvsIncluirProduto implements AdapterInterface
 
 			}
 			
-			ewProduto.setValue("AvisoProdutoCadastrado", mensagem.toString());
-
+			
+			ewProduto.setValue("AvisoDeProdutoCadastrado", mensagem.toString());
+			                   
 		}
 		catch (Exception e)
 		{
