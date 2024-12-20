@@ -3,9 +3,11 @@ package com.neomind.fusion.custom.tecnoperfil.exportacao;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,13 @@ import org.apache.commons.logging.LogFactory;
 
 import com.neomind.util.NeoUtils;
 
-@WebServlet(name = "ExportacaoServeletUtilsDocumentoProdutor", urlPatterns = { "/servlet/ExportacaoServeletUtilsDocumentoProdutor" })
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+
+@WebServlet(name = "ExportacaoServeletUtilsDocumentoProdutor", urlPatterns = {
+		"/servlet/ExportacaoServeletUtilsDocumentoProdutor" })
 public class ExportacaoServeletUtilsDocumentoProdutor extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -39,67 +47,73 @@ public class ExportacaoServeletUtilsDocumentoProdutor extends HttpServlet
 
 		if (NeoUtils.safeIsNotNull(new Object[] { action }))
 		{
-			if (action.equalsIgnoreCase("geraRelatorioDocumentoProdutor"))
+			if (action.equalsIgnoreCase("geraRelatorioprodutor"))
 				geraRelatorioDocumentoProdutor(req, resp);
 
 		}
 	}
 
-	//metodo para Gerar Invoice
+	//metodo para Gerar documento produtor
 	@SuppressWarnings("unused")
 	private void geraRelatorioDocumentoProdutor(HttpServletRequest request, HttpServletResponse response)
 	{
 		String numeroPedido = NeoUtils.safeOutputString(request.getParameter("pedido"));
-
+		
 		try
 		{
 			if (numeroPedido != null && !numeroPedido.isEmpty())
 			{
-				File fileProposta = TecnoperfilRelatorioInvoice.geraPDF(numeroPedido);
+
+				List<JasperPrint> fileProposta = TecnoperfilRelatorioDeclaracaoProdutor.geraPDF(numeroPedido);
 
 				if (fileProposta == null)
+					
 				{
-					System.out.println("Erro ao montar arquivo");
-					return;
-				}
-
-				OutputStream out = response.getOutputStream();
-				try
-				{
-					String sContentType = null;
-					sContentType = "application/pdf";
-					response.setContentType(sContentType);
-					response.addHeader("content-disposition",
-							"attachment; filename=" + fileProposta.getName());
-					//response.setCharacterEncoding("ISO-8859-1" );
-					InputStream in = null;
-					in = new BufferedInputStream(new FileInputStream(fileProposta));
-					if (in != null)
-					{
-						response.setContentLength((int) in.available());
-						int l;
-						byte b[] = new byte[1024];
-						while ((l = in.read(b, 0, b.length)) != -1)
-						{
-							out.write(b, 0, l);
-						}
-						out.flush();
-						in.close();
+					
+					JRPdfExporter exporter = new JRPdfExporter();
+					exporter.setExporterInput(SimpleExporterInput.getInstance(fileProposta));
+					exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new FileOutputStream("Declaracao Produtor.pdf")));
+//					System.out.println("Erro ao montar arquivo");
+//					return;
+//				}
+//
+//				OutputStream out = response.getOutputStream();
+//				try
+//				{
+//					String sContentType = null;
+//					sContentType = "application/pdf";
+//					response.setContentType(sContentType);
+//					response.addHeader("content-disposition",
+//							"attachment; filename=" + fileProposta.getName());
+//					//response.setCharacterEncoding("ISO-8859-1" );
+//					InputStream in = null;
+//					in = new BufferedInputStream(new FileInputStream(fileProposta));
+//					if (in != null)
+//					{
+//						response.setContentLength((int) in.available());
+//						int l;
+//						byte b[] = new byte[1024];
+//						while ((l = in.read(b, 0, b.length)) != -1)
+//						{
+//							out.write(b, 0, l);
+//						}
+//						out.flush();
+//						in.close();
 					}
 					else
 					{
 						System.out.println("Trying to download an invalid file: ");
 					}
-				}
-				catch (Exception e)
-				{
-					System.out.println("Error trying to download file ");
-					e.printStackTrace();
-				}
-				finally
-				{
-					out.close();
-				}
+//				}
+//				catch (Exception e)
+//				{
+//					System.out.println("Error trying to download file ");
+//					e.printStackTrace();
+//				}
+//				finally
+//				{
+//					out.close();
+//				}
 			}
 		}
 		catch (Exception e)
@@ -107,7 +121,5 @@ public class ExportacaoServeletUtilsDocumentoProdutor extends HttpServlet
 			log.error("Erro ao imprimir o relatório de posição física financeira!", e);
 		}
 	}
-
-	
 
 }

@@ -3,7 +3,6 @@ package com.neomind.fusion.custom.tecnoperfil.exportacao;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -34,9 +33,6 @@ import com.neomind.util.NeoUtils;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 public class TecnoperfilRelatorioDeclaracaoProdutor
 {
@@ -45,96 +41,50 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 	/**
 	 * Gera o PDF do relatório, utilizando JasperReports
 	 */
-	public static List<JasperPrint> geraPDF(String numeroPedido)
+	public static File geraPDF(String numeroPedido)
 	{
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-
-		List<Map<String, Object>> ListMap = new ArrayList<Map<String, Object>>();
-
 		InputStream is = null;
 		String path = "";
-		Long pedidoId = Long.parseLong(numeroPedido);
-		Set<String> setncm = new HashSet<>();
+		Long documentoid = Long.parseLong(numeroPedido);
+		
 
 		try
 		{
 			InstantiableEntityInfo ieiColaborador = AdapterUtils.getInstantiableEntityInfo("DocEXP");
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			NeoBaseEntity pedido = (NeoObject) PersistEngine.getObject(ieiColaborador.getEntityClass(),
-					new QLEqualsFilter("neoId", pedidoId));
+					new QLEqualsFilter("neoId", documentoid));
 
-			EntityWrapper wrapper = new EntityWrapper(pedido);
-			List<NeoObject> AdicionaPedido = wrapper.findGenericValue("AdicionaPedido");
+			
 
-			for (NeoObject ncms : AdicionaPedido)
-			{
+			String nome_modelo = "DeclaracaoProdutormenu.jasper";
 
-				EntityWrapper ncmwrapper = new EntityWrapper(ncms);
-
-				String buscancm = ncmwrapper.findGenericValue("NCM");
-
-				setncm.add(buscancm);
-
-			}
-
-			for (String ncm : setncm)
-			{
-
-				paramMap = preencheParametros(pedido, ncm);
-				ListMap.add(paramMap);
-
-			}
-
-			String nome_modelo = "DeclaracaoProdutor.jasper";
+			//String nome_modelo = "DeclaracaoProdutor.jasper";
 
 			// ...files/relatorios
 			path = NeoStorage.getDefault().getPath() + File.separator + "relatorios" + File.separator
 					+ nome_modelo;
 			// obtém os parâmetros
+			paramMap = preencheParametros(pedido);
 
-			
-           
-			
+			is = new BufferedInputStream(new FileInputStream(path));
 
-			List<JasperPrint> listimprimir = new ArrayList<JasperPrint>();
-			
-			
-			
-
-			for (Map<String, Object> parametros : ListMap)
+			if (paramMap != null)
 			{
-				is = new BufferedInputStream(new FileInputStream(path));
-				JasperPrint impressao = JasperFillManager.fillReport(is, parametros);
-			
-				
-				listimprimir.add(impressao);
-				
+
+				File file = File.createTempFile("Proforma Invoice", ".pdf");
+				file.deleteOnExit();
+
+				JasperPrint impressao = JasperFillManager.fillReport(is, paramMap);
+				if (impressao != null && file != null)
+				{
+					JasperExportManager.exportReportToPdfFile(impressao, file.getAbsolutePath());
+					return file;
+				}
 			}
-			
-//			JRPdfExporter exporter = new JRPdfExporter();
-//			exporter.setExporterInput(SimpleExporterInput.getInstance(listimprimir));
-//			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new FileOutputStream("Declaracao Produtor.pdf")));
-			
-			
-		//	File file = File.createTempFile("Declaracao Produtor", ".pdf");
-			//file.deleteOnExit();
-			
-			//JasperExportManager.exportReportToPdfFile(exporter, file.getAbsolutePath());
-			
-			
-			
-				
-			
-			return listimprimir; 
 
-						
-				 
-					
-				
-
-		
-			
-			
 		}
 		catch (Exception e)
 		{
@@ -149,71 +99,120 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 	 * Preenche o mapa de parâmetros enviados ao relatório.
 	 */
 	@SuppressWarnings("rawtypes")
-	public static Map<String, Object> preencheParametros(NeoBaseEntity pedido,String ncm)
+	public static Map<String, Object> preencheParametros(NeoBaseEntity pedido)
 	{
 
 		Map<String, Object> paramMap = null;
-		String PATH_LOGO = NeoStorage.getDefault().getPath() + File.separator + "relatorios"
-				+ File.separator + "logo_tecnoperfil.JPG";
+		
 		String subRelatorio = NeoStorage.getDefault().getPath() + File.separator + "relatorios"
 				+ File.separator + "DocumentoprodutoListItens.jasper";
 		String subRelatorio2 = NeoStorage.getDefault().getPath() + File.separator + "relatorios"
 				+ File.separator + "DocumentoprodutoListNCM.jasper";
+		String subRelatoriomap = NeoStorage.getDefault().getPath() + File.separator + "relatorios"
+				+ File.separator + "DeclaracaoProdutor.jasper";
 
 		try
 		{
 			paramMap = new HashMap<String, Object>();
+
 			EntityWrapper wrapper = new EntityWrapper(pedido);
 
-			// Dados do Cabeçario 
-				@SuppressWarnings("unused")
-				NeoUser usuarioLogado = PortalUtil.getCurrentUser();
-				paramMap.put("pathLogo", PATH_LOGO);
-				paramMap.put("Invoice", NeoUtils.safeOutputString(wrapper.findValue("Invoice")).trim());
-				paramMap.put("nomeempresa", NeoUtils
-						.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_nome"))
-						.trim());
-				paramMap.put("acordo",
-						NeoUtils.safeOutputString(wrapper.findValue("MensagemParte1")).trim());
-				paramMap.put("materiaisnacional",
-						NeoUtils.safeOutputString(wrapper.findValue("AMateriaisNacionais")).trim());
-				paramMap.put("materiaisoriginais",
-						NeoUtils.safeOutputString(wrapper.findValue("MateriaisOriginarios")).trim());
-				paramMap.put("materiaisterceiros",
-						NeoUtils.safeOutputString(wrapper.findValue("MateriaisTerceirosPaises")).trim());
-
-				paramMap.put("pathSubRelatorio1", subRelatorio);
-				paramMap.put("pathSubRelatorio2", subRelatorio2);
-
-				String idioma = NeoUtils.safeOutputString(wrapper.findValue("Indioma.Sigla"));
-				@SuppressWarnings("unchecked")
-				Collection<NeoObject> itens = (Collection<NeoObject>) wrapper.findField("AdicionaPedido")
-						.getValues();
-				@SuppressWarnings("unchecked")
-				Collection<NeoObject> itensncm = (Collection<NeoObject>) wrapper
-						.findField("AdicionaPedido").getValues();
-
-				Collection<DeclaracaoProdutorDataSourceItem> listaItens = populaGrid(itens, ncm, idioma);
-				Collection<DeclaracaoProdutorDataSourceItemNCM> listancm = populaGridncm(itensncm, ncm,
-						idioma);
-
-				paramMap.put("listaItens", listaItens);
-
-				paramMap.put("listancm", listancm);
+			Collection<DeclaracaoProdutorDataSourceMenu> listamap = populaGridmenu(wrapper);
 			
-			return paramMap;
-		}catch(
+			paramMap.put("pathSubRelatoriomap", subRelatoriomap);
+			paramMap.put("pathSubRelatorio1", subRelatorio);
+			paramMap.put("pathSubRelatorio2", subRelatorio2);
+			paramMap.put("listamap", listamap);
+			
 
-	Exception e)
-	{
-		log.error("Erro ao preencher o mapa de parâmetros da Impressão do Relatório", e);
-		e.printStackTrace();
-	}return paramMap;
+			return paramMap;
+		}
+		catch (Exception e)
+		{
+			log.error("Erro ao preencher o mapa de parâmetros da Impressão do Relatório", e);
+			e.printStackTrace();
+		}
+		return paramMap;
 	}
 
 	/**
 	 * Retorna dados dos itens do pedido
 	 */
+
+	public static Collection<DeclaracaoProdutorDataSourceMenu> populaGridmenu(EntityWrapper wrapper)
+
+	{
+		
+		List<DeclaracaoProdutorDataSourceMenu> listaitem = new ArrayList<DeclaracaoProdutorDataSourceMenu>();
+		String PATH_LOGO = NeoStorage.getDefault().getPath() + File.separator + "relatorios"
+				+ File.separator + "logo_tecnoperfil.JPG";
+		
+		try {
+		
+		Set<String> setncm = new HashSet<>();
+        List<NeoObject> AdicionaPedido = wrapper.findGenericValue("AdicionaPedido");
+
+		for (NeoObject ncms : AdicionaPedido)
+		{
+
+			EntityWrapper ncmwrapper = new EntityWrapper(ncms);
+
+			String buscancm = ncmwrapper.findGenericValue("NCM");
+
+			setncm.add(buscancm);
+
+		}
+
+		for (String ncm : setncm)
+		{
+			
+			DeclaracaoProdutorDataSourceMenu doc = new DeclaracaoProdutorDataSourceMenu();
+			
+			doc.setPathLogo(PATH_LOGO);
+			doc.setInvoice(NeoUtils.safeOutputString(wrapper.findValue("Invoice")).trim());
+			doc.setNomeempresa(NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_nome")).trim());
+			doc.setAcordo(NeoUtils.safeOutputString(wrapper.findValue("MensagemParte1")).trim());
+		    doc.setMateriaisnacional(NeoUtils.safeOutputString(wrapper.findValue("AMateriaisNacionais")).trim());
+		    doc.setMateriaisoriginais(NeoUtils.safeOutputString(wrapper.findValue("MateriaisOriginarios")).trim());
+			doc.setMateriaisterceiros(NeoUtils.safeOutputString(wrapper.findValue("MateriaisTerceirosPaises")).trim());
+			String idioma = NeoUtils.safeOutputString(wrapper.findValue("Indioma.Sigla"));
+			@SuppressWarnings("unchecked")
+			Collection<NeoObject> itens = (Collection<NeoObject>) wrapper.findField("AdicionaPedido")
+					.getValues();
+			@SuppressWarnings("unchecked")
+			Collection<NeoObject> itensncm = (Collection<NeoObject>) wrapper.findField("AdicionaPedido")
+					.getValues();
+			doc.setPathSubRelatorio1(NeoStorage.getDefault().getPath() + File.separator + "relatorios"
+				+ File.separator + "DocumentoprodutoListItens.jasper");
+			doc.setPathSubRelatorio2(NeoStorage.getDefault().getPath() + File.separator + "relatorios"
+				+ File.separator + "DocumentoprodutoListNCM.jasper");
+			
+			
+		}
+		
+		
+					
+					
+					
+					
+					
+					
+
+					
+
+					
+
+					paramMap.put("listaItens", listaItens);
+
+					paramMap.put("listancm", listancm);
+
+		return null;
+		
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
 
 	public static Collection<DeclaracaoProdutorDataSourceItem> populaGrid(Collection<NeoObject> itens,
 			String ncm, String idioma)
@@ -259,7 +258,8 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 
 					}
 
-					String ferramenta = NeoUtils.safeOutputString(wItem.findValue("Ferrament.produto"));
+					String ferramenta = NeoUtils
+							.safeOutputString(wItem.findValue("AdicionaPedido.Ferramenta"));
 
 					String cor = NeoUtils
 							.safeOutputString(wItem.findValue("AdicionaPedido.DescricaoCor"));

@@ -202,6 +202,8 @@ public class TotvsIncluirPedidosEXP implements AdapterInterface
 			LocalDateTime d05 = LocalDateTime.now();
 			DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("yyyyMMdd");
 			String dateinclusao = d05.format(fmt2);
+			
+			Long moeda = wraperpedido.findGenericValue("PedidoEXP.Codmoeda");
 
 			Long volume = wraperpedido.findGenericValue("PedidoEXP.VolumeTotalDosItens");
 
@@ -216,7 +218,7 @@ public class TotvsIncluirPedidosEXP implements AdapterInterface
 			ordertotvs.setC5_SEGURO(seguro);
 			ordertotvs.setC5_REDESP(redespasho);
 			ordertotvs.setC5_ZMENNF(mensagemnota);
-			ordertotvs.setC5_MOEDA(1L);
+			ordertotvs.setC5_MOEDA(moeda);
 			ordertotvs.setC5_TIPLIB(tipoliberacao);
 			ordertotvs.setC5_TPFRETE(tipofrete);
 			ordertotvs.setC5_PBRUTO(pesobruto);
