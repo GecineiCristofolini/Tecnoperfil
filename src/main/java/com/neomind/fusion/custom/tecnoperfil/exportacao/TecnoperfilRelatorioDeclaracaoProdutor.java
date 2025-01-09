@@ -3,7 +3,6 @@ package com.neomind.fusion.custom.tecnoperfil.exportacao;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -31,12 +30,12 @@ import com.neomind.fusion.security.NeoUser;
 import com.neomind.fusion.workflow.adapter.AdapterUtils;
 import com.neomind.util.NeoUtils;
 
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class TecnoperfilRelatorioDeclaracaoProdutor
 {
@@ -45,7 +44,7 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 	/**
 	 * Gera o PDF do relatório, utilizando JasperReports
 	 */
-	public static List<JasperPrint> geraPDF(String numeroPedido)
+	public static File geraPDF(String numeroPedido)
 	{
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -110,22 +109,35 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 				listimprimir.add(impressao);
 				
 			}
-			
+//			
 //			JRPdfExporter exporter = new JRPdfExporter();
 //			exporter.setExporterInput(SimpleExporterInput.getInstance(listimprimir));
 //			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new FileOutputStream("Declaracao Produtor.pdf")));
+//			
+//			String filas = exporter;
+//			File file = File.createTempFile("Documento Produtor","pdf" );
+//			file.deleteOnExit();
+//			//file.deleteOnExit();
 			
-			
-		//	File file = File.createTempFile("Declaracao Produtor", ".pdf");
-			//file.deleteOnExit();
-			
-			//JasperExportManager.exportReportToPdfFile(exporter, file.getAbsolutePath());
+			String nomeFile = "Declaracao Produtor.pdf";
+          
+            
+
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setExporterInput(SimpleExporterInput.getInstance(listimprimir)); //Set as export input my list with JasperPrint s
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(nomeFile)); //or any other out streaam
+            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+            configuration.setCreatingBatchModeBookmarks(true);
+            exporter.setConfiguration(configuration);
+            exporter.exportReport();
+            File file = new File(nomeFile);
+			//JasperExportManager.exportReportToPdfFile(filas, file.getAbsolutePath());
 			
 			
 			
 				
 			
-			return listimprimir; 
+			return file;
 
 						
 				 

@@ -25,7 +25,7 @@ public class SequenciadorInvoice implements AdapterInterface
 
 			String invoice = SeqEW.findGenericValue("Invoice");
 			
-			if(invoice.isEmpty() || invoice.equals("")|| invoice == null) {
+			if(invoice.isEmpty() || invoice.equals("")|| invoice == null ||  invoice.isBlank()) {
 			
 			
 			

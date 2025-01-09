@@ -1,4 +1,4 @@
-package com.neomind.fusion.custom.tecnoperfil.exportacao;
+package com.neomind.fusion.custom.tecnoperfil.testes;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -34,9 +34,9 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-public class TecnoperfilRelatorioDeclaracaoProdutor
+public class docesta
 {
-	private static final Log log = LogFactory.getLog(TecnoperfilRelatorioDeclaracaoProdutor.class);
+	private static final Log log = LogFactory.getLog(docesta.class);
 
 	/**
 	 * Gera o PDF do relatório, utilizando JasperReports
