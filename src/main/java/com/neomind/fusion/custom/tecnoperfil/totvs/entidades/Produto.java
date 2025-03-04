@@ -43,6 +43,11 @@ public class Produto
     private Long B5_ZPASSO;
     private Long B5_ZDIAMET;
     private String B5_ZLADO;
+    private Long B5_ZQTFURO;
+    
+    
+    
+    
 	public String getDescricao()
 	{
 		return descricao;
@@ -346,6 +351,14 @@ public class Produto
 	public void setB5_ZLADO(String b5_ZLADO)
 	{
 		B5_ZLADO = b5_ZLADO;
+	}
+	public Long getB5_ZQTFURO()
+	{
+		return B5_ZQTFURO;
+	}
+	public void setB5_ZQTFURO(Long b5_ZQTFURO)
+	{
+		B5_ZQTFURO = b5_ZQTFURO;
 	}
 	
     

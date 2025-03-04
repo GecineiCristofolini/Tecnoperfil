@@ -112,6 +112,7 @@ public class TotvsIncluirProduto implements AdapterInterface
 					String grupotrib = ewProjeto.findGenericValue("grupotrib");
 					String lado = ewProjeto.findGenericValue("Lado");
 					String passo1 = ewProjeto.findGenericValue("Passo");
+					Long qtdfuros = ewProjeto.findGenericValue("QtdFuros");
 					
 					if (passo1 == "" || passo1.isBlank() || passo1 == null) {
 						
@@ -172,6 +173,7 @@ public class TotvsIncluirProduto implements AdapterInterface
 					produto.setB5_ZLADO(lado);
 					produto.setB5_ZPASSO(passo);
 					produto.setB5_ZDIAMET(diametro);
+					produto.setB5_ZQTFURO(qtdfuros);
 					
 					
 					String json = new Gson().toJson(produto);

@@ -60,7 +60,7 @@ public class ListaGeralHDP implements AdapterInterface
 				BigDecimal pesoTOTBruto = ItensdoPedidoWraper.findGenericValue("QtdPesItem");
 				BigDecimal cubagem = ItensdoPedidoWraper.findGenericValue("CubItA");
 			    Long volume = ItensdoPedidoWraper.findGenericValue("QtdVol");
-			    BigDecimal qtdembalagembigdecimal = ItensdoPedidoWraper.findGenericValue("Produto.b1_qe");
+			    BigDecimal qtdembalagembigdecimal = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_qe");
 			    Long qtdembalagem =  qtdembalagembigdecimal.longValue();
 				BigDecimal tamanho = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_compr");
 				BigDecimal Altura = ItensdoPedidoWraper.findGenericValue("DadosDoProduto.zb4_alt");
@@ -194,6 +194,7 @@ public class ListaGeralHDP implements AdapterInterface
 					String Lado = itensprojetopWraper.findGenericValue("Lado");
 					String passo = itensprojetopWraper.findGenericValue("Passo");
 					String diametro = itensprojetopWraper.findGenericValue("Diametro");
+					Long qtdfuros =   itensprojetopWraper.findGenericValue("QtdFuros");
 					
 							
 					
@@ -251,6 +252,7 @@ public class ListaGeralHDP implements AdapterInterface
 					wrapperitensprojeto.setValue("Lado",Lado );
 					wrapperitensprojeto.setValue("Passo",passo );
 					wrapperitensprojeto.setValue("Diametro",diametro );
+					wrapperitensprojeto.setValue("QtdFuros",qtdfuros );
 
 					// Adicionar na Lista do Campo Itens do Pedido hdp no Listagem Geral 
 					listageralitens.add(listaitenspedido);

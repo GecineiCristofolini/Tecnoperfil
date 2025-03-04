@@ -21,6 +21,16 @@ public class ListaGeralItens implements AdapterInterface
 		{
 
 			List<NeoObject> listageralitens = wrapper.findGenericValue("PedidoEXP.ListaGeralItens");
+			
+			for (NeoObject desativaritens : listageralitens)
+			{
+				EntityWrapper ItensdoPedidoWraper = new EntityWrapper(desativaritens);
+				
+				ItensdoPedidoWraper.setValue("Deletado","S");
+				
+			}
+			
+			
 			listageralitens.clear();
 
 			//usado para criar uma sequencia de pedido

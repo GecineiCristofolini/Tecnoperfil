@@ -25,7 +25,7 @@ public class SequenciadorInvoice implements AdapterInterface
 
 			String invoice = SeqEW.findGenericValue("Invoice");
 			
-			if(invoice.isEmpty() || invoice.equals("")|| invoice == null ||  invoice.isBlank()) {
+			
 			
 			
 			
@@ -45,8 +45,7 @@ public class SequenciadorInvoice implements AdapterInterface
 			numero = numero +1;
 			String novasequencia = Long.toString(numero);
 			invoiceEW.setValue("Sequencia", novasequencia);
-			}
-
+			
 			}
 		catch (Exception e)
 		{

@@ -172,7 +172,7 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 			else
 			{
 
-				suframa = "Inscrição Suframa:" + suframa;
+				suframa = "Inscricao Suframa:" + suframa;
 			}
 
 			if (LocalEntrega == null || LocalEntrega.equals(""))
@@ -216,8 +216,8 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 			ordertotvs.setC5_MOEDA(1L);
 			ordertotvs.setC5_TIPLIB(tipoliberacao);
 			ordertotvs.setC5_TPFRETE(tipofrete);
-			ordertotvs.setC5_PBRUTO(pesobruto);
-			ordertotvs.setC5_PESOL(pesoliquido);
+			ordertotvs.setC5_PBRUTO(BigDecimal.ZERO);
+			ordertotvs.setC5_PESOL(BigDecimal.ZERO);
 			ordertotvs.setC5_ZDTFUSI(dataemissao);
 			ordertotvs.setC5_CLIENT(clienteentrega);
 			ordertotvs.setC5_LOJAENT(lojaentrega);
@@ -331,7 +331,9 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 				Long iditem = itensPedidoWrapper.findGenericValue("neoId");
 
 				String neoid = Long.toString(iditem);
-				System.out.print(neoid);
+				String ordemcompranumcom = wraperpedido.findGenericValue("WPedInd.OrdComI");
+				
+				
 
 				Itens itensped = new Itens();
 
@@ -341,7 +343,7 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 				itensped.setC6_VALOR(valormerc);
 				itensped.setC6_OPER(tipooperacaoitem);
 				itensped.setC6_ENTREG(dtembarque);
-				itensped.setC6_NUMPCOM(ordemcompra);
+				itensped.setC6_NUMPCOM(ordemcompranumcom);
 				itensped.setC6_ITEMPC(ordemitem);
 				itensped.setC6_ITEMCTA("200300000"); // conta contabil IND 
 				itensped.setIdItemFusion(neoid);
@@ -436,8 +438,8 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 					ordertotvso.setC5_MOEDA(1L);
 					ordertotvso.setC5_TIPLIB(tipoliberacaoo);
 					ordertotvso.setC5_TPFRETE(tipofreteo);
-					ordertotvso.setC5_PBRUTO(pesobrutoo);
-					ordertotvso.setC5_PESOL(pesoliquidoo);
+					ordertotvso.setC5_PBRUTO(BigDecimal.ZERO);
+					ordertotvso.setC5_PESOL(BigDecimal.ZERO);
 					ordertotvso.setC5_ZDTFUSI(dataemissaoo);
 					ordertotvso.setC5_CLIENT(clienteentregao);
 					ordertotvso.setC5_LOJAENT(lojaentregao);
@@ -526,6 +528,7 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 						Long iditemo = itensPedidoWrappero.findGenericValue("neoId");
 
 						String neoido = Long.toString(iditemo);
+						String ordemcompranumcomo = wraperpedido.findGenericValue("WPedInd.OrdComI");
 
 						Itens itenspedo = new Itens();
 
@@ -535,7 +538,7 @@ public class TotvsIncluirPedidosIND implements AdapterInterface
 						itenspedo.setC6_VALOR(valormerco);
 						itenspedo.setC6_OPER(tipooperacaoitemo);
 						itenspedo.setC6_ENTREG(dtembarqueo);
-						itenspedo.setC6_NUMPCOM(ordemcomprao);
+						itenspedo.setC6_NUMPCOM(ordemcompranumcomo);
 						itenspedo.setC6_ITEMPC(ordemitemo);
 						itenspedo.setC6_ITEMCTA("200300000"); // conta contabil IND 
 						itenspedo.setIdItemFusion(neoido);

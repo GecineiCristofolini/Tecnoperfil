@@ -42,46 +42,79 @@ public class ComparaProduto implements AdapterInterface
 				log.info("Itens para o projeto : " + listaItens.size());
 				EntityWrapper ewItem = new EntityWrapper(item);
 				String codigoItem = ewItem.findGenericValue("CodItemP");
-
-				String descricao = ewItem.findGenericValue("descricao");
+				
+				
+			
+				
+				
+				
 
 				if (codigoItem.equals("0"))
 				{
+					
+					String descricao = ewItem.findGenericValue("descricao");
+					String descri = descricao.toUpperCase();
+					
+					
+					String ferramenta = ewItem.findGenericValue("FeritemPr");
+					String tamanho = ewItem.findGenericValue("TamanPr");
+					String Lado = ewItem.findGenericValue("Lado");
+					
+					String Diametro = ewItem.findGenericValue("Diametro");
+					Long diametrolong = Long.parseLong(Diametro);
+					
+					String passo = ewItem.findGenericValue("Passo");
+					Long passolong = Long.parseLong(passo);
+				    Long qtdfuro = ewItem.findGenericValue("QtdFuros");
+				    
+				    System.out.println("Ferramante:" + ferramenta + tamanho + Lado + diametrolong + passolong + qtdfuro );
+					
+					
 
 					log.info("codigo do Item igual a 0");
 
-					String sql = "SELECT B1_COD, B1_DESC FROM SB1010 WHERE B1_DESC = '" + descricao.trim()
-							+ "' AND B1_POSIPI = '" + ncm.trim() + "'";
+//					String sql = "SELECT Min(B1_COD) FROM SB1010 WHERE B1_DESC = '" + descri.trim()
+//							+ "' AND B1_POSIPI = '" + ncm.trim() + "'";
+					
+//					String sql = "SELECT Min(B5_COD) FROM SB5010 INNER JOIN ZB4010 ON SB5010.B5_COD = ZB4010.ZB4_COD"
+//							+ "GROUP BY SB5010.B5_COMPR, SB5010.B5_ZLADO, SB5010.B5_ZPASSO, SB5010.B5_ZDIAMET, SB5010.B5_ZQTFURO,ZB4010.ZB4_FERRAM, ZB4010.ZB4_POSIPI "
+//							+ "HAVING (((SB5010.B5_COMPR)="+ tamanho +") AND ((SB5010.B5_ZLADO)='"+Lado+"') AND ((SB5010.B5_ZPASSO)="+passolong+")"
+//							+ " AND ((SB5010.B5_ZDIAMET)="+diametrolong+") AND ((ZB4010.ZB4_FERRAM)='"+ferramenta+"')) AND ((ZB4010.ZB4_FERRAM)="+qtdfuro+")"
+//							+ "AND B1_POSIPI = '" + ncm.trim() + "')";
+//					
+//					
+//					System.out.println(sql);
+//					
+//
+//					log.info("Query executada: " + sql);
 
-					log.info("Query executada: " + sql);
+				//	Query query = PersistEngine.getEntityManager("Totvs").createNativeQuery(sql);
 
-					Query query = PersistEngine.getEntityManager("Totvs").createNativeQuery(sql);
-
-					try
-					{
+				//	try
+				//	{
 						//quando retornar mais de um objeto, usar lista e pegar cada elemento da lista
 						//List<Object> resultList = query.getResultList();
 						//Object[] row = (Object[]) resultList.get(0);
 						
-						Object result = query.getSingleResult();
-
-						Object[] row = (Object[]) result;
-
-						String codigo = (String) row[0];
-						String descricaoItem = (String) row[1];
 						
-						log.info("Query executada, retornado codigo e descricao "+ codigo + " " + descricaoItem);
+					//	Object result = query.getSingleResult();
 
-						ewItem.findField("CodItemP").setValue(codigo);
+						//Object[] row = (Object[]) result;
 
-					}
-					catch (Exception e)
-					{
+					//	String codigo = result.toString();
+						//String descricaoItem = (String) row[1];
+						
+					//	log.info("Query executada, retornado codigo e descricao "+ codigo );
 
-						log.debug("Item não encontrado na base de dados.", e.getCause());
-						ewItem.findField("CodItemP").setValue("0");
+					//	ewItem.findField("CodItemP").setValue(codigo);
 
-					}
+				//	}
+				//	catch (Exception e)
+				//
+					//	log.debug("Item não encontrado na base de dados.", e.getCause());
+						//ewItem.findField("CodItemP").setValue("0");
+
+				//	}
 
 				}
 

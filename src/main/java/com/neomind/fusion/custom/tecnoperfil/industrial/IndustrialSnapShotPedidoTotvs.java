@@ -153,7 +153,7 @@ public class IndustrialSnapShotPedidoTotvs {
 		p.put("tpproc", getValue(ew, "WPedInd.SitPedI.DescSIT").toUpperCase());
 		p.put("nrPedido", getValue(ew, "WPedInd.NumPedI"));
 		p.put("clientName", getValue(ew, "WPedInd.ClienteTotvs.ClienteTotvs.a1_nome"));
-		p.put("clientCode", getValue(ew, "CodCliAnalise"));
+		p.put("clientCode", getValue(ew, "WPedInd.ClienteTotvs.ClienteTotvs.a1_zfusion"));
 		if (getValue(ew, "WPedInd.ClienteTotvs.ClienteTotvs.a1_pessoa").toUpperCase().equals("J")) {
 			p.put("clienteDOC", TecnoperfilServletUtils.aplicaMascara(getValue(ew, "WPedInd.ClienteTotvs.ClienteTotvs.a1_cgc"), true));
 		} else {

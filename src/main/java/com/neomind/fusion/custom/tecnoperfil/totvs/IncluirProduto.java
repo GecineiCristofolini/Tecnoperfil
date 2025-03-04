@@ -56,6 +56,7 @@ public class IncluirProduto
 			{
 
 				log.error("Erro ao cadastrar Produto");
+				throw new WorkflowException("Erro na integração" + response.body());
 				
 			}else {		
 		

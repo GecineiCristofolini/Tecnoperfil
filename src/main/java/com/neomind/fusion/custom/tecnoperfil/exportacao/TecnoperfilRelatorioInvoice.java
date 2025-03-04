@@ -151,10 +151,43 @@ public class TecnoperfilRelatorioInvoice {
 							paramMap.put("tel", telefo);
 
 						}
+						
+						if (Contato == 1)
+						{
+							String DDD = NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_ddd")).trim();
+							String DDI = NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_ddi"))
+									.trim();
+							String numero = NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_tel"))
+									.trim();
+							paramMap.put("contact",
+									NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_nome")).trim());
+							paramMap.put("email",
+									NeoUtils.safeOutputString(wrapper.findValue("Clienteexport.ClienteTotvs.a1_email")).trim());
+							String telefo = "";
+							if (estado.equals("EX"))
+							{
+
+								telefo = "(" + DDI + ") " + numero;
+
+							}
+							else
+							{
+
+								telefo = "(" + DDD + ") " + numero;
+
+							}
+
+							paramMap.put("tel", telefo);
+
+						}
+						
+						
+						
+						
 
 						GregorianCalendar emissao = wrapper.findGenericValue("DataDeEmissao");
 						paramMap.put("datafecha", NeoCalendarUtils.dateToString(emissao));
-						paramMap.put("paymentcond", "CondicaoDePagamento");
+						paramMap.put("paymentcond",NeoUtils.safeOutputString(wrapper.findValue("CondicaoDePagamento")).trim());
 
 						String pedidos = "";
 						

@@ -84,7 +84,7 @@ public class EnviarPedidoBitrixAdapter implements AdapterInterface {
 		System.out.println("-------------------");
 
 
-		String codigoKugel = wrapper.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_nome");
+		String codigoKugel = wrapper.findGenericValue("ClienteCadastratoTotvs.ClienteTotvs.a1_zfusion");
 		JSONObject clienteJson = ValidaClienteAdapter.findCliente(title, codigoKugel);
 		if (clienteJson != null) {
 			dRequest.setCompanyId((String) clienteJson.get("ID"));

@@ -221,8 +221,8 @@ public class TotvsIncluirPedidosEXP implements AdapterInterface
 			ordertotvs.setC5_MOEDA(moeda);
 			ordertotvs.setC5_TIPLIB(tipoliberacao);
 			ordertotvs.setC5_TPFRETE(tipofrete);
-			ordertotvs.setC5_PBRUTO(pesobruto);
-			ordertotvs.setC5_PESOL(pesoliquido);
+			ordertotvs.setC5_PBRUTO(BigDecimal.ZERO);
+			ordertotvs.setC5_PESOL(BigDecimal.ZERO);
 			ordertotvs.setC5_ZDTFUSI(dataemissao);
 			ordertotvs.setC5_CLIENT(clienteentrega);
 			ordertotvs.setC5_LOJAENT(lojaentrega);

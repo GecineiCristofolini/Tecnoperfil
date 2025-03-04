@@ -1,8 +1,9 @@
 package com.neomind.fusion.custom.tecnoperfil.exportacao;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.neomind.fusion.common.NeoObject;
 import com.neomind.fusion.entity.EntityWrapper;
@@ -28,8 +29,11 @@ public class BuscaValFreSegu implements AdapterInterface
 
 			BigDecimal valorfrete = BigDecimal.ZERO;
 			BigDecimal valorseguro = BigDecimal.ZERO;
-			String pedidos = "";
-			List<String> listapedido = new ArrayList<String>();
+			BigDecimal valormerc = PedidoEW.findGenericValue("ValorMercadoria");
+			System.out.println(valormerc);
+			BigDecimal valortotal = BigDecimal.ZERO;
+			Set<String> listapedido = new HashSet<>();
+			
 
 			//lista o pedido do adicionaPedido
 
@@ -41,36 +45,36 @@ public class BuscaValFreSegu implements AdapterInterface
 
 				String NumeroPedido = itensPedidoWrapper.findGenericValue("PedidoFusion");
 
-				if (pedidos.equals(NumeroPedido))
-				{
+								
+				listapedido.add(NumeroPedido);
 
-				}
-				else
-				{
-					pedidos = NumeroPedido;
-					listapedido.add(NumeroPedido);
-
-				}
+				
 
 			}
 
 			for (String buscafrete : listapedido)
 			{
 
-				String pedido = buscafrete.toString();
+				String pedido = buscafrete;
+				
 				NeoObject pedexp = PersistEngine.getObject(AdapterUtils.getEntityClass("PedExp"),
 						new QLEqualsFilter("NumPed", pedido));
 				EntityWrapper pedexpEW = new EntityWrapper(pedexp);
 				BigDecimal buscavalrofrete = pedexpEW.findGenericValue("ValorDoFrete");
 				BigDecimal buscavalorseguro = pedexpEW.findGenericValue("ValorDoSeguro");
+				
 				valorfrete = valorfrete.add(buscavalrofrete);
 				valorseguro = valorseguro.add(buscavalorseguro);
-
+				
+				
+				
 			}
 
-						BigDecimal valormerc = PedidoEW.findGenericValue("ValorMercadoria");
-						BigDecimal valortotal = BigDecimal.ZERO;
-						valortotal  = (valortotal.add(valormerc).add(valorfrete).add(valorseguro)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+			valortotal  = ((valormerc).add(valorfrete).add(valorseguro)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+			
+						
+						
+						
 			 		   PedidoEW.setValue("ValorFrete",valorfrete);
 				       PedidoEW.setValue("ValorSeguro",valorseguro);
 		  		       PedidoEW.setValue("ValorTotal",valortotal);

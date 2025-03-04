@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -109,29 +110,33 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 				listimprimir.add(impressao);
 				
 			}
-//			
-//			JRPdfExporter exporter = new JRPdfExporter();
-//			exporter.setExporterInput(SimpleExporterInput.getInstance(listimprimir));
-//			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new FileOutputStream("Declaracao Produtor.pdf")));
-//			
-//			String filas = exporter;
-//			File file = File.createTempFile("Documento Produtor","pdf" );
-//			file.deleteOnExit();
-//			//file.deleteOnExit();
+
 			
-			String nomeFile = "Declaracao Produtor.pdf";
+			String nomeFile = "/opt/tomcat/temp/DeclaracaoProduto.pdf";
           
             
 
             JRPdfExporter exporter = new JRPdfExporter();
             exporter.setExporterInput(SimpleExporterInput.getInstance(listimprimir)); //Set as export input my list with JasperPrint s
             exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(nomeFile)); //or any other out streaam
-            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-            configuration.setCreatingBatchModeBookmarks(true);
-            exporter.setConfiguration(configuration);
+            
+            SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+            exporter.setConfiguration(conf);
             exporter.exportReport();
+            
+            
+//            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+//            configuration.setCreatingBatchModeBookmarks(true);
+//            exporter.setConfiguration(configuration);
+//            exporter.exportReport();
+            
+            
+            
+ 
+            
+           
             File file = new File(nomeFile);
-			//JasperExportManager.exportReportToPdfFile(filas, file.getAbsolutePath());
+			
 			
 			
 			
@@ -271,7 +276,7 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 
 					}
 
-					String ferramenta = NeoUtils.safeOutputString(wItem.findValue("Ferrament.produto"));
+					String ferramenta = NeoUtils.safeOutputString(wItem.findValue("AdicionaPedido.Ferramenta"));
 
 					String cor = NeoUtils
 							.safeOutputString(wItem.findValue("AdicionaPedido.DescricaoCor"));
@@ -326,8 +331,8 @@ public class TecnoperfilRelatorioDeclaracaoProdutor
 
 				}
 			}
-
-			BigDecimal media = valor.divide(BigDecimal.valueOf(Contitem));
+			BigDecimal divisor = new BigDecimal(Contitem);
+			BigDecimal media = valor.divide(divisor,2, RoundingMode.HALF_UP);
 			String valortexto = media.toString();
 
 			DeclaracaoProdutorDataSourceItemNCM pedncm = new DeclaracaoProdutorDataSourceItemNCM();
